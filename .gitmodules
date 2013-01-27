@@ -41,14 +41,14 @@
         path = site-lisp/change-inner
         url = https://github.com/magnars/change-inner.el.git
 [submodule "site-lisp/s"]
-	path = site-lisp/s
-	url = https://github.com/magnars/s.el.git
+        path = site-lisp/s
+        url = https://github.com/magnars/s.el.git
 [submodule "site-lisp/dash"]
-	path = site-lisp/dash
-	url = https://github.com/magnars/dash.el.git
+        path = site-lisp/dash
+        url = https://github.com/magnars/dash.el.git
 [submodule "site-lisp/multifiles"]
-	path = site-lisp/multifiles
-	url = https://github.com/magnars/multifiles.el.git
+        path = site-lisp/multifiles
+        url = https://github.com/magnars/multifiles.el.git
 [submodule "site-lisp/fold-this"]
-	path = site-lisp/fold-this
-	url = https://github.com/magnars/fold-this.el.git
+        path = site-lisp/fold-this
+        url = https://github.com/magnars/fold-this.el.git
