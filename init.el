@@ -103,6 +103,7 @@
 (require 'change-inner)
 (require 'multifiles)
 (require 'fold-this)
+(require 'revbufs)
 
 ;; Fill column indicator
 (require 'fill-column-indicator)
