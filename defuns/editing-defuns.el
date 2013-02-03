@@ -218,7 +218,7 @@ region-end is used. Adds the duplicated text to the kill ring."
   (let* ((beg (region-beginning))
          (end (region-end))
          (current-word (buffer-substring-no-properties beg end))
-         (snakified (snake-case current-word)))
+         (snakified (s-snake-case current-word)))
     (replace-string current-word snakified nil beg end)))
 
 (defun transpose-params ()
