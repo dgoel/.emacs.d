@@ -21,6 +21,5 @@
   (define-key mode-map (kbd "s-t") 'transpose-sexps))
 
 (eval-after-load "lisp-mode" '(setup-paredit-for-mode-map emacs-lisp-mode-map))
-(eval-after-load "clojure-mode" '(setup-paredit-for-mode-map clojure-mode-map))
 
 (provide 'setup-paredit)

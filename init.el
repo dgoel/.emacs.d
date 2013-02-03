@@ -54,17 +54,12 @@
    (cons 'magit melpa)
    (cons 'paredit melpa)
    (cons 'move-text melpa)
-   (cons 'gist melpa)
-   (cons 'htmlize melpa)
-   (cons 'elisp-slime-nav melpa)
+   ;(cons 'elisp-slime-nav melpa)
    ;(cons 'elnode marmalade)
-   (cons 'slime-js marmalade)
    (cons 'git-commit-mode melpa)
    (cons 'gitconfig-mode melpa)
    (cons 'gitignore-mode melpa)
-   (cons 'clojure-mode melpa)
-   (cons 'clojure-test-mode melpa)
-   (cons 'nrepl melpa)))
+   ))
 
 (condition-case nil
     (init--install-packages)
@@ -85,19 +80,10 @@
 (require 'setup-hippie)
 (require 'setup-yasnippet)
 (require 'setup-perspective)
-(require 'setup-ffip)
-(require 'setup-html-mode)
 (require 'setup-paredit)
 
 ;; Language specific setup files
-(eval-after-load 'js2-mode '(require 'setup-js2-mode))
-(eval-after-load 'ruby-mode '(require 'setup-ruby-mode))
-(eval-after-load 'clojure-mode '(require 'setup-clojure-mode))
 (eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
-
-;; Load slime-js when asked for
-(autoload 'slime-js-jack-in-browser "setup-slime-js" nil t)
-(autoload 'slime-js-jack-in-node "setup-slime-js" nil t)
 
 ;; Map files to modes
 (require 'mode-mappings)
@@ -109,12 +95,9 @@
     (load file)))
 
 (require 'expand-region)
-(require 'mark-more-like-this)
-(require 'inline-string-rectangle)
 (require 'multiple-cursors)
 (require 'delsel)
 (require 'jump-char)
-(require 'eproject)
 (require 'wgrep)
 (require 'smart-forward)
 (require 'change-inner)
@@ -138,10 +121,6 @@
 ;; Misc
 (require 'appearance)
 (require 'my-misc)
-;; Elisp go-to-definition with M-. and back again with M-,
-(autoload 'elisp-slime-nav-mode "elisp-slime-nav")
-(add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))
-(eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))
 
 ;; Email, baby
 (require 'setup-mu4e)
