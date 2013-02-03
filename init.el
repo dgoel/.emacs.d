@@ -41,9 +41,6 @@
 (setq-default save-place t)
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
 
-;; Are we on a mac?
-(setq is-mac (equal system-type 'darwin))
-
 ;; Setup elnode before packages to stop it from starting a server
 ;;(require 'setup-elnode)
 
@@ -77,9 +74,6 @@
 
 ;; Lets start with a smattering of sanity
 (require 'sane-defaults)
-
-;; Setup environment variables from the user's shell.
-(when is-mac (exec-path-from-shell-initialize))
 
 ;; Setup extensions
 (eval-after-load 'ido '(require 'setup-ido))
@@ -144,8 +138,6 @@
 ;; Misc
 (require 'appearance)
 (require 'my-misc)
-(when is-mac (require 'mac))
-
 ;; Elisp go-to-definition with M-. and back again with M-,
 (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
 (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))
