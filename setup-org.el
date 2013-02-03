@@ -1,6 +1,9 @@
 ;; Load org mode files from here
 (add-to-list 'load-path "/usr/share/org-mode/lisp")
 
+;; Top directory
+(setq org-directory "~/org")
+
 ;; Add flyspell for spell checking
 (add-hook 'org-mode-hook
           (lambda ()
@@ -18,15 +21,9 @@
 (setq org-use-fast-todo-selection t) ;; Very popular -- fast state change
 (setq org-startup-truncated nil) ;; Line wrapping
 
-;; Remember
-(setq org-remember-templates
-      '(("Tasks" ?t "* TODO %?\n  %i\n  %a")
-        ("Appointments" ?a "* Appointment: %?\n%^T\n%i\n  %a")
-        ("Notes" ?n "* %^{Title}\n  %i\n  %a" )))
-(setq remember-annotation-functions '(org-remember-annotation))
-(setq remember-handler-functions '(org-remember-handler))
-(eval-after-load 'remember
-  '(add-hook 'remember-mode-hook 'org-remember-apply-template))
+;; Capture
+(setq org-default-notes-file
+      (concat org-directory "/refile.org"))
 
 ;; Babel setup
 (org-babel-do-load-languages
@@ -62,13 +59,6 @@
 ;; Latex export for org-article class
 (require 'org-latex)
 (setq org-export-latex-listings t)
-
-;; org agenda
-(setq org-agenda-include-diary t)
-(setq org-agenda-include-all-todo t)
-(setq org-agenda-skip-scheduled-if-done t)
-(setq org-agenda-skip-deadline-if-done t)
-(setq org-agenda-files (list "~/org" ))
 
 ;; Setup Imenu to work with org
 (add-hook 'org-mode-hook
