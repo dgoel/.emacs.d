@@ -102,6 +102,7 @@
 (require 'smart-forward)
 (require 'change-inner)
 (require 'multifiles)
+(require 'fold-this)
 
 ;; Fill column indicator
 (require 'fill-column-indicator)
