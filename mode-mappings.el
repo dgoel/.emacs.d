@@ -17,4 +17,10 @@
 ;; org-mode
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
+;; scons
+(setq auto-mode-alist
+      (cons '("SConstruct" . python-mode) auto-mode-alist))
+(setq auto-mode-alist
+      (cons '("SConscript" . python-mode) auto-mode-alist))
+
 (provide 'mode-mappings)
