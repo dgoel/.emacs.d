@@ -43,6 +43,9 @@
 
 ;; Quickly jump in document with ace-jump-mode
 (define-key global-map (kbd "C-ø") 'ace-jump-mode)
+;; Quickly search symbol at point
+(global-set-key (kbd "C-*") 'isearch-current-symbol)
+(global-set-key (kbd "C-#") 'isearch-backward-current-symbol)
 
 ;; Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
