@@ -12,6 +12,9 @@
 ;; Customize background color of lighlighted line
 ; (set-face-background 'hl-line "#222222")
 
+; Set font height
+(set-face-attribute 'default nil :family "Droid Sans Mono" :height 100)
+
 ;; use solarized theme
 (require 'color-theme-solarized)
 (color-theme-solarized-dark)
