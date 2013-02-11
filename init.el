@@ -25,16 +25,8 @@
     (add-to-list 'load-path project)))
 
 ;; Keep emacs Custom-settings in separate file
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
-
-;; Write backup files to own directory
-(setq backup-directory-alist
-      `(("." . ,(expand-file-name
-                 (concat user-emacs-directory "backups")))))
-
-;; Make backups of files, even when they're in version control
-(setq vc-make-backup-files t)
+; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+; (load custom-file)
 
 ;; Save point position between sessions
 (require 'saveplace)
