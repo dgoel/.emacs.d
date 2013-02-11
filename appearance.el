@@ -17,13 +17,13 @@
 
 (set-face-foreground 'font-lock-warning-face "#ff6666")
 
-;; org-mode colors
-(setq org-todo-keyword-faces
-      '(
-        ("INPR" . (:foreground "yellow" :weight bold))
-        ("DONE" . (:foreground "green" :weight bold))
-        ("IMPEDED" . (:foreground "red" :weight bold))
-        ))
+;; ;; org-mode colors
+;; (setq org-todo-keyword-faces
+;;       '(
+;;         ("INPR" . (:foreground "yellow" :weight bold))
+;;         ("DONE" . (:foreground "green" :weight bold))
+;;         ("IMPEDED" . (:foreground "red" :weight bold))
+;;         ))
 
 ;; Highlight matching parentheses when the point is on them.
 (show-paren-mode 1)
