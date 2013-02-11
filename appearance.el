@@ -12,6 +12,9 @@
 ;; Customize background color of lighlighted line
 ; (set-face-background 'hl-line "#222222")
 
+;; use solarized theme
+(require 'color-theme-solarized)
+(color-theme-solarized-dark)
 
 ;; Highlight in yasnippet
 ;; (set-face-background 'yas/field-highlight-face "#333399")
