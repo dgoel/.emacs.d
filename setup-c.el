@@ -4,6 +4,10 @@
 ; (setq c-set-style "linux" c-basic-offset 4)
 (setq c-default-style "linux" c-basic-offset 4)
 
+;;; switch between source and header file in C-mode
+(add-hook 'c-mode-common-hook
+          (lambda()
+            (local-set-key (kbd "C-c o") 'ff-find-other-file)))
 
 ;;; Show the current function
 ; (add-hook 'c-mode-common-hook (lambda () (which-function-mode t)))
