@@ -4,18 +4,19 @@
       color-theme-is-global t
       truncate-partial-width-windows nil)
 
-(set-face-background 'region "#464740")
+; (set-face-background 'region "#464740")
 
 ;; Highlight current line
 (global-hl-line-mode 1)
 
 ;; Customize background color of lighlighted line
-(set-face-background 'hl-line "#222222")
+; (set-face-background 'hl-line "#222222")
+
 
 ;; Highlight in yasnippet
-(set-face-background 'yas/field-highlight-face "#333399")
+;; (set-face-background 'yas/field-highlight-face "#333399")
 
-(set-face-foreground 'font-lock-warning-face "#ff6666")
+;; (set-face-foreground 'font-lock-warning-face "#ff6666")
 
 ;; ;; org-mode colors
 ;; (setq org-todo-keyword-faces
