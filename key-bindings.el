@@ -39,7 +39,8 @@
 (global-set-key (kbd "H-SPC") 'set-rectangular-region-anchor)
 
 ;; Quickly jump in document with ace-jump-mode
-(define-key global-map (kbd "C-ø") 'ace-jump-mode)
+(define-key global-map (kbd "C-^") 'ace-jump-mode)
+
 ;; Quickly search symbol at point
 (global-set-key (kbd "C-*") 'isearch-current-symbol)
 (global-set-key (kbd "C-#") 'isearch-backward-current-symbol)
