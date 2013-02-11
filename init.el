@@ -71,8 +71,9 @@
 (eval-after-load 'shell '(require 'setup-shell))
 (require 'setup-hippie)
 (require 'setup-yasnippet)
-(require 'setup-perspective)
+;(require 'setup-perspective)
 (require 'setup-paredit)
+(require 'setup-c)
 
 ;; Language specific setup files
 (eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
