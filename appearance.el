@@ -7,7 +7,7 @@
 ; (set-face-background 'region "#464740")
 
 ;; Highlight current line
-(global-hl-line-mode 1)
+; (global-hl-line-mode 1)
 
 ;; Customize background color of lighlighted line
 ; (set-face-background 'hl-line "#222222")
