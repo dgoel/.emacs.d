@@ -114,6 +114,14 @@
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
+;; Dont resize minibuffer
+(setq resize-mini-windows nil)
+; (setq max-mini-window-height 2)
+
+;; Dont truncate lines in the minibuffer
+(add-hook 'minibuffer-setup-hook
+          (lambda () (setq truncate-lines nil)))
+
 ;; Nic says eval-expression-print-level needs to be set to nil (turned off) so
 ;; that you can always see what's happening.
 (setq eval-expression-print-level nil)
