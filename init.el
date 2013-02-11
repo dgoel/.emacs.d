@@ -25,24 +25,13 @@
     (add-to-list 'load-path project)))
 
 ;; Keep emacs Custom-settings in separate file
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
-
-;; Write backup files to own directory
-(setq backup-directory-alist
-      `(("." . ,(expand-file-name
-                 (concat user-emacs-directory "backups")))))
-
-;; Make backups of files, even when they're in version control
-(setq vc-make-backup-files t)
+; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+; (load custom-file)
 
 ;; Save point position between sessions
 (require 'saveplace)
 (setq-default save-place t)
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
-
-;; Are we on a mac?
-(setq is-mac (equal system-type 'darwin))
 
 ;; Setup elnode before packages to stop it from starting a server
 ;;(require 'setup-elnode)
@@ -57,16 +46,12 @@
    (cons 'magit melpa)
    (cons 'paredit melpa)
    (cons 'move-text melpa)
-   (cons 'gist melpa)
-   (cons 'htmlize melpa)
-   (cons 'elisp-slime-nav melpa)
+   ;(cons 'elisp-slime-nav melpa)
    ;(cons 'elnode marmalade)
-   (cons 'slime-js marmalade)
    (cons 'git-commit-mode melpa)
    (cons 'gitconfig-mode melpa)
    (cons 'gitignore-mode melpa)
-   (cons 'clojure-mode melpa)
-   (cons 'nrepl melpa)))
+   ))
 
 (condition-case nil
     (init--install-packages)
@@ -77,9 +62,6 @@
 ;; Lets start with a smattering of sanity
 (require 'sane-defaults)
 
-;; Setup environment variables from the user's shell.
-(when is-mac (exec-path-from-shell-initialize))
-
 ;; Setup extensions
 (eval-after-load 'ido '(require 'setup-ido))
 (eval-after-load 'org '(require 'setup-org))
@@ -89,20 +71,12 @@
 (eval-after-load 'shell '(require 'setup-shell))
 (require 'setup-hippie)
 (require 'setup-yasnippet)
-(require 'setup-perspective)
-(require 'setup-ffip)
-(require 'setup-html-mode)
+;(require 'setup-perspective)
 (require 'setup-paredit)
+(require 'setup-c)
 
 ;; Language specific setup files
-(eval-after-load 'js2-mode '(require 'setup-js2-mode))
-(eval-after-load 'ruby-mode '(require 'setup-ruby-mode))
-(eval-after-load 'clojure-mode '(require 'setup-clojure-mode))
 (eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
-
-;; Load slime-js when asked for
-(autoload 'slime-js-jack-in-browser "setup-slime-js" nil t)
-(autoload 'slime-js-jack-in-node "setup-slime-js" nil t)
 
 ;; Map files to modes
 (require 'mode-mappings)
@@ -114,20 +88,19 @@
     (load file)))
 
 (require 'expand-region)
-(require 'mark-more-like-this)
-(require 'inline-string-rectangle)
 (require 'multiple-cursors)
 (require 'delsel)
 (require 'jump-char)
-(require 'eproject)
 (require 'wgrep)
 (require 'smart-forward)
 (require 'change-inner)
 (require 'multifiles)
+(require 'fold-this)
+(require 'revbufs)
 
 ;; Fill column indicator
-(require 'fill-column-indicator)
-(setq fci-rule-color "#111122")
+; (require 'fill-column-indicator)
+; (setq fci-rule-color "#111122")
 
 ;; Browse kill ring
 (require 'browse-kill-ring)
@@ -143,15 +116,10 @@
 ;; Misc
 (require 'appearance)
 (require 'my-misc)
-(when is-mac (require 'mac))
 
 ;; Diminish modeline clutter
 (require 'diminish)
 (diminish 'yas/minor-mode)
-;; Elisp go-to-definition with M-. and back again with M-,
-(autoload 'elisp-slime-nav-mode "elisp-slime-nav")
-(add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t) (eldoc-mode 1)))
-(eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))
 
 ;; Email, baby
 (require 'setup-mu4e)

@@ -12,11 +12,8 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-;; Use C-x C-m to do M-x per Steve Yegge's advice
-(global-set-key (kbd "C-x C-m") 'smex)
-
 ;; Expand region (increases selected region by semantic units)
-(global-set-key (if is-mac (kbd "C-@") (kbd "C-'")) 'er/expand-region)
+(global-set-key (kbd "C-'") 'er/expand-region)
 
 ;; Experimental multiple-cursors
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -24,19 +21,19 @@
 (global-set-key (kbd "C-S-c C-a") 'mc/edit-beginnings-of-lines)
 
 ;; Mark additional regions matching current region
-(global-set-key (kbd "M-æ") 'mc/mark-all-like-this-dwim)
-(global-set-key (kbd "C-å") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-æ") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-Æ") 'mc/mark-more-like-this-extended)
-(global-set-key (kbd "M-å") 'mc/mark-all-in-region)
+;; (global-set-key (kbd "M-æ") 'mc/mark-all-like-this-dwim)
+;; (global-set-key (kbd "C-å") 'mc/mark-previous-like-this)
+;; (global-set-key (kbd "C-æ") 'mc/mark-next-like-this)
+;; (global-set-key (kbd "C-Æ") 'mc/mark-more-like-this-extended)
+;; (global-set-key (kbd "M-å") 'mc/mark-all-in-region)
 
-;; Symbol and word specific mark-more
-(global-set-key (kbd "s-æ") 'mc/mark-next-word-like-this)
-(global-set-key (kbd "s-å") 'mc/mark-previous-word-like-this)
-(global-set-key (kbd "M-s-æ") 'mc/mark-all-words-like-this)
-(global-set-key (kbd "s-Æ") 'mc/mark-next-symbol-like-this)
-(global-set-key (kbd "s-Å") 'mc/mark-previous-symbol-like-this)
-(global-set-key (kbd "M-s-Æ") 'mc/mark-all-symbols-like-this)
+;; ;; Symbol and word specific mark-more
+;; (global-set-key (kbd "s-æ") 'mc/mark-next-word-like-this)
+;; (global-set-key (kbd "s-å") 'mc/mark-previous-word-like-this)
+;; (global-set-key (kbd "M-s-æ") 'mc/mark-all-words-like-this)
+;; (global-set-key (kbd "s-Æ") 'mc/mark-next-symbol-like-this)
+;; (global-set-key (kbd "s-Å") 'mc/mark-previous-symbol-like-this)
+;; (global-set-key (kbd "M-s-Æ") 'mc/mark-all-symbols-like-this)
 
 ;; Extra multiple cursors stuff
 (global-set-key (kbd "C-~") 'mc/reverse-regions)
@@ -46,11 +43,12 @@
 ;; Set anchor to start rectangular-region-mode
 (global-set-key (kbd "H-SPC") 'set-rectangular-region-anchor)
 
-;; Replace rectangle-text with inline-string-rectangle
-(global-set-key (kbd "C-x r t") 'inline-string-rectangle)
-
 ;; Quickly jump in document with ace-jump-mode
-(define-key global-map (kbd "C-ø") 'ace-jump-mode)
+(define-key global-map (kbd "C-^") 'ace-jump-mode)
+
+;; Quickly search symbol at point
+(global-set-key (kbd "C-*") 'isearch-current-symbol)
+(global-set-key (kbd "C-#") 'isearch-backward-current-symbol)
 
 ;; Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
@@ -58,13 +56,6 @@
 
 ;; M-i for back-to-indentation
 (global-set-key (kbd "M-i") 'back-to-indentation)
-
-;; Turn on the menu bar for exploring new modes
-(global-set-key (kbd "C-<f10>") 'menu-bar-mode)
-
-;; Use shell-like backspace C-h, rebind help to F1
-(define-key key-translation-map [?\C-h] [?\C-?])
-(global-set-key (kbd "<f1>") 'help-command)
 
 ;; Transpose stuff with M-t
 (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
@@ -127,7 +118,7 @@
 ;; Window switching
 (windmove-default-keybindings) ;; Shift+direction
 (global-set-key (kbd "C-x -") 'rotate-windows)
-(global-set-key (kbd "C-x C--") 'toggle-window-split)
+(global-set-key (kbd "C-x |") 'toggle-window-split)
 (global-unset-key (kbd "C-x C-+")) ;; don't zoom like this
 
 (global-set-key (kbd "C-x 3") 'split-window-right-and-move-there-dammit)
@@ -137,9 +128,6 @@
 
 ;; Indentation help
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line -1)))
-
-;; Help should search more than just commands
-(global-set-key (kbd "<f1> a") 'apropos)
 
 ;; Should be able to eval-and-replace anywhere.
 (global-set-key (kbd "C-c C-e") 'eval-and-replace)
@@ -269,22 +257,22 @@
 (global-set-key (kbd "M-s f") 'find-name-dired)
 
 ;; Find file in project
-(global-set-key (kbd "C-x o") 'find-file-in-project)
+; (global-set-key (kbd "C-x o") 'find-file-in-project)
 
 ;; Find file in project, with specific patterns
-(global-unset-key (kbd "C-x C-o")) ;; which used to be delete-blank-lines (also bound to C-c C-<return>)
-(global-set-key (kbd "C-x C-o ja") (ffip-create-pattern-file-finder "*.java"))
-(global-set-key (kbd "C-x C-o js") (ffip-create-pattern-file-finder "*.js"))
-(global-set-key (kbd "C-x C-o jp") (ffip-create-pattern-file-finder "*.jsp"))
-(global-set-key (kbd "C-x C-o cs") (ffip-create-pattern-file-finder "*.css"))
-(global-set-key (kbd "C-x C-o cl") (ffip-create-pattern-file-finder "*.clj"))
-(global-set-key (kbd "C-x C-o el") (ffip-create-pattern-file-finder "*.el"))
-(global-set-key (kbd "C-x C-o md") (ffip-create-pattern-file-finder "*.md"))
-(global-set-key (kbd "C-x C-o rb") (ffip-create-pattern-file-finder "*.rb"))
-(global-set-key (kbd "C-x C-o or") (ffip-create-pattern-file-finder "*.org"))
-(global-set-key (kbd "C-x C-o ph") (ffip-create-pattern-file-finder "*.php"))
-(global-set-key (kbd "C-x C-o tx") (ffip-create-pattern-file-finder "*.txt"))
-(global-set-key (kbd "C-x C-o vm") (ffip-create-pattern-file-finder "*.vm"))
+;; (global-unset-key (kbd "C-x C-o")) ;; which used to be delete-blank-lines (also bound to C-c C-<return>)
+;; (global-set-key (kbd "C-x C-o ja") (ffip-create-pattern-file-finder "*.java"))
+;; (global-set-key (kbd "C-x C-o js") (ffip-create-pattern-file-finder "*.js"))
+;; (global-set-key (kbd "C-x C-o jp") (ffip-create-pattern-file-finder "*.jsp"))
+;; (global-set-key (kbd "C-x C-o cs") (ffip-create-pattern-file-finder "*.css"))
+;; (global-set-key (kbd "C-x C-o cl") (ffip-create-pattern-file-finder "*.clj"))
+;; (global-set-key (kbd "C-x C-o el") (ffip-create-pattern-file-finder "*.el"))
+;; (global-set-key (kbd "C-x C-o md") (ffip-create-pattern-file-finder "*.md"))
+;; (global-set-key (kbd "C-x C-o rb") (ffip-create-pattern-file-finder "*.rb"))
+;; (global-set-key (kbd "C-x C-o or") (ffip-create-pattern-file-finder "*.org"))
+;; (global-set-key (kbd "C-x C-o ph") (ffip-create-pattern-file-finder "*.php"))
+;; (global-set-key (kbd "C-x C-o tx") (ffip-create-pattern-file-finder "*.txt"))
+;; (global-set-key (kbd "C-x C-o vm") (ffip-create-pattern-file-finder "*.vm"))
 
 ;; View occurrence in occur mode
 (define-key occur-mode-map (kbd "v") 'occur-mode-display-occurrence)

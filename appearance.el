@@ -1,28 +1,36 @@
-(setq visible-bell t
+(setq visible-bell nil
+      ring-bell-function 'ignore
       font-lock-maximum-decoration t
       color-theme-is-global t
       truncate-partial-width-windows nil)
 
-(set-face-background 'region "#464740")
+; (set-face-background 'region "#464740")
 
 ;; Highlight current line
-(global-hl-line-mode 1)
+; (global-hl-line-mode 1)
 
 ;; Customize background color of lighlighted line
-(set-face-background 'hl-line "#222222")
+; (set-face-background 'hl-line "#222222")
+
+; Set font height
+(set-face-attribute 'default nil :family "Droid Sans Mono" :height 100)
+
+;; use solarized theme
+(require 'color-theme-solarized)
+(color-theme-solarized-dark)
 
 ;; Highlight in yasnippet
-(set-face-background 'yas/field-highlight-face "#333399")
+;; (set-face-background 'yas/field-highlight-face "#333399")
 
-(set-face-foreground 'font-lock-warning-face "#ff6666")
+;; (set-face-foreground 'font-lock-warning-face "#ff6666")
 
-;; org-mode colors
-(setq org-todo-keyword-faces
-      '(
-        ("INPR" . (:foreground "yellow" :weight bold))
-        ("DONE" . (:foreground "green" :weight bold))
-        ("IMPEDED" . (:foreground "red" :weight bold))
-        ))
+;; ;; org-mode colors
+;; (setq org-todo-keyword-faces
+;;       '(
+;;         ("INPR" . (:foreground "yellow" :weight bold))
+;;         ("DONE" . (:foreground "green" :weight bold))
+;;         ("IMPEDED" . (:foreground "red" :weight bold))
+;;         ))
 
 ;; Highlight matching parentheses when the point is on them.
 (show-paren-mode 1)

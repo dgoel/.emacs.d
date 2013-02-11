@@ -170,3 +170,8 @@ Including indent-buffer, which should not be called automatically on save."
          (files (mapcar 'car recent-files))
          (file (completing-read "Choose recent file: " files)))
     (find-file (cdr (assoc file recent-files)))))
+
+(defun kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
