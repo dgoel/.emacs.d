@@ -53,5 +53,8 @@
         path = site-lisp/fold-this
         url = https://github.com/magnars/fold-this.el.git
 [submodule "site-lisp/revbufs"]
-	path = site-lisp/revbufs
-	url = https://github.com/emacsmirror/revbufs.git
+    path = site-lisp/revbufs
+    url = https://github.com/emacsmirror/revbufs.git
+[submodule "site-lisp/emacs-color-theme-solarized"]
+	path = site-lisp/emacs-color-theme-solarized
+	url = https://github.com/dgoel/emacs-color-theme-solarized
