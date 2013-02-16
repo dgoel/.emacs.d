@@ -43,8 +43,6 @@
   (tooltip-mode -1)
   (blink-cursor-mode -1))
 
-(add-hook 'before-make-frame-hook 'turn-off-tool-bar)
-
 ;; Ditch them scrollbars
 (scroll-bar-mode -1)
 
