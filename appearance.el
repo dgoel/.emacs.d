@@ -40,9 +40,7 @@
 
 (when window-system
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-  (tool-bar-mode -1)
   (tooltip-mode -1)
-  (tool-bar-mode -1)
   (blink-cursor-mode -1))
 
 (add-hook 'before-make-frame-hook 'turn-off-tool-bar)
