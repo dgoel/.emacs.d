@@ -90,8 +90,8 @@
 (global-set-key (kbd "M-M") 'jump-char-backward)
 
 ;; vim's ci and co commands
-(global-set-key (kbd "M-I") 'change-inner)
-(global-set-key (kbd "M-O") 'change-outer)
+; (global-set-key (kbd "M-I") 'change-inner)
+; (global-set-key (kbd "M-O") 'change-outer)
 
 ;; Create new frame
 (define-key global-map (kbd "C-x C-n") 'make-frame-command)
@@ -139,10 +139,10 @@
 ;; Navigation bindings
 (global-set-key [remap goto-line] 'goto-line-with-feedback)
 
-(global-set-key (kbd "<prior>") 'beginning-of-buffer)
-(global-set-key (kbd "<home>") 'beginning-of-buffer)
-(global-set-key (kbd "<next>") 'end-of-buffer)
-(global-set-key (kbd "<end>") 'end-of-buffer)
+; (global-set-key (kbd "<prior>") 'beginning-of-buffer)
+; (global-set-key (kbd "<home>") 'beginning-of-buffer)
+; (global-set-key (kbd "<next>") 'end-of-buffer)
+; (global-set-key (kbd "<end>") 'end-of-buffer)
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 
