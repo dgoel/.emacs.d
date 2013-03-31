@@ -58,3 +58,4 @@
 [submodule "site-lisp/emacs-color-theme-solarized"]
         path = site-lisp/emacs-color-theme-solarized
         url = https://github.com/dgoel/emacs-color-theme-solarized
+

@@ -7,6 +7,9 @@
 (global-set-key (kbd "C-.") 'hippie-expand-no-case-fold)
 (global-set-key (kbd "C-:") 'hippie-expand-lines)
 
+;(require 'misc)
+;(global-set-key (kbd "s-.") 'copy-from-above-command)
+
 ;; Smart M-x
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -39,6 +42,7 @@
 (global-set-key (kbd "C-~") 'mc/reverse-regions)
 (global-set-key (kbd "M-~") 'mc/sort-regions)
 (global-set-key (kbd "H-~") 'mc/insert-numbers)
+;(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 ;; Set anchor to start rectangular-region-mode
 (global-set-key (kbd "H-SPC") 'set-rectangular-region-anchor)
@@ -83,15 +87,22 @@
 
 ;; Zap to char
 (global-set-key (kbd "M-z") 'zap-up-to-char)
+;(global-set-key (kbd "s-z") (lambda (char) (interactive "cZap up to char backwards: ") (zap-up-to-char -1 char)))
+
 (global-set-key (kbd "M-Z") 'zap-to-char)
+;(global-set-key (kbd "s-Z") (lambda (char) (interactive "cZap to char backwards: ") (zap-to-char -1 char)))
 
 ;; iy-go-to-char - like f in Vim
 (global-set-key (kbd "M-m") 'jump-char-forward)
 (global-set-key (kbd "M-M") 'jump-char-backward)
+;(global-set-key (kbd "s-m") 'jump-char-backward)
 
 ;; vim's ci and co commands
 ; (global-set-key (kbd "M-I") 'change-inner)
 ; (global-set-key (kbd "M-O") 'change-outer)
+
+;(global-set-key (kbd "s-i") 'copy-inner)
+;(global-set-key (kbd "s-o") 'copy-outer)
 
 ;; Create new frame
 (define-key global-map (kbd "C-x C-n") 'make-frame-command)
