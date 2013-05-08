@@ -1,0 +1,14 @@
+# name: switch (...)  { case ... : ... break; case ... : ... break; default: .... break; }
+# key: switch
+# --
+switch ($1) {
+    case $2:
+        $0
+        break;
+
+    case $3:
+        break;
+
+    default:
+        break;
+}
