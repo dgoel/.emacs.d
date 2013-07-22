@@ -156,6 +156,7 @@
 
 ;; Navigation bindings
 (global-set-key [remap goto-line] 'goto-line-with-feedback)
+(global-set-key (kbd "M-g M-c") 'go-to-column)
 
 ; (global-set-key (kbd "<prior>") 'beginning-of-buffer)
 ; (global-set-key (kbd "<home>") 'beginning-of-buffer)

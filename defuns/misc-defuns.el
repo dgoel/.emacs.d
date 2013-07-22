@@ -26,6 +26,11 @@
         (call-interactively 'goto-line))
     (linum-mode -1)))
 
+(defun go-to-column (column)
+  "Got to a column in the current row"
+  (interactive "nColumn: ")
+  (move-to-column column t))
+
 ;; start a httpd-server in current directory
 (defun httpd-start-here (directory port)
   (interactive (list (read-directory-name "Root directory: " default-directory nil t)
