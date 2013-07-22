@@ -14,6 +14,10 @@
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path site-lisp-dir)
 
+;; Keep emacs Custom-settings in separate file
+;; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+;; (load custom-file)
+
 ;; Settings for currently logged in user
 (setq user-settings-dir
       (concat user-emacs-directory "users/" user-login-name))
@@ -24,9 +28,8 @@
   (when (file-directory-p project)
     (add-to-list 'load-path project)))
 
-;; Keep emacs Custom-settings in separate file
-; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-; (load custom-file)
+;; Set up appearance early
+(require 'appearance)
 
 ;; Save point position between sessions
 (require 'saveplace)
@@ -42,19 +45,29 @@
 ;; Install extensions if they're missing
 (defun init--install-packages ()
   (packages-install
-   (cons 'exec-path-from-shell melpa)
-   (cons 'magit melpa)
-   (cons 'paredit melpa)
-   (cons 'move-text melpa)
-   ;(cons 'gist melpa)
-   ;(cons 'htmlize melpa)
-   ;(cons 'smartparens melpa)
-   ;(cons 'elisp-slime-nav melpa)
-   ;(cons 'elnode marmalade)
-   (cons 'git-commit-mode melpa)
-   (cons 'gitconfig-mode melpa)
-   (cons 'gitignore-mode melpa)
-   ))
+   '(magit
+     paredit
+     move-text
+     ;; gist
+     ;; htmlize
+     visual-regexp
+     flycheck
+     flx
+     flx-ido
+     smartparens
+     ;; ido-vertical-mode
+     ;; simple-httpd
+     guide-key
+     ;; nodejs-repl
+     ;; restclient
+     highlight-escape-sequences
+     ;; elisp-slime-nav
+     git-commit-mode
+     gitconfig-mode
+     gitignore-mode
+     ;; clojure-mode
+     ;; nrepl
+     )))
 
 (condition-case nil
     (init--install-packages)
@@ -64,6 +77,14 @@
 
 ;; Lets start with a smattering of sanity
 (require 'sane-defaults)
+
+;; guide-key
+(require 'guide-key)
+(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8"))
+(guide-key-mode 1)
+(setq guide-key/highlight-command-regexp "bookmark")
+(setq guide-key/recursive-key-sequence-flag t)
+(setq guide-key/popup-window-position 'bottom)
 
 ;; Setup extensions
 (eval-after-load 'ido '(require 'setup-ido))
@@ -76,13 +97,27 @@
 (require 'setup-yasnippet)
 ;(require 'setup-perspective)
 (require 'setup-paredit)
-(require 'setup-c)
 
 ;; Language specific setup files
 (eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
+(eval-after-load 'c-mode '(require 'setup-c))
+
+;; Load stuff on demand
+(autoload 'flycheck-mode "setup-flycheck" nil t)
+(autoload 'auto-complete-mode "auto-complete" nil t)
 
 ;; Map files to modes
 (require 'mode-mappings)
+
+;; Highlight escape sequences
+(require 'highlight-escape-sequences)
+(hes-mode)
+(put 'font-lock-regexp-grouping-backslash 'face-alias 'font-lock-builtin-face)
+
+;; Visual regexp
+(require 'visual-regexp)
+;(define-key global-map (kbd "M-&") 'vr/query-replace)
+;(define-key global-map (kbd "M-/") 'vr/replace)
 
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
@@ -117,22 +152,15 @@
 (require 'key-bindings)
 
 ;; Misc
-(require 'appearance)
+;(require 'project-archetypes)
 (require 'my-misc)
 
-;; Diminish modeline clutter
-(require 'diminish)
-(diminish 'yas/minor-mode)
-;(diminish 'eldoc-mode)
-(diminish 'paredit-mode)
-
 ;; Elisp go-to-definition with M-. and back again with M-,
-(autoload 'elisp-slime-nav-mode "elisp-slime-nav")
-(add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t) (eldoc-mode 1)))
-(eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))
+;(autoload 'elisp-slime-nav-mode "elisp-slime-nav")
+;(add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t) (eldoc-mode 1)))
 
 ;; Email, baby
-(require 'setup-mu4e)
+;(require 'setup-mu4e)
 
 ;; Emacs server
 (require 'server)
@@ -141,6 +169,7 @@
 
 ;; Run at full power please
 (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
 ;; Conclude init by setting up specifics for the current user

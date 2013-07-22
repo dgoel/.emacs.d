@@ -43,6 +43,8 @@
     ("C-M-<left>"  "s-S-<left>"  paredit-backward-slurp-sexp)
     ("C-M-<right>" "s-S-<right>" paredit-backward-barf-sexp)))
 
+(define-key paredit-mode-map (kbd "s-r") 'paredit-raise-sexp)
+
 (--each my-nasty-paredit-keybindings-remappings
   (let ((original (car it))
         (replacement (cadr it))
@@ -52,6 +54,13 @@
 
 ;; don't hijack \ please
 (define-key paredit-mode-map (kbd "\\") nil)
+
+;; Enable `paredit-mode' in the minibuffer, during `eval-expression'.
+(defun conditionally-enable-paredit-mode ()
+  (if (eq this-command 'eval-expression)
+      (paredit-mode 1)))
+
+(add-hook 'minibuffer-setup-hook 'conditionally-enable-paredit-mode)
 
 ;; making paredit work with delete-selection-mode
 (put 'paredit-forward-delete 'delete-selection 'supersede)

@@ -6,6 +6,7 @@
 ;; Completion that uses many different methods to find options.
 (global-set-key (kbd "C-.") 'hippie-expand-no-case-fold)
 (global-set-key (kbd "C-:") 'hippie-expand-lines)
+(global-set-key (kbd "C-,") 'completion-at-point)
 
 ;(require 'misc)
 ;(global-set-key (kbd "s-.") 'copy-from-above-command)
@@ -68,6 +69,9 @@
 (global-set-key (kbd "M-t s") 'transpose-sexps)
 (global-set-key (kbd "M-t p") 'transpose-params)
 
+;; Interactive selective display
+(global-set-key (kbd "C-x $") 'inc-selective-display)
+
 ;; Change next underscore with a camel case
 (global-set-key (kbd "C-c C--") 'replace-next-underscore-with-camel)
 (global-set-key (kbd "M-s M--") 'snakeify-current-word)
@@ -79,7 +83,7 @@
 
 ;; Use M-w for copy-line if no active region
 (global-set-key (kbd "M-w") 'save-region-or-current-line)
-(global-set-key (kbd "M-W") '(lambda () (interactive) (save-region-or-current-line 1)))
+(global-set-key (kbd "M-W") '(λ (save-region-or-current-line 1)))
 
 ;; Make shell more convenient, and suspend-frame less
 (global-set-key (kbd "C-z") 'shell)
@@ -120,9 +124,12 @@
 (global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;; toggle two most recent buffers
+;(fset 'quick-switch-buffer [?\C-x ?b return])
+;(global-set-key (kbd "s-b") 'quick-switch-buffer)
+
 ;; Revert without any fuss
-(global-set-key (kbd "M-<escape>")
-                (lambda () (interactive) (revert-buffer t t)))
+(global-set-key (kbd "M-<escape>") (λ (revert-buffer t t)))
 
 ;; Edit file with sudo
 (global-set-key (kbd "M-s e") 'sudo-edit)
@@ -142,7 +149,7 @@
 (global-set-key (kbd "C-!") 'mf/mirror-region-in-multifile)
 
 ;; Indentation help
-(global-set-key (kbd "M-j") (lambda () (interactive) (join-line -1)))
+(global-set-key (kbd "M-j") (λ (join-line -1)))
 
 ;; Should be able to eval-and-replace anywhere.
 (global-set-key (kbd "C-c C-e") 'eval-and-replace)
@@ -178,10 +185,10 @@
 (global-set-key (kbd "C-S-r") 'isearch-backward)
 
 ;; Move more quickly
-(global-set-key (kbd "C-S-n") (lambda () (interactive) (ignore-errors (next-line 5))))
-(global-set-key (kbd "C-S-p") (lambda () (interactive) (ignore-errors (previous-line 5))))
-(global-set-key (kbd "C-S-f") (lambda () (interactive) (ignore-errors (forward-char 5))))
-(global-set-key (kbd "C-S-b") (lambda () (interactive) (ignore-errors (backward-char 5))))
+(global-set-key (kbd "C-S-n") (λ (ignore-errors (next-line 5))))
+(global-set-key (kbd "C-S-p") (λ (ignore-errors (previous-line 5))))
+(global-set-key (kbd "C-S-f") (λ (ignore-errors (forward-char 5))))
+(global-set-key (kbd "C-S-b") (λ (ignore-errors (backward-char 5))))
 
 (global-set-key (kbd "<XF86Back>") 'scroll-down)
 (global-set-key (kbd "<XF86Forward>") 'scroll-up)
@@ -219,7 +226,7 @@
 ;; Clever newlines
 (global-set-key (kbd "<C-return>") 'open-line-below)
 (global-set-key (kbd "<C-S-return>") 'open-line-above)
-(global-set-key (kbd "<M-return>") 'new-line-in-between)
+(global-set-key (kbd "<M-return>") 'new-line-dwim)
 
 ;; Duplicate region
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
@@ -244,6 +251,8 @@
 
 ;; Increase number at point (or other change based on prefix arg)
 (global-set-key (kbd "C-+") 'change-number-at-point)
+(global-set-key (kbd "C-?") 'subtract-number-at-point)
+(eval-after-load 'undo-tree '(define-key undo-tree-map (kbd "C-?") nil))
 
 ;; Browse the kill ring
 (global-set-key (kbd "C-x C-y") 'browse-kill-ring)
@@ -255,7 +264,7 @@
 
 ;; Jump from file to containing directory
 (global-set-key (kbd "C-x C-j") 'dired-jump) (autoload 'dired-jump "dired")
-(global-set-key (kbd "C-x M-j") '(lambda () (interactive) (dired-jump 1)))
+(global-set-key (kbd "C-x M-j") '(λ (dired-jump 1)))
 
 ;; Easy-mode fullscreen rgrep
 (global-set-key (kbd "M-s s") 'git-grep-fullscreen)
@@ -278,6 +287,7 @@
 ;; (global-unset-key (kbd "C-x C-o")) ;; which used to be delete-blank-lines (also bound to C-c C-<return>)
 ;; (global-set-key (kbd "C-x C-o ja") (ffip-create-pattern-file-finder "*.java"))
 ;; (global-set-key (kbd "C-x C-o js") (ffip-create-pattern-file-finder "*.js"))
+;; (global-set-key (kbd "C-x C-o ht") (ffip-create-pattern-file-finder "*.html"))
 ;; (global-set-key (kbd "C-x C-o jp") (ffip-create-pattern-file-finder "*.jsp"))
 ;; (global-set-key (kbd "C-x C-o cs") (ffip-create-pattern-file-finder "*.css"))
 ;; (global-set-key (kbd "C-x C-o cl") (ffip-create-pattern-file-finder "*.clj"))
@@ -288,6 +298,10 @@
 ;; (global-set-key (kbd "C-x C-o ph") (ffip-create-pattern-file-finder "*.php"))
 ;; (global-set-key (kbd "C-x C-o tx") (ffip-create-pattern-file-finder "*.txt"))
 ;; (global-set-key (kbd "C-x C-o vm") (ffip-create-pattern-file-finder "*.vm"))
+;; (global-set-key (kbd "C-x C-o xm") (ffip-create-pattern-file-finder "*.xml"))
+;; (global-set-key (kbd "C-x C-o pr") (ffip-create-pattern-file-finder "*.properties"))
+;; (global-set-key (kbd "C-x C-o in") (ffip-create-pattern-file-finder "*.ini"))
+;; (global-set-key (kbd "C-x C-o gr") (ffip-create-pattern-file-finder "*.groovy"))
 
 ;; View occurrence in occur mode
 (define-key occur-mode-map (kbd "v") 'occur-mode-display-occurrence)

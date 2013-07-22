@@ -58,4 +58,6 @@
 [submodule "site-lisp/emacs-color-theme-solarized"]
         path = site-lisp/emacs-color-theme-solarized
         url = https://github.com/dgoel/emacs-color-theme-solarized
-
+[submodule "site-lisp/flycheck"]
+        path = site-lisp/flycheck
+        url = https://github.com/lunaryorn/flycheck.git
