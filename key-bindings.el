@@ -276,7 +276,7 @@
 (global-set-key (kbd "M-s M") 'multi-occur-in-matching-buffers)
 
 ;; Display and edit occurances of regexp in buffer
-(global-set-key (kbd "C-c o") 'occur)
+; (global-set-key (kbd "C-c o") 'occur)
 
 ;; Find files by name and display results in dired
 (global-set-key (kbd "M-s f") 'find-name-dired)
