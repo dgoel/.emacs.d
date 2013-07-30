@@ -96,7 +96,7 @@
 (require 'setup-hippie)
 (require 'setup-yasnippet)
 ;(require 'setup-perspective)
-(require 'setup-paredit)
+;(require 'setup-paredit)
 
 ;; Language specific setup files
 (eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
