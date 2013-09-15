@@ -57,10 +57,21 @@
 
 ;; Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
+(global-set-key (kbd "C-c C-n") 'cleanup-buffer)
 (global-set-key (kbd "C-c C-<return>") 'delete-blank-lines)
 
 ;; M-i for back-to-indentation
 (global-set-key (kbd "M-i") 'back-to-indentation)
+
+;; Turn on the menu bar for exploring new modes
+;; (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
+
+;; Use shell-like backspace C-h, rebind help to F1
+(define-key key-translation-map [?\C-h] [?\C-?])
+(global-set-key (kbd "<f1>") 'help-command)
+;; (define-key god-local-mode-map (kbd "h") 'backward-delete-char)
+
+;; (global-set-key (kbd "M-h") 'kill-region-or-backward-word)
 
 ;; Transpose stuff with M-t
 (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
@@ -93,8 +104,8 @@
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 ;(global-set-key (kbd "s-z") (lambda (char) (interactive "cZap up to char backwards: ") (zap-up-to-char -1 char)))
 
-(global-set-key (kbd "M-Z") 'zap-to-char)
-;(global-set-key (kbd "s-Z") (lambda (char) (interactive "cZap to char backwards: ") (zap-to-char -1 char)))
+(global-set-key (kbd "M-Z") (lambda (char) (interactive "cZap to char: ") (zap-to-char 1 char)))
+; (global-set-key (kbd "s-Z") (lambda (char) (interactive "cZap to char backwards: ") (zap-to-char -1 char)))
 
 ;; iy-go-to-char - like f in Vim
 (global-set-key (kbd "M-m") 'jump-char-forward)
@@ -225,6 +236,7 @@
 (global-set-key (kbd "C-x M") 'mu4e-up-to-date-status)
 
 ;; Clever newlines
+(global-set-key (kbd "C-o") 'open-line-and-indent)
 (global-set-key (kbd "<C-return>") 'open-line-below)
 (global-set-key (kbd "<C-S-return>") 'open-line-above)
 (global-set-key (kbd "<M-return>") 'new-line-dwim)
@@ -303,6 +315,8 @@
 ;; (global-set-key (kbd "C-x C-o pr") (ffip-create-pattern-file-finder "*.properties"))
 ;; (global-set-key (kbd "C-x C-o in") (ffip-create-pattern-file-finder "*.ini"))
 ;; (global-set-key (kbd "C-x C-o gr") (ffip-create-pattern-file-finder "*.groovy"))
+;; (global-set-key (kbd "C-x C-o ga") (ffip-create-pattern-file-finder "*.gradle"))
+;; (global-set-key (kbd "C-x C-o !") (ffip-create-pattern-file-finder "*"))
 
 ;; View occurrence in occur mode
 (define-key occur-mode-map (kbd "v") 'occur-mode-display-occurrence)
