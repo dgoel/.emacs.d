@@ -37,5 +37,6 @@
 ;; A bit of misc cargo culting in misc.el
 (setq xterm-mouse-mode t)
 
+(add-hook 'latex-mode-hook 'flyspell-mode)
 
 (provide 'my-misc)
