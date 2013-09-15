@@ -100,7 +100,7 @@
 
 ;; Language specific setup files
 (eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
-(require 'setup-c)
+(eval-after-load 'cc-mode '(require 'setup-c))
 
 ;; Load stuff on demand
 (autoload 'flycheck-mode "setup-flycheck" nil t)
