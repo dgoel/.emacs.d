@@ -11,10 +11,11 @@
       ido-max-prospects 10)
 
 ;; Try out flx-ido for better flex matching between words
-(require 'flx-ido)
-(flx-ido-mode 1)
+; (require 'flx-ido)
+; (flx-ido-mode 1)
 ;; disable ido faces to see flx highlights.
-(setq ido-use-faces nil)
+; (setq ido-use-faces nil)
+; (setq flx-ido-use-faces t)
 
 ;; flx-ido looks better with ido-vertical-mode
 ;; (require 'ido-vertical-mode)
