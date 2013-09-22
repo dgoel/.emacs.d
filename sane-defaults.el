@@ -1,6 +1,12 @@
 ;; Allow pasting selection outside of Emacs
 (setq x-select-enable-clipboard t)
 
+;; Enable mouse in xterm
+(setq xterm-mouse-mode t)
+
+;; Seed the random-number generator
+(random t)
+
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)
 
@@ -94,7 +100,7 @@
 ;; Allow recursive minibuffers
 (setq enable-recursive-minibuffers t)
 
-;; Don't be so stingy on the memory, we have lots now. It's the distant future.
+;; Don't be so stingy on the memory, we have lots now
 (setq gc-cons-threshold 20000000)
 
 ;; org-mode: Don't ruin S-arrow to switch windows please (use M-+ and M-- instead to toggle)
@@ -142,5 +148,22 @@
       ad-do-it)
     (dotimes (i 10)
       (when (= p (point)) ad-do-it))))
+
+;; Keep region when undoing in region
+(defadvice undo-tree-undo (around keep-region activate)
+  (if (use-region-p)
+      (let ((m (set-marker (make-marker) (mark)))
+            (p (set-marker (make-marker) (point))))
+        ad-do-it
+        (goto-char p)
+        (set-mark m)
+        (set-marker p nil)
+        (set-marker m nil))
+    ad-do-it))
+
+;; Default hooks
+(add-hook 'latex-mode-hook 'flyspell-mode)
+(add-hook 'makefile-mode-hook 'indent-tabs-mode)
+
 
 (provide 'sane-defaults)
