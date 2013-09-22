@@ -75,8 +75,8 @@
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
   (blink-cursor-mode -1))
 
-;; Make zooming affect frame instead of buffers
-(require 'zoom-frm)
+;; ;; Make zooming affect frame instead of buffers
+;; (require 'zoom-frm)
 
 ;; Unclutter the modeline
 (require 'diminish)
