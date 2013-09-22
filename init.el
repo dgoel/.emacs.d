@@ -140,7 +140,7 @@
 (require 'wgrep)
 (require 'smart-forward)
 (require 'change-inner)
-(require 'multifiles)
+; (require 'multifiles)
 (require 'fold-this)
 (require 'revbufs)
 

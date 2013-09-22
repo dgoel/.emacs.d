@@ -4,9 +4,6 @@
 [submodule "site-lisp/expand-region"]
         path = site-lisp/expand-region
         url = https://github.com/magnars/expand-region.el.git
-[submodule "site-lisp/perspective"]
-        path = site-lisp/perspective
-        url = https://github.com/magnars/perspective-el.git
 [submodule "site-lisp/delsel"]
         path = site-lisp/delsel
         url = https://github.com/emacsmirror/delsel.git
