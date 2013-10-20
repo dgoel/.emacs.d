@@ -9,6 +9,7 @@
           (lambda ()
             (flyspell-mode 1)))
 
+;; Turn on text highlight
 (add-hook 'org-mode-hook 'turn-on-font-lock)
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 
@@ -18,8 +19,11 @@
 ;; Log when a task is done
 (setq org-log-done t)
 
-(setq org-use-fast-todo-selection t) ;; Very popular -- fast state change
-(setq org-startup-truncated nil) ;; Line wrapping
+;; Very popular -- fast state change
+(setq org-use-fast-todo-selection t)
+
+;; Line wrapping
+(setq org-startup-truncated nil)
 
 ;; Capture
 (setq org-default-notes-file
