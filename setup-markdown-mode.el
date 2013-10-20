@@ -1,3 +1,5 @@
+(autoload 'markdown-mode "markdown-mode")
+
 (setq markdown-imenu-generic-expression
       '(("title"  "^\\(.*\\)[\n]=+$" 1)
         ("h2-"    "^\\(.*\\)[\n]-+$" 1)
@@ -13,5 +15,9 @@
 (add-hook 'markdown-mode-hook
           (lambda ()
             (setq imenu-generic-expression markdown-imenu-generic-expression)))
+
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (define-key markdown-mode-map (kbd "<tab>") 'yas-expand)))
 
 (provide 'setup-markdown-mode)

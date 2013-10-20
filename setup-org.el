@@ -5,9 +5,7 @@
 (setq org-directory "~/org")
 
 ;; Add flyspell for spell checking
-(add-hook 'org-mode-hook
-          (lambda ()
-            (flyspell-mode 1)))
+(add-hook 'org-mode-hook 'flyspell-mode)
 
 ;; Turn on text highlight
 (add-hook 'org-mode-hook 'turn-on-font-lock)
@@ -21,6 +19,9 @@
 
 ;; Very popular -- fast state change
 (setq org-use-fast-todo-selection t)
+
+;; Enable auto-fill
+(add-hook 'org-mode-hook 'auto-fill-mode)
 
 ;; Line wrapping
 (setq org-startup-truncated nil)
@@ -63,10 +64,6 @@
 ;; Latex export for org-article class
 (require 'org-latex)
 (setq org-export-latex-listings t)
-
-;; Setup Imenu to work with org
-(add-hook 'org-mode-hook
-          (lambda () (imenu-add-to-menubar "Imenu")))
 
 (defun myorg-update-parent-cookie ()
   (when (equal major-mode 'org-mode)
