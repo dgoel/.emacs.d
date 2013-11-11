@@ -1,11 +1,11 @@
-(require 'magit-svn)
-
 ;; Subtler highlight
 ;; (set-face-background 'magit-item-highlight "#121212")
 ;; (set-face-background 'diff-file-header "#121212")
 ;; (set-face-foreground 'diff-context "#666666")
 ;; (set-face-foreground 'diff-added "#00cc33")
 ;; (set-face-foreground 'diff-removed "#ff0000")
+
+(set-default 'magit-stage-all-confirm nil)
 
 ;; todo:
 ;; diff-added-face      diff-changed-face
@@ -38,11 +38,16 @@
 (eval-after-load "git-commit-mode"
   '(define-key git-commit-mode-map (kbd "C-c C-k") 'magit-exit-commit-mode))
 
-(defun magit-commit-mode-init ()
-  (when (looking-at "\n")
-    (open-line 1)))
+;; C-c C-a to amend without any prompt
 
-(add-hook 'git-commit-mode-hook 'magit-commit-mode-init)
+(defun magit-just-amend ()
+  (interactive)
+  (save-window-excursion
+    (magit-with-refresh
+      (shell-command "git --no-pager commit --amend --reuse-message=HEAD"))))
+
+(eval-after-load "magit"
+  '(define-key magit-status-mode-map (kbd "C-c C-a") 'magit-just-amend))
 
 ;; C-x C-k to kill file on line
 
@@ -69,11 +74,6 @@
   (jump-to-register :magit-fullscreen))
 
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
-
-;; close popup when commiting
-
-(defadvice git-commit-commit (after delete-window activate)
-  (delete-window))
 
 ;; full screen vc-annotate
 
