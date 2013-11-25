@@ -32,9 +32,9 @@
 (require 'appearance)
 
 ;; Save point position between sessions
-(require 'saveplace)
-(setq-default save-place t)
-(setq save-place-file (expand-file-name ".places" user-emacs-directory))
+;; (require 'saveplace)
+;; (setq-default save-place t)
+;; (setq save-place-file (expand-file-name ".places" user-emacs-directory))
 
 ;; Setup elnode before packages to stop it from starting a server
 ;;(require 'setup-elnode)
