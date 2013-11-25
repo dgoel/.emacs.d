@@ -19,9 +19,9 @@
 ;; (load custom-file)
 
 ;; Settings for currently logged in user
-(setq user-settings-dir
-      (concat user-emacs-directory "users/" user-login-name))
-(add-to-list 'load-path user-settings-dir)
+;; (setq user-settings-dir
+;;       (concat user-emacs-directory "users/" user-login-name))
+;; (add-to-list 'load-path user-settings-dir)
 
 ;; Add external projects to load path
 (dolist (project (directory-files site-lisp-dir t "\\w+"))
