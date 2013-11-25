@@ -104,9 +104,6 @@
 (eval-after-load 'shell '(require 'setup-shell))
 (require 'setup-yasnippet)
 
-;; Font lock dash.el
-(eval-after-load "dash" '(dash-enable-font-lock))
-
 ;; Default setup of smartparens
 ;; (require 'smartparens-config)
 ;; (setq sp-autoescape-string-quote nil)
@@ -120,10 +117,6 @@
 ;; Language specific setup files
 (eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
 (eval-after-load 'cc-mode '(require 'setup-c))
-
-;; Load stuff on demand
-(autoload 'flycheck-mode "setup-flycheck" nil t)
-(autoload 'auto-complete-mode "auto-complete" nil t)
 
 ;; Map files to modes
 (require 'mode-mappings)
@@ -150,9 +143,9 @@
 (require 'jump-char)
 (require 'wgrep)
 (require 'smart-forward)
-(require 'change-inner)
+; (require 'change-inner)
 ; (require 'multifiles)
-(require 'fold-this)
+; (require 'fold-this)
 (require 'revbufs)
 
 ;; Fill column indicator
@@ -186,5 +179,5 @@
 (put 'narrow-to-region 'disabled nil)
 
 ;; Conclude init by setting up specifics for the current user
-(when (file-exists-p user-settings-dir)
-  (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
+;; (when (file-exists-p user-settings-dir)
+;;   (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
