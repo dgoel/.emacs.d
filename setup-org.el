@@ -14,6 +14,9 @@
 ;; Only show one star
 (setq org-hide-leading-stars t)
 
+;; Follow links
+(setq org-return-follows-link t)
+
 ;; Log when a task is done
 (setq org-log-done t)
 
@@ -22,6 +25,9 @@
 
 ;; Enable auto-fill
 (add-hook 'org-mode-hook 'auto-fill-mode)
+
+;; highlight current line
+(add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
 
 ;; Line wrapping
 (setq org-startup-truncated nil)
@@ -58,8 +64,6 @@
         ("POSTPONED" . (:foreground "dark green" :weight bold))
         ("TASK" . (:foreground "magenta" :weight bold))))
 
-;; Creates a table of contents when dealing with many org files
-(require 'org-toc)
 
 ;; Latex export for org-article class
 (require 'org-latex)
