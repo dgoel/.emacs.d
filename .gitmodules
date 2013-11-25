@@ -1,9 +1,6 @@
 [submodule "site-lisp/ace-jump-mode"]
         path = site-lisp/ace-jump-mode
         url = https://github.com/winterTTr/ace-jump-mode.git
-[submodule "site-lisp/expand-region"]
-        path = site-lisp/expand-region
-        url = https://github.com/magnars/expand-region.el.git
 [submodule "site-lisp/delsel"]
         path = site-lisp/delsel
         url = https://github.com/emacsmirror/delsel.git
@@ -13,18 +10,12 @@
 [submodule "site-lisp/jump-char"]
         path = site-lisp/jump-char
         url = https://github.com/lewang/jump-char.git
-[submodule "site-lisp/multiple-cursors"]
-        path = site-lisp/multiple-cursors
-        url = https://github.com/magnars/multiple-cursors.el.git
 [submodule "site-lisp/browse-kill-ring"]
         path = site-lisp/browse-kill-ring
         url = https://github.com/T-J-Teru/browse-kill-ring.git
 [submodule "site-lisp/wgrep"]
         path = site-lisp/wgrep
         url = https://github.com/magnars/Emacs-wgrep
-[submodule "site-lisp/smex"]
-        path = site-lisp/smex
-        url = https://github.com/nonsequitur/smex.git
 [submodule "site-lisp/smart-forward"]
         path = site-lisp/smart-forward
         url = https://github.com/magnars/smart-forward.el.git
