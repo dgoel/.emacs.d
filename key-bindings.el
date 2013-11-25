@@ -1,15 +1,7 @@
 ;; I don't need to kill emacs that easily
 ;; the mnemonic is C-x REALLY QUIT
-(global-set-key (kbd "C-x C-q") 'save-buffers-kill-terminal)
-(global-set-key (kbd "C-x C-c") 'delete-frame)
-
-;; Completion that uses many different methods to find options.
-(global-set-key (kbd "C-.") 'hippie-expand-no-case-fold)
-(global-set-key (kbd "C-:") 'hippie-expand-lines)
-(global-set-key (kbd "C-,") 'completion-at-point)
-
-;(require 'misc)
-;(global-set-key (kbd "s-.") 'copy-from-above-command)
+(global-set-key (kbd "C-x R Q") 'save-buffers-kill-terminal)
+(global-unset-key (kbd "C-x C-c")) ; never quit like this
 
 ;; Smart M-x
 (global-set-key (kbd "M-x") 'smex)
@@ -17,12 +9,16 @@
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; Expand region (increases selected region by semantic units)
-(global-set-key (kbd "C-'") 'er/expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
-;; Experimental multiple-cursors
+;; Multiple-cursors
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C-S-c C-e") 'mc/edit-ends-of-lines)
 (global-set-key (kbd "C-S-c C-a") 'mc/edit-beginnings-of-lines)
+(global-set-key (kbd "C-'") 'mc/mark-all-symbols-like-this-in-defun)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; Mark additional regions matching current region
 ;; (global-set-key (kbd "M-æ") 'mc/mark-all-dwim)
@@ -40,16 +36,14 @@
 ;; (global-set-key (kbd "M-s-Æ") 'mc/mark-all-symbols-like-this)
 
 ;; Extra multiple cursors stuff
-(global-set-key (kbd "C-~") 'mc/reverse-regions)
-(global-set-key (kbd "M-~") 'mc/sort-regions)
-(global-set-key (kbd "H-~") 'mc/insert-numbers)
-;(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+;; (global-set-key (kbd "C-~") 'mc/reverse-regions)
+;; (global-set-key (kbd "M-~") 'mc/sort-regions)
 
 ;; Set anchor to start rectangular-region-mode
-(global-set-key (kbd "H-SPC") 'set-rectangular-region-anchor)
+(global-set-key (kbd "S-SPC") 'set-rectangular-region-anchor)
 
 ;; Quickly jump in document with ace-jump-mode
-(define-key global-map (kbd "C-^") 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
 ;; Quickly search symbol at point
 (global-set-key (kbd "C-*") 'isearch-current-symbol)
@@ -67,8 +61,8 @@
 ;; (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
 
 ;; Use shell-like backspace C-h, rebind help to F1
-(define-key key-translation-map [?\C-h] [?\C-?])
-(global-set-key (kbd "<f1>") 'help-command)
+; (define-key key-translation-map [?\C-h] [?\C-?])
+; (global-set-key (kbd "<f1>") 'help-command)
 ;; (define-key god-local-mode-map (kbd "h") 'backward-delete-char)
 
 ;; (global-set-key (kbd "M-h") 'kill-region-or-backward-word)
@@ -163,9 +157,6 @@
 
 (global-set-key (kbd "C-x 3") 'split-window-right-and-move-there-dammit)
 
-;; Add region to *multifile*
-(global-set-key (kbd "C-!") 'mf/mirror-region-in-multifile)
-
 ;; Indentation help
 (global-set-key (kbd "M-j") (λ (join-line -1)))
 
@@ -176,10 +167,6 @@
 (global-set-key [remap goto-line] 'goto-line-with-feedback)
 (global-set-key (kbd "M-g M-c") 'go-to-column)
 
-; (global-set-key (kbd "<prior>") 'beginning-of-buffer)
-; (global-set-key (kbd "<home>") 'beginning-of-buffer)
-; (global-set-key (kbd "<next>") 'end-of-buffer)
-; (global-set-key (kbd "<end>") 'end-of-buffer)
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 
@@ -188,20 +175,16 @@
 (global-set-key (kbd "M-<left>") 'smart-backward)
 (global-set-key (kbd "M-<right>") 'smart-forward)
 
-;; Webjump let's you quickly search google, wikipedia, emacs wiki
-(global-set-key (kbd "C-x g") 'webjump)
-(global-set-key (kbd "C-x M-g") 'browse-url-at-point)
-
 ;; Completion at point
 (global-set-key (kbd "C-<tab>") 'completion-at-point)
 
 ;; Like isearch, but adds region (if any) to history and deactivates mark
-(global-set-key (kbd "C-s") 'isearch-forward-use-region)
-(global-set-key (kbd "C-r") 'isearch-backward-use-region)
+;; (global-set-key (kbd "C-s") 'isearch-forward-use-region)
+;; (global-set-key (kbd "C-r") 'isearch-backward-use-region)
 
 ;; Like isearch-*-use-region, but doesn't fuck with the active region
-(global-set-key (kbd "C-S-s") 'isearch-forward)
-(global-set-key (kbd "C-S-r") 'isearch-backward)
+;; (global-set-key (kbd "C-S-s") 'isearch-forward)
+;; (global-set-key (kbd "C-S-r") 'isearch-backward)
 
 ;; Move more quickly
 (global-set-key (kbd "C-S-n") (λ (ignore-errors (next-line 5))))
@@ -239,9 +222,6 @@
 (global-set-key (kbd "C-x m") 'magit-status)
 (autoload 'magit-status "magit")
 
-;; Mu4e
-(global-set-key (kbd "C-x M") 'mu4e-up-to-date-status)
-
 ;; Clever newlines
 (global-set-key (kbd "C-o") 'open-line-and-indent)
 (global-set-key (kbd "<C-return>") 'open-line-below)
@@ -269,9 +249,6 @@
 ;; Sorting
 (global-set-key (kbd "M-s l") 'sort-lines)
 
-;; Increase number at point (or other change based on prefix arg)
-(global-set-key (kbd "C-+") 'change-number-at-point)
-(global-set-key (kbd "C-?") 'subtract-number-at-point)
 (eval-after-load 'undo-tree '(define-key undo-tree-map (kbd "C-?") nil))
 
 ;; Browse the kill ring
