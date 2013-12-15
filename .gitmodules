@@ -46,3 +46,6 @@
 [submodule "site-lisp/flycheck"]
         path = site-lisp/flycheck
         url = https://github.com/lunaryorn/flycheck.git
+[submodule "site-lisp/use-package"]
+	path = site-lisp/use-package
+	url = https://github.com/jwiegley/use-package/
