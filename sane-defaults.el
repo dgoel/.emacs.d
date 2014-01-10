@@ -64,6 +64,11 @@
 ;; Remove text in active region if inserting text
 (delete-selection-mode 1)
 
+;; Run at full power please
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+
 ;; Don't highlight matches with jump-char - it's distracting
 (setq jump-char-lazy-highlight-face nil)
 
@@ -93,33 +98,21 @@
 ;; Don't truncate lines
 (setq-default truncate-lines nil)
 
-;; Keep cursor away from edges when scrolling up/down
-(require 'smooth-scrolling)
-(setq smooth-scroll-margin 5)
-
 ;; Allow recursive minibuffers
 (setq enable-recursive-minibuffers t)
 
 ;; Don't be so stingy on the memory, we have lots now
 (setq gc-cons-threshold 20000000)
 
-;; org-mode: Don't ruin S-arrow to switch windows please (use M-+ and M-- instead to toggle)
+;; org-mode: Don't ruin S-arrow to switch windows please
+;; (use M-+ and M-- instead to toggle)
 (setq org-replace-disputed-keys t)
 
 ;; Fontify org-mode code blocks
 (setq org-src-fontify-natively t)
 
-;; Represent undo-history as an actual tree (visualize with C-x u)
-(setq undo-tree-mode-lighter "")
-(require 'undo-tree)
-(global-undo-tree-mode)
-
 ;; Sentences do not need double spaces to end. Period.
 (set-default 'sentence-end-double-space nil)
-
-;; Add parts of each file's directory to the buffer name if not unique
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
 
 ;; A saner ediff
 (setq ediff-diff-options "-w")
@@ -134,36 +127,21 @@
 (add-hook 'minibuffer-setup-hook
           (lambda () (setq truncate-lines nil)))
 
-;; Nic says eval-expression-print-level needs to be set to nil (turned off) so
-;; that you can always see what's happening.
+;; Nic says eval-expression-print-level needs to be set to nil
+;; (turned off) so that you can always see what's happening.
 (setq eval-expression-print-level nil)
 
 ;; When popping the mark, continue popping until the cursor actually moves
-;; Also, if the last command was a copy - skip past all the expand-region cruft.
-(defadvice pop-to-mark-command (around ensure-new-position activate)
-  (let ((p (point)))
-    (when (eq last-command 'save-region-or-current-line)
-      ad-do-it
-      ad-do-it
-      ad-do-it)
-    (dotimes (i 10)
-      (when (= p (point)) ad-do-it))))
-
-;; Keep region when undoing in region
-(defadvice undo-tree-undo (around keep-region activate)
-  (if (use-region-p)
-      (let ((m (set-marker (make-marker) (mark)))
-            (p (set-marker (make-marker) (point))))
-        ad-do-it
-        (goto-char p)
-        (set-mark m)
-        (set-marker p nil)
-        (set-marker m nil))
-    ad-do-it))
-
-;; Default hooks
-(add-hook 'latex-mode-hook 'flyspell-mode)
-(add-hook 'makefile-mode-hook 'indent-tabs-mode)
+;; Also, if the last command was a copy - skip past all the expand-region
+;; cruft.
+;; (defadvice pop-to-mark-command (around ensure-new-position activate)
+;;   (let ((p (point)))
+;;     (when (eq last-command 'save-region-or-current-line)
+;;       ad-do-it
+;;       ad-do-it
+;;       ad-do-it)
+;;     (dotimes (i 10)
+;;       (when (= p (point)) ad-do-it))))
 
 
 (provide 'sane-defaults)
