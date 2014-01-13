@@ -28,19 +28,14 @@
   (when (file-directory-p project)
     (add-to-list 'load-path project)))
 
-;; Set up appearance early
-(require 'appearance)
-
-;; Save point position between sessions
-;; (require 'saveplace)
-;; (setq-default save-place t)
-;; (setq save-place-file (expand-file-name ".places" user-emacs-directory))
-
-;; Setup elnode before packages to stop it from starting a server
-;;(require 'setup-elnode)
+;; Load libraries first
+(require 'use-package)
 
 ;; Setup packages
 (require 'setup-package)
+
+;; Set up appearance early
+(require 'appearance)
 
 ;; Install extensions if they're missing
 (defun init--install-packages ()
@@ -85,16 +80,38 @@
 ;; Lets start with a smattering of sanity
 (require 'sane-defaults)
 
-;; guide-key
-(require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-c p" "C-x 4" "C-x v" "C-x 8" "C-c +"))
-(guide-key-mode 1)
-(setq guide-key/recursive-key-sequence-flag t)
-(setq guide-key/popup-window-position 'bottom)
+;; Smooth scrolling
+(use-package smooth-scrolling
+  :init (setq smooth-scroll-margin 5)
+  :ensure t)
 
-;; god-mode
-; (require 'god-mode)
-; (global-set-key (kbd "<escape>") 'god-local-mode)
+;; Unique file names
+(use-package uniquify
+  :init (setq uniquify-buffer-name-style 'forward))
+
+;; Guide-key
+(use-package guide-key
+  :diminish guide-key-mode
+  :init (progn
+          (guide-key-mode t)
+          (setq guide-key/guide-key-sequence
+                '("C-x r" "C-c p" "C-x 4" "C-x v" "C-x 8" "C-c +"))
+          (setq guide-key/recursive-key-sequence-flag t)
+          (setq guide-key/popup-window-position 'bottom)))
+
+;; Snippets
+(use-package setup-yasnippet
+  :diminish yas-minor-mode)
+
+;; Highlight escape sequences
+(use-package highlight-escape-sequences
+  :config
+  (progn (hes-mode)
+         (put 'font-lock-regexp-grouping-backslash
+              'face-alias 'font-lock-builtin-face)))
+
+;; Visual regexp
+(use-package visual-regexp)
 
 ;; Setup extensions
 (eval-after-load 'ido '(require 'setup-ido))
@@ -102,34 +119,13 @@
 (eval-after-load 'magit '(require 'setup-magit))
 (eval-after-load 'grep '(require 'setup-rgrep))
 (eval-after-load 'shell '(require 'setup-shell))
-(require 'setup-yasnippet)
-
-;; Default setup of smartparens
-;; (require 'smartparens-config)
-;; (setq sp-autoescape-string-quote nil)
-;; (--each '(css-mode-hook
-;;           restclient-mode-hook
-;;           js-mode-hook
-;;           ruby-mode
-;;           markdown-mode)
-;;   (add-hook it 'turn-on-smartparens-mode))
 
 ;; Language specific setup files
-(eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
 (eval-after-load 'cc-mode '(require 'setup-c))
-
-;; Map files to modes
-(require 'mode-mappings)
-
-;; Highlight escape sequences
-(require 'highlight-escape-sequences)
-(hes-mode)
-(put 'font-lock-regexp-grouping-backslash 'face-alias 'font-lock-builtin-face)
-
-;; Visual regexp
-(require 'visual-regexp)
-;(define-key global-map (kbd "M-&") 'vr/query-replace)
-;(define-key global-map (kbd "M-/") 'vr/replace)
+(use-package markdown-mode
+  :mode ("\\.\\(md\\|markdown\\)\\'" . markdown-mode))
+(use-package python
+  :mode ("\\<\\(SConscript\\|SConstruct\\)\\>" . python-mode))
 
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
@@ -137,46 +133,98 @@
   (when (file-regular-p file)
     (load file)))
 
-(require 'expand-region)
-(require 'multiple-cursors)
-(require 'delsel)
-(require 'jump-char)
-(require 'wgrep)
-(require 'smart-forward)
-; (require 'change-inner)
-; (require 'multifiles)
-; (require 'fold-this)
-(require 'revbufs)
+(use-package delsel)
+(use-package wgrep)
+(use-package revbufs)
+(use-package key-bindings)
 
-;; Fill column indicator
-; (require 'fill-column-indicator)
-; (setq fci-rule-color "#111122")
+;; Magit
+(use-package magit
+  :bind (("C-x m" . magit-status))
+  :ensure t)
+
+;; Fold the active region
+(use-package fold-this
+  :bind (("C-c C-f" . fold-this-all)
+         ("C-c C-F" . fold-this)
+         ("C-c M-f" . fold-this-unfold-all))
+  :ensure t)
+
+;; Undo tree
+(use-package undo-tree
+  :bind ("C-x u" . undo-tree-visualize)
+  :init
+  (progn
+    (global-undo-tree-mode 1)
+    (setq undo-tree-mode-lighter ""))
+  :config  
+  ;; Keep region when undoing in region
+  (defadvice undo-tree-undo (around keep-region activate)
+    (if (use-region-p)
+        (let ((m (set-marker (make-marker) (mark)))
+              (p (set-marker (make-marker) (point))))
+          ad-do-it
+          (goto-char p)
+          (set-mark m)
+          (set-marker p nil)
+          (set-marker m nil))
+      ad-do-it))
+  :ensure t)
+
+;; Smart M-x
+(use-package smex
+  :bind (("M-x"     . smex)
+         ("M-X"     . smex-major-mode-commands)
+         ("C-c M-x" . execute-extended-command))
+  :init (smex-initialize)
+  :ensure t)
+
+;; Expand region (increases selected region by semantic units)
+(use-package expand-region
+  :bind ("C-=" . er/expand-region)
+  :ensure t)
+
+;; Multiple-cursors
+(use-package multiple-cursors
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C-S-c C-e"   . mc/edit-ends-of-lines)
+         ("C-S-c C-a"   . mc/edit-beginnings-of-lines)
+         ("C-'"         . mc/mark-all-symbols-like-this-in-defun)
+         ("C->"         . mc/mark-next-like-this)
+         ("C-<"         . mc/mark-previous-like-this)
+         ("C-c C-<"     . mc/mark-all-like-this)
+         ("S-SPC"       . set-rectangular-region-anchor))
+  :init
+  (setq mc/list-file (expand-file-name ".mc-lists.el"))
+  :ensure t)
+
+;; Quickly jump in document with ace-jump-mode
+(use-package ace-jump-mode
+  :bind ("C-c SPC" . ace-jump-mode))
+
+;; iy-go-to-char - like f in Vim
+(use-package jump-char
+  :bind (("M-m" . jump-char-forward)
+         ("M-M" . jump-char-backward))
+  :ensure t)
 
 ;; Browse kill ring
-(require 'browse-kill-ring)
-(setq browse-kill-ring-quit-action 'save-and-restore)
+(use-package browse-kill-ring
+  :bind ("C-x C-y" . browse-kill-ring)
+  :init
+  (setq browse-kill-ring-quit-action 'save-and-restore))
 
-;; Smart M-x is smart
-(require 'smex)
-(smex-initialize)
-
-;; Setup key bindings
-(require 'key-bindings)
-
-;; Elisp go-to-definition with M-. and back again with M-,
-;(autoload 'elisp-slime-nav-mode "elisp-slime-nav")
-;(add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t) (eldoc-mode 1)))
+(use-package smart-forward
+  :bind (("M-<up>"    . smart-up)
+         ("M-<down>"  . smart-down)
+         ("M-<left>"  . smart-backward)
+         ("M-<right>" . smart-forward)))
 
 
 ;; Emacs server
-(require 'server)
+(use-package server)
 (unless (server-running-p)
   (server-start))
-
-;; Run at full power please
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
 
 ;; Conclude init by setting up specifics for the current user
 ;; (when (file-exists-p user-settings-dir)

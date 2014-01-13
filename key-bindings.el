@@ -3,22 +3,13 @@
 (global-set-key (kbd "C-x R Q") 'save-buffers-kill-terminal)
 (global-unset-key (kbd "C-x C-c")) ; never quit like this
 
-;; Smart M-x
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-;; Expand region (increases selected region by semantic units)
-(global-set-key (kbd "C-=") 'er/expand-region)
-
-;; Multiple-cursors
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C-S-c C-e") 'mc/edit-ends-of-lines)
-(global-set-key (kbd "C-S-c C-a") 'mc/edit-beginnings-of-lines)
-(global-set-key (kbd "C-'") 'mc/mark-all-symbols-like-this-in-defun)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+;; (global-set-key (kbd "C-S-c C-e") 'mc/edit-ends-of-lines)
+;; (global-set-key (kbd "C-S-c C-a") 'mc/edit-beginnings-of-lines)
+;; (global-set-key (kbd "C-'") 'mc/mark-all-symbols-like-this-in-defun)
+;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; Mark additional regions matching current region
 ;; (global-set-key (kbd "M-æ") 'mc/mark-all-dwim)
@@ -39,11 +30,6 @@
 ;; (global-set-key (kbd "C-~") 'mc/reverse-regions)
 ;; (global-set-key (kbd "M-~") 'mc/sort-regions)
 
-;; Set anchor to start rectangular-region-mode
-(global-set-key (kbd "S-SPC") 'set-rectangular-region-anchor)
-
-;; Quickly jump in document with ace-jump-mode
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
 ;; Quickly search symbol at point
 (global-set-key (kbd "C-*") 'isearch-current-symbol)
@@ -109,11 +95,6 @@
 (global-set-key (kbd "M-Z") (lambda (char) (interactive "cZap to char: ") (zap-to-char 1 char)))
 ; (global-set-key (kbd "s-Z") (lambda (char) (interactive "cZap to char backwards: ") (zap-to-char -1 char)))
 
-;; iy-go-to-char - like f in Vim
-(global-set-key (kbd "M-m") 'jump-char-forward)
-(global-set-key (kbd "M-M") 'jump-char-backward)
-;(global-set-key (kbd "s-m") 'jump-char-backward)
-
 ;; vim's ci and co commands
 ; (global-set-key (kbd "M-I") 'change-inner)
 ; (global-set-key (kbd "M-O") 'change-outer)
@@ -170,10 +151,6 @@
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 
-(global-set-key (kbd "M-<up>") 'smart-up)
-(global-set-key (kbd "M-<down>") 'smart-down)
-(global-set-key (kbd "M-<left>") 'smart-backward)
-(global-set-key (kbd "M-<right>") 'smart-forward)
 
 ;; Completion at point
 (global-set-key (kbd "C-<tab>") 'completion-at-point)
@@ -218,10 +195,6 @@
 (global-set-key (kbd "<s-up>") 'windmove-up)
 (global-set-key (kbd "<s-down>") 'windmove-down)
 
-;; Magit
-(global-set-key (kbd "C-x m") 'magit-status)
-(autoload 'magit-status "magit")
-
 ;; Clever newlines
 (global-set-key (kbd "C-o") 'open-line-and-indent)
 (global-set-key (kbd "<C-return>") 'open-line-below)
@@ -234,11 +207,6 @@
 ;; Line movement
 (global-set-key (kbd "<C-S-down>") 'move-text-down)
 (global-set-key (kbd "<C-S-up>") 'move-text-up)
-
-;; Fold the active region
-(global-set-key (kbd "C-c C-f") 'fold-this-all)
-(global-set-key (kbd "C-c C-F") 'fold-this)
-(global-set-key (kbd "C-c M-f") 'fold-this-unfold-all)
 
 ;; Yank and indent
 (global-set-key (kbd "C-S-y") 'yank-unindented)
