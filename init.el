@@ -42,6 +42,7 @@
   (packages-install
    '(ace-jump-mode
      change-inner
+     dash
      expand-region
      flx
      flx-ido
@@ -62,6 +63,7 @@
      org-plus-contrib
      paredit
      projectile
+     s
      smartparens
      smart-forward
      smooth-scrolling
@@ -71,6 +73,11 @@
      yasnippet
      )))
 
+(use-package s
+  :ensure t)
+
+(use-package dash
+  :ensure t)
 
 (condition-case nil
     (init--install-packages)
