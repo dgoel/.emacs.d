@@ -40,34 +40,35 @@
 ;; Install extensions if they're missing
 (defun init--install-packages ()
   (packages-install
-   '(magit
-     paredit
-     move-text
-     ;; god-mode
-     ;; gist
-     ;; htmlize
-     visual-regexp
-     flycheck
+   '(ace-jump-mode
+     change-inner
+     expand-region
      flx
      flx-ido
-     ;; css-eldoc
-     yasnippet
-     smartparens
      ;; ido-vertical-mode
      ido-at-point
-     ;; simple-httpd
+     ido-ubiquitous
      guide-key
-     ;; nodejs-repl
-     ;; restclient
      highlight-escape-sequences
      ;; elisp-slime-nav
      git-commit-mode
      gitconfig-mode
      gitignore-mode
-     ;; clojure-mode
-     ;; cider
-     ;; cider-tracing
+     jump-char
+     magit
+     move-text
+     multiple-cursors
+     org
+     org-plus-contrib
+     paredit
      projectile
+     smartparens
+     smart-forward
+     smooth-scrolling
+     undo-tree
+     visual-regexp
+     wgrep
+     yasnippet
      )))
 
 
