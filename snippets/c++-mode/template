@@ -1,4 +1,6 @@
-# name: template <typename ...>
+# -*- mode: snippet -*-
+# name: template
 # key: template
 # --
-template <typename ${T}>
+template <class ${T}>
+$0

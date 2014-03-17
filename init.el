@@ -14,6 +14,11 @@
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path site-lisp-dir)
 
+;; utils
+(defmacro hook-into-modes (func modes)
+  `(dolist (mode-hook ,modes)
+     (add-hook mode-hook ,func)))
+
 ;; Keep emacs Custom-settings in separate file
 ;; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 ;; (load custom-file)
@@ -107,9 +112,20 @@
           (setq guide-key/recursive-key-sequence-flag t)
           (setq guide-key/popup-window-position 'bottom)))
 
-;; Snippets
-(use-package setup-yasnippet
-  :diminish yas-minor-mode)
+;; Yasnippet
+;; (custom snippets from snippets/ directory are automatically loaded)
+(use-package yasnippet
+  :if (not noninteractive)
+  :diminish yas-minor-mode
+  :init (hook-into-modes #'(lambda () (yas-minor-mode 1))
+                         '(;prog-mode-hook
+                           c-mode-common-hook
+                           python-mode-hook
+                           gud-mode-hook))
+  :config (progn
+          ; (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+          ; (yas-global-mode 1)
+            (yas-reload-all)))
 
 ;; Highlight escape sequences
 (use-package highlight-escape-sequences
