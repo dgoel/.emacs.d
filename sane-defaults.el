@@ -108,9 +108,6 @@
 ;; (use M-+ and M-- instead to toggle)
 (setq org-replace-disputed-keys t)
 
-;; Fontify org-mode code blocks
-(setq org-src-fontify-natively t)
-
 ;; Sentences do not need double spaces to end. Period.
 (set-default 'sentence-end-double-space nil)
 

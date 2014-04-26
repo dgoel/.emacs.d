@@ -32,6 +32,9 @@
 ;; Line wrapping
 (setq org-startup-truncated nil)
 
+;; Fontify code blocks
+(setq org-src-fontify-natively t)
+
 ;; Capture
 (setq org-default-notes-file
       (concat org-directory "/refile.org"))
