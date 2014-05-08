@@ -46,11 +46,14 @@
         js2r-move-line-up
         js2r-split-string
         js2r-var-to-this
+        jump-char-forward
+        jump-char-process-char
         kill-and-retry-line
         kill-region-or-backward-word
         kill-sexp
         magit-stage-item
         markdown-enter-key
+        markdown-insert-link
         move-line-down
         move-line-up
         move-text-down
@@ -154,6 +157,7 @@
         js2r-extract-var
         js2r-rename-var
         jump-between-source-and-test-files
+        kill-this-buffer
         kmacro-end-or-call-macro
         magit-status
         mc/add-cursor-on-click
