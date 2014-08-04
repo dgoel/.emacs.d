@@ -74,15 +74,19 @@
 (global-set-key (kbd "C-x + c") (λ (replace-region-by 's-lower-camel-case)))
 (global-set-key (kbd "C-x + C") (λ (replace-region-by 's-upper-camel-case)))
 
+;; Resizing window
+(global-set-key (kbd "C-}") 'shrink-window-horizontally)
+(global-set-key (kbd "C-{") 'enlarge-window-horizontally)
+
 ;; Killing text
 (global-set-key (kbd "C-S-k") 'kill-and-retry-line)
 (global-set-key (kbd "C-w") 'kill-region-or-backward-word)
 (global-set-key (kbd "C-c C-w") 'kill-to-beginning-of-line)
 
 ;; Use M-w for copy-line if no active region
-(global-set-key (kbd "M-w") 'save-region-or-current-line)
-(global-set-key (kbd "s-w") 'save-region-or-current-line)
-(global-set-key (kbd "M-W") (λ (save-region-or-current-line 1)))
+(global-set-key (kbd "M-W") 'save-region-or-current-line)
+;(global-set-key (kbd "s-w") 'save-region-or-current-line)
+(global-set-key (kbd "M-w") (λ (save-region-or-current-line 1)))
 
 ;; Make shell more convenient, and suspend-frame less
 (global-set-key (kbd "C-z") 'shell)
@@ -223,7 +227,9 @@
 (global-set-key (kbd "C-x C-y") 'browse-kill-ring)
 
 ;; Buffer file functions
-(global-set-key (kbd "C-x t") 'touch-buffer-file)
+
+; Don't rebind C-x as it is used to transpose region?
+;(global-set-key (kbd "C-x t") 'touch-buffer-file)
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
 (global-set-key (kbd "C-x C-k") 'delete-current-buffer-file)
 
