@@ -46,6 +46,7 @@
 (defun init--install-packages ()
   (packages-install
    '(ace-jump-mode
+     ag
      change-inner
      dash
      expand-region
@@ -164,6 +165,9 @@
 (use-package wgrep)
 (use-package revbufs)
 (use-package key-bindings)
+(use-package ag
+  :init (setq ag-reuse-window 't))
+
 ;; Projectile
 (use-package projectile
   :init
