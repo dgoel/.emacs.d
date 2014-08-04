@@ -49,6 +49,8 @@
      change-inner
      dash
      expand-region
+     elfeed
+     ; elpy
      flx
      flx-ido
      ;; ido-vertical-mode
@@ -108,7 +110,7 @@
   :init (progn
           (guide-key-mode t)
           (setq guide-key/guide-key-sequence
-                '("C-x r" "C-c p" "C-x 4" "C-x v" "C-x 8" "C-c +"))
+                '("C-c" "C-x r" "C-c p" "C-x 4" "C-x v" "C-x 8" "C-x +"))
           (setq guide-key/recursive-key-sequence-flag t)
           (setq guide-key/popup-window-position 'bottom)))
 
@@ -117,14 +119,13 @@
 (use-package yasnippet
   :if (not noninteractive)
   :diminish yas-minor-mode
+  :idle (yas-minor-mode)
   :init (hook-into-modes #'(lambda () (yas-minor-mode 1))
                          '(;prog-mode-hook
                            c-mode-common-hook
                            python-mode-hook
                            gud-mode-hook))
   :config (progn
-          ; (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
-          ; (yas-global-mode 1)
             (yas-reload-all)))
 
 ;; Highlight escape sequences
@@ -164,15 +165,13 @@
 
 ;; Magit
 (use-package magit
-  :bind (("C-x m" . magit-status))
-  :ensure t)
+  :bind (("C-x m" . magit-status)))
 
 ;; Fold the active region
 (use-package fold-this
   :bind (("C-c C-f" . fold-this-all)
          ("C-c C-F" . fold-this)
-         ("C-c M-f" . fold-this-unfold-all))
-  :ensure t)
+         ("C-c M-f" . fold-this-unfold-all)))
 
 ;; Undo tree
 (use-package undo-tree

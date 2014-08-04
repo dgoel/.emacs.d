@@ -1,5 +1,4 @@
 (require 'package)
-(require 'dash)
 
 ;; Add repos
 (add-to-list 'package-archives
@@ -9,6 +8,8 @@
 (add-to-list 'package-archives
              '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
+
+(require 'dash)
 
 (unless (file-exists-p "~/.emacs.d/elpa/archives/melpa")
   (package-refresh-contents))

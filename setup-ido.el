@@ -20,6 +20,7 @@
 ;; flx-ido looks better with ido-vertical-mode
 ;; (require 'ido-vertical-mode)
 ;; (ido-vertical-mode)
+;; (setq resize-mini-windows t) ;; this is needed for ido-vertical-mode to work
 
 (defun sd/ido-define-keys () ;; C-n/p is more intuitive in vertical layout
   (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
