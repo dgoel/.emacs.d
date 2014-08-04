@@ -83,6 +83,10 @@
 (recentf-mode 1)
 (setq recentf-max-saved-items 50) ;; just 20 is too recent
 
+;; exclude files from recentf
+(add-to-list 'recentf-exclude "COMMIT_EDITMSG")
+(add-to-list 'recentf-exclude "TAGS")
+
 ;; Undo/redo window configuration with C-c <left>/<right>
 (winner-mode 1)
 
@@ -140,5 +144,13 @@
 ;;     (dotimes (i 10)
 ;;       (when (= p (point)) ad-do-it))))
 
+(setq auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
+(setq display-buffer-prefer-horizontal-split t)
+
+;; Don't ask before rereading the TAGS files if they have changed
+(setq tags-revert-without-query t)
+
+;; Do case-sensitive tag searches
+(setq tags-case-fold-search nil) ;; t=case-insensitive, nil=case-sensitive
 
 (provide 'sane-defaults)
