@@ -13,6 +13,8 @@
 
 ;; Only show one star
 (setq org-hide-leading-stars t)
+(setq org-startup-indented t)
+(setq org-indent-mode t)
 
 ;; Follow links
 (setq org-return-follows-link t)
@@ -22,6 +24,9 @@
 
 ;; Very popular -- fast state change
 (setq org-use-fast-todo-selection t)
+
+;; Hides blank lines between headings to keep the folded view compact
+(setq org-cycle-separator-lines 0)
 
 ;; Enable auto-fill
 (add-hook 'org-mode-hook 'auto-fill-mode)

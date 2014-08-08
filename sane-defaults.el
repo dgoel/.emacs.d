@@ -17,6 +17,9 @@
 ;; Show keystrokes in progress
 (setq echo-keystrokes 0.1)
 
+;; Require final newline
+(setq require-final-newline t)
+
 ;; Move files to trash when deleting
 (setq delete-by-moving-to-trash t)
 
