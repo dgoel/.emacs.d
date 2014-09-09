@@ -200,6 +200,8 @@
   :config (progn
             (setq projectile-enable-caching t)
             (setq projectile-enable-idle-timer t)
+            (setq projectile-mode-line
+                  '(:eval (format " Prj[%s]" (projectile-project-name))))
             (setq projectile-remember-window-configs t)
             (setq projectile-file-exists-remote-cache-expire nil)
             (defun rejeep-projectile-completion-fn (prompt choises)
