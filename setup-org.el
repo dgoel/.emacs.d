@@ -13,8 +13,8 @@
 
 ;; Only show one star
 (setq org-hide-leading-stars t)
-(setq org-startup-indented t)
-(setq org-indent-mode t)
+; (setq org-startup-indented t)
+; (setq org-indent-mode t)
 
 ;; Follow links
 (setq org-return-follows-link t)
