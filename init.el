@@ -80,6 +80,7 @@
      undo-tree
      visual-regexp
      wgrep
+     ws-butler
      yasnippet
      )))
 
@@ -154,6 +155,21 @@
   :mode ("\\.\\(md\\|markdown\\)\\'" . markdown-mode))
 (use-package python
   :mode ("\\<\\(SConscript\\|SConstruct\\)\\>" . python-mode))
+;; manage whitespace for edited lines only
+(use-package ws-butler
+  :init (hook-into-modes #'(lambda () (ws-butler-mode 1))
+                         '(prog-mode-hook
+                           c-mode-common-hook
+                           python-mode-hook
+                           gud-mode-hook)))
+; (add-hook 'c-mode-common-hook 'ws-butler-mode)
+
+;; auto wrap comments in programming modesa
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (setq fill-column 80)
+            (set (make-local-variable 'comment-auto-fill-only-comments) t)
+            (auto-fill-mode 1)))
 
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
