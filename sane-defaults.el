@@ -148,6 +148,9 @@
 ;;       (when (= p (point)) ad-do-it))))
 
 (setq auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
+(add-to-list 'auto-mode-alist '("\\.txt$" . markdown-mode))
+
 (setq display-buffer-prefer-horizontal-split t)
 
 ;; Don't ask before rereading the TAGS files if they have changed
