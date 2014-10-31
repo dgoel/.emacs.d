@@ -164,6 +164,7 @@
                            lisp-mode-hook)))
 ;; manage whitespace for edited lines only
 (use-package ws-butler
+  :diminish ws-butler-mode
   :init (hook-into-modes #'(lambda () (ws-butler-mode 1))
                          '(prog-mode-hook
                            c-mode-common-hook
