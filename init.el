@@ -59,6 +59,7 @@
      ido-ubiquitous
      guide-key
      highlight-escape-sequences
+     highlight-parentheses
      ;; elisp-slime-nav
      git-commit-mode
      gitconfig-mode
@@ -155,6 +156,12 @@
   :mode ("\\.\\(md\\|markdown\\)\\'" . markdown-mode))
 (use-package python
   :mode ("\\<\\(SConscript\\|SConstruct\\)\\>" . python-mode))
+(use-package highlight-parentheses
+  :diminish highlight-parentheses-mode
+  :init (hook-into-modes #'(lambda () (highlight-parentheses-mode 1))
+                         '(prog-mode-hook
+                           c-mode-common-hook
+                           lisp-mode-hook)))
 ;; manage whitespace for edited lines only
 (use-package ws-butler
   :init (hook-into-modes #'(lambda () (ws-butler-mode 1))
