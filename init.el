@@ -248,8 +248,10 @@
   :init
   (progn
     (global-undo-tree-mode 1)
-    (setq undo-tree-mode-lighter ""))
-  :config  
+    (setq undo-tree-mode-lighter "")
+    (setq undo-tree-visualizer-timestamps t)
+    (setq undo-tree-visualizer-diff t))
+  :config
   ;; Keep region when undoing in region
   (defadvice undo-tree-undo (around keep-region activate)
     (if (use-region-p)
