@@ -64,6 +64,7 @@
      git-commit-mode
      gitconfig-mode
      gitignore-mode
+     git-timemachine
      jump-char
      magit
      move-text
@@ -235,6 +236,9 @@
 ;; Magit
 (use-package magit
   :bind (("C-x m" . magit-status)))
+
+;; Go back in history with a touch of a button
+(use-package git-timemachine)
 
 ;; Fold the active region
 (use-package fold-this
