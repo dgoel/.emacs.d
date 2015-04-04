@@ -18,8 +18,10 @@
                     :height 100)
 
 ;; use solarized theme
-(require 'color-theme-solarized)
-(color-theme-solarized-dark)
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
+(load-theme 'solarized t)
+(set-frame-parameter nil 'background-mode 'dark)
+(enable-theme 'solarized)
 
 ;; Highlight matching parentheses when the point is on them.
 (show-paren-mode 1)

@@ -11,7 +11,7 @@
         path = site-lisp/revbufs
         url = https://github.com/emacsmirror/revbufs.git
 [submodule "site-lisp/emacs-color-theme-solarized"]
-        path = site-lisp/emacs-color-theme-solarized
+        path = themes/emacs-color-theme-solarized
         url = https://github.com/dgoel/emacs-color-theme-solarized
 [submodule "site-lisp/use-package"]
 	path = site-lisp/use-package
