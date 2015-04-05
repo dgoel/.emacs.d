@@ -16,3 +16,6 @@
 [submodule "site-lisp/use-package"]
 	path = site-lisp/use-package
 	url = https://github.com/jwiegley/use-package/
+[submodule "themes/monokai"]
+	path = themes/monokai
+	url = https://dgoel@github.com/dgoel/monokai-emacs
