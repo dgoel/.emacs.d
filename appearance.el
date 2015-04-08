@@ -18,10 +18,20 @@
                     :height 100)
 
 ;; use solarized theme
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
-(load-theme 'solarized t)
-(set-frame-parameter nil 'background-mode 'dark)
-(enable-theme 'solarized)
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
+;; (set-frame-parameter nil 'background-mode 'dark)
+;; (load-theme 'solarized t)
+;; (enable-theme 'solarized)
+
+;; monokai
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/monokai")
+(setq monokai-use-variable-pitch nil)
+(setq monokai-height-minus-1 1.0)
+(setq monokai-height-plus-1 1.0)
+(setq monokai-height-plus-2 1.0)
+(setq monokai-height-plus-3 1.0)
+(setq monokai-height-plus-4 1.0)
+(load-theme 'monokai t)
 
 ;; Highlight matching parentheses when the point is on them.
 (show-paren-mode 1)
