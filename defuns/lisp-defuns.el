@@ -9,3 +9,7 @@
              (current-buffer))
     (error (message "Invalid expression")
            (insert (current-kill 0)))))
+
+(defmacro hook-into-modes (func modes)
+  `(dolist (mode-hook ,modes)
+     (add-hook mode-hook ,func)))

@@ -11,17 +11,14 @@
       (expand-file-name "site-lisp" user-emacs-directory))
 (setq etc-dir
       (expand-file-name "etc" user-emacs-directory))
+(setq var-dir
+      (expand-file-name "var" user-emacs-directory))
 
 
 ;; Set up load path
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path site-lisp-dir)
 (add-to-list 'load-path etc-dir)
-
-;; utils
-(defmacro hook-into-modes (func modes)
-  `(dolist (mode-hook ,modes)
-     (add-hook mode-hook ,func)))
 
 ;; Keep emacs Custom-settings in separate file
 ;; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -102,8 +99,26 @@
    (package-refresh-contents)
    (init--install-packages)))
 
+;; Functions (load all files in defuns-dir)
+(setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
+(dolist (file (directory-files defuns-dir t "\\w+"))
+  (when (file-regular-p file)
+    (load file)))
+
+
 ;; Lets start with a smattering of sanity
 (require 'sane-defaults)
+
+;; recentf
+(use-package recentf
+  :init (progn
+          (setq recentf-save-file
+                (recentf-expand-file-name (expand-file-name "recentf" var-dir)))
+          (recentf-mode 1)
+          (setq recentf-max-saved-items 50)
+          (add-to-list 'recentf-exclude "COMMIT_EDITMSG")
+          (add-to-list 'recentf-exclude "TAGS"))
+  )
 
 ;; Smooth scrolling
 (use-package smooth-scrolling
@@ -184,11 +199,6 @@
             (set (make-local-variable 'comment-auto-fill-only-comments) t)
             (auto-fill-mode 1)))
 
-;; Functions (load all files in defuns-dir)
-(setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
-(dolist (file (directory-files defuns-dir t "\\w+"))
-  (when (file-regular-p file)
-    (load file)))
 
 (use-package delsel)
 (use-package wgrep)
