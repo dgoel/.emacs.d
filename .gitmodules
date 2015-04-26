@@ -10,12 +10,12 @@
 [submodule "site-lisp/revbufs"]
         path = site-lisp/revbufs
         url = https://github.com/emacsmirror/revbufs.git
-[submodule "site-lisp/emacs-color-theme-solarized"]
-        path = themes/emacs-color-theme-solarized
-        url = https://github.com/dgoel/emacs-color-theme-solarized
 [submodule "site-lisp/use-package"]
 	path = site-lisp/use-package
 	url = https://github.com/jwiegley/use-package/
-[submodule "themes/monokai"]
-	path = themes/monokai
+[submodule "etc/themes/dgoel-solarized"]
+        path = etc/themes/dgoel-solarized
+        url = https://github.com/dgoel/emacs-color-theme-solarized
+[submodule "etc/themes/dgoel-monokai"]
+	path = etc/themes/dgoel-monokai
 	url = https://dgoel@github.com/dgoel/monokai-emacs

@@ -9,10 +9,14 @@
 ;; Set path to dependencies
 (setq site-lisp-dir
       (expand-file-name "site-lisp" user-emacs-directory))
+(setq etc-dir
+      (expand-file-name "etc" user-emacs-directory))
+
 
 ;; Set up load path
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path site-lisp-dir)
+(add-to-list 'load-path etc-dir)
 
 ;; utils
 (defmacro hook-into-modes (func modes)
