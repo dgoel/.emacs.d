@@ -10,6 +10,9 @@
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)
 
+;; Let apropos perform more extensive search than default
+(setq apropos-do-all t)
+
 ;; Also auto refresh dired, but be quiet about it
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
@@ -150,6 +153,7 @@
 (setq auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.txt$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\<\\.bash_\\>" . shell-script-mode))
 
 (setq display-buffer-prefer-horizontal-split t)
 
