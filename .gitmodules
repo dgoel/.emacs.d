@@ -19,3 +19,6 @@
 [submodule "etc/themes/dgoel-monokai"]
 	path = etc/themes/dgoel-monokai
 	url = https://dgoel@github.com/dgoel/monokai-emacs
+[submodule "benchmark"]
+	path = benchmark
+	url = https://github.com/dholm/benchmark-init-el
