@@ -22,7 +22,11 @@
 ;;
 ;;     git config --add magit.extension svn
 ;;
+
 (add-hook 'magit-mode-hook 'magit-load-config-extensions)
+(setf vc-display-status nil)
+(add-hook 'git-commit-mode-hook
+          (lambda () (when (looking-at "\n") (open-line 1))))
 
 (defun magit-save-and-exit-commit-mode ()
   (interactive)
@@ -117,4 +121,4 @@
 (require-package 'git-messenger)
 (global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
 
-(provide 'setup-magit)
+(provide 'magit-config)

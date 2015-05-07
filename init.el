@@ -171,7 +171,18 @@
 ;; Setup extensions
 (eval-after-load 'ido '(require 'setup-ido))
 (eval-after-load 'org '(require 'setup-org))
-(eval-after-load 'magit '(require 'setup-magit))
+
+;; Magit
+(use-package magit
+  :diminish magit-auto-revert-mode
+  :bind ("C-x g" . magit-status)
+  :init
+  (setf magit-last-seen-setup-instructions "1.4.0")
+  :config
+  (progn
+    (use-package magit-config))
+  )
+
 (eval-after-load 'grep '(require 'setup-rgrep))
 (eval-after-load 'shell '(require 'setup-shell))
 
@@ -252,9 +263,6 @@
             (setq projectile-completion-system 'rejeep-projectile-completion-fn)
             ))
 
-;; Magit
-(use-package magit
-  :bind (("C-x m" . magit-status)))
 
 ;; Go back in history with a touch of a button
 (use-package git-timemachine)
