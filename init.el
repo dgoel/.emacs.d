@@ -45,9 +45,6 @@
 ;; Setup packages
 (require 'setup-package)
 
-;; Set up appearance early
-(require 'appearance)
-
 ;; Install extensions if they're missing
 (defun init--install-packages ()
   (packages-install
@@ -110,6 +107,8 @@
   (when (file-regular-p file)
     (load file)))
 
+;; Set up appearance early
+(require 'appearance)
 
 ;; Lets start with a smattering of sanity
 (require 'sane-defaults)
