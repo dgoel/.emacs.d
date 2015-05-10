@@ -43,63 +43,9 @@
 (require 'use-package)
 
 ;; Setup packages
-(require 'setup-package)
-
-;; Install extensions if they're missing
-(defun init--install-packages ()
-  (packages-install
-   '(ace-jump-mode
-     ag
-     change-inner
-     dash
-     expand-region
-     elfeed
-     ; elpy
-     flx
-     flx-ido
-     ;; ido-vertical-mode
-     ido-at-point
-     ido-ubiquitous
-     guide-key
-     highlight-escape-sequences
-     highlight-parentheses
-     ;; elisp-slime-nav
-     git-commit-mode
-     gitconfig-mode
-     gitignore-mode
-     git-timemachine
-     jump-char
-     magit
-     move-text
-     multiple-cursors
-     org
-     org-plus-contrib
-     paredit
-     perspective
-     persp-projectile
-     projectile
-     s
-     smartparens
-     smart-forward
-     smooth-scrolling
-     undo-tree
-     visual-regexp
-     wgrep
-     ws-butler
-     yasnippet
-     )))
-
-(use-package s
-  :ensure t)
-
-(use-package dash
-  :ensure t)
-
-(condition-case nil
-    (init--install-packages)
-  (error
-   (package-refresh-contents)
-   (init--install-packages)))
+(setq package-user-dir
+      (expand-file-name "elpa" user-emacs-directory))
+(package-initialize)
 
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
