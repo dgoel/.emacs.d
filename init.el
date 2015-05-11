@@ -53,11 +53,11 @@
   (when (file-regular-p file)
     (load file)))
 
-;; Set up appearance early
-(require 'appearance)
+;; Load files from etc/
+(dolist (file (directory-files etc-dir t "\\w+"))
+  (when (file-regular-p file)
+    (load file)))
 
-;; Lets start with a smattering of sanity
-(require 'sane-defaults)
 
 ;; recentf
 (use-package recentf
@@ -114,19 +114,7 @@
 (use-package visual-regexp)
 
 ;; Setup extensions
-(eval-after-load 'ido '(require 'setup-ido))
 (eval-after-load 'org '(require 'setup-org))
-
-;; Magit
-(use-package magit
-  :diminish magit-auto-revert-mode
-  :bind ("C-x g" . magit-status)
-  :init
-  (setf magit-last-seen-setup-instructions "1.4.0")
-  :config
-  (progn
-    (use-package magit-config))
-  )
 
 (eval-after-load 'grep '(require 'setup-rgrep))
 (eval-after-load 'shell '(require 'setup-shell))
