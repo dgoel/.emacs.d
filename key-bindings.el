@@ -80,13 +80,13 @@
 
 ;; Killing text
 (global-set-key (kbd "C-S-k") 'kill-and-retry-line)
-(global-set-key (kbd "C-w") 'kill-region-or-backward-word)
+;(global-set-key (kbd "C-w") 'kill-region-or-whole-line)
 (global-set-key (kbd "C-c C-w") 'kill-to-beginning-of-line)
 
 ;; Use M-w for copy-line if no active region
-(global-set-key (kbd "M-W") 'save-region-or-current-line)
+;(global-set-key (kbd "M-W") 'save-region-or-current-line)
 ;(global-set-key (kbd "s-w") 'save-region-or-current-line)
-(global-set-key (kbd "M-w") (λ (save-region-or-current-line 1)))
+;(global-set-key (kbd "M-w") (λ (save-region-or-current-line 1)))
 
 ;; Make shell more convenient, and suspend-frame less
 (global-set-key (kbd "C-z") 'shell)
