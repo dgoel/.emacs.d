@@ -10,6 +10,9 @@
       ido-use-filename-at-point nil
       ido-max-prospects 10)
 
+(setq ido-save-directory-list-file (expand-file-name "ido.last" var-dir))
+
+
 ;; Try out flx-ido for better flex matching between words
 ; (require 'flx-ido)
 ; (flx-ido-mode 1)
@@ -54,9 +57,6 @@
 ;; Always rescan buffer for imenu
 (set-default 'imenu-auto-rescan t)
 
-(add-to-list 'ido-ignore-directories "Release")
-(add-to-list 'ido-ignore-directories "Debug")
-
 ;; Ido at point (C-,)
 (require 'ido-at-point)
 (ido-at-point-mode)
@@ -71,9 +71,5 @@
      '(defadvice ,cmd (around ido-ubiquitous-new activate)
         (let ((ido-ubiquitous-enable-compatibility nil))
           ad-do-it))))
-
-(ido-ubiquitous-use-new-completing-read webjump 'webjump)
-(ido-ubiquitous-use-new-completing-read yas-expand 'yasnippet)
-(ido-ubiquitous-use-new-completing-read yas-visit-snippet-file 'yasnippet)
 
 (provide 'setup-ido)
