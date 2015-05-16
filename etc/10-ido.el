@@ -65,6 +65,16 @@
 (require 'ido-ubiquitous)
 (ido-ubiquitous-mode 1)
 
+;; Smart M-x
+(use-package smex
+  :bind (("M-x"     . smex)
+         ("M-X"     . smex-major-mode-commands)
+         ("C-c M-x" . execute-extended-command))
+  :init (progn
+          (setq smex-save-file (expand-file-name "smex-items" var-dir))
+          (smex-initialize))
+  :ensure t)
+
 ;; Fix ido-ubiquitous for newer packages
 (defmacro ido-ubiquitous-use-new-completing-read (cmd package)
   `(eval-after-load ,package
