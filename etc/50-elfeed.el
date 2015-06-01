@@ -1,5 +1,6 @@
 ;; Elfeed
 (use-package elfeed
   :defer t
-  :init (use-package "personal/feeds")
-  :config (hl-line-mode 1))
+  :commands (elfeed elfeed-update)
+  :config (use-package "personal/feeds")
+  :init (hl-line-mode 1))
