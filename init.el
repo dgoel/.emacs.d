@@ -59,22 +59,6 @@
     (load file)))
 
 
-;; recentf
-(use-package recentf
-  :init (progn
-          (setq recentf-save-file
-                (recentf-expand-file-name (expand-file-name "recentf" var-dir)))
-          (recentf-mode 1)
-          (setq recentf-max-saved-items 50)
-          (add-to-list 'recentf-exclude "COMMIT_EDITMSG")
-          (add-to-list 'recentf-exclude "TAGS"))
-  )
-
-
-;; Unique file names
-(use-package uniquify
-  :init (setq uniquify-buffer-name-style 'forward))
-
 ;; Guide-key
 (use-package guide-key
   :diminish guide-key-mode
