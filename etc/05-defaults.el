@@ -85,9 +85,6 @@
 ;; Lines should be 80 characters wide, not 72
 (set-default 'fill-column 80)
 
-;; Undo/redo window configuration with C-c <left>/<right>
-(winner-mode 1)
-
 ;; Never insert tabs
 (set-default 'indent-tabs-mode nil)
 
