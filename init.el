@@ -100,33 +100,6 @@
 
 ;; Language specific setup files
 (eval-after-load 'cc-mode '(require 'setup-c))
-(use-package markdown-mode
-  :mode ("\\.\\(md\\|markdown\\)\\'" . markdown-mode))
-(use-package python
-  :mode ("\\<\\(SConscript\\|SConstruct\\)\\>" . python-mode))
-(use-package highlight-parentheses
-  :diminish highlight-parentheses-mode
-  :init (hook-into-modes #'(lambda () (highlight-parentheses-mode 1))
-                         '(prog-mode-hook
-                           c-mode-common-hook
-                           lisp-mode-hook)))
-;; manage whitespace for edited lines only
-(use-package ws-butler
-  :diminish ws-butler-mode
-  :init (hook-into-modes #'(lambda () (ws-butler-mode 1))
-                         '(prog-mode-hook
-                           c-mode-common-hook
-                           python-mode-hook
-                           gud-mode-hook)))
-; (add-hook 'c-mode-common-hook 'ws-butler-mode)
-
-;; auto wrap comments in programming modesa
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (setq fill-column 80)
-            (set (make-local-variable 'comment-auto-fill-only-comments) t)
-            (auto-fill-mode 1)))
-
 
 (use-package delsel)
 (use-package wgrep)
