@@ -113,7 +113,6 @@
 (eval-after-load 'org '(require 'setup-org))
 
 (eval-after-load 'grep '(require 'setup-rgrep))
-(eval-after-load 'shell '(require 'setup-shell))
 
 ;; Language specific setup files
 (eval-after-load 'cc-mode '(require 'setup-c))
