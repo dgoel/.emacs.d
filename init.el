@@ -94,8 +94,6 @@
 (use-package visual-regexp)
 
 ;; Setup extensions
-(eval-after-load 'org '(require 'setup-org))
-
 (eval-after-load 'grep '(require 'setup-rgrep))
 
 ;; Language specific setup files

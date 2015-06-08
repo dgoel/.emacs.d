@@ -68,3 +68,7 @@
   ;;             :ensure t))
   )
 ; (elpy-enable)
+
+(use-package org
+  :mode ("\\.\\(org\\|org_archive\\|eml\\)\\'" . org-mode)
+  :config (require 'org-conf "modes.d/org-conf"))
