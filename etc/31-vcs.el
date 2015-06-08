@@ -67,3 +67,7 @@
 
     )
   )
+
+;; Go back in history with a touch of a button
+(use-package git-timemachine
+  :commands git-timemachine-mode)

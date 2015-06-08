@@ -147,10 +147,12 @@
             ))
 
 
-;; Go back in history with a touch of a button
-(use-package git-timemachine)
-
-
+;; Emacs server
+(use-package edit-server
+  :if window-system
+  :config (progn
+          (add-hook 'after-init-hook 'server-start t)
+          (add-hook 'after-init-hook 'edit-server-start t)))
 
 
 ;; Emacs server
