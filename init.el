@@ -90,21 +90,15 @@
          (put 'font-lock-regexp-grouping-backslash
               'face-alias 'font-lock-builtin-face)))
 
-;; Visual regexp
-(use-package visual-regexp)
-
 ;; Setup extensions
-(eval-after-load 'grep '(require 'setup-rgrep))
+; (eval-after-load 'grep '(require 'setup-rgrep))
 
 ;; Language specific setup files
 (eval-after-load 'cc-mode '(require 'setup-c))
 
-(use-package delsel)
-(use-package wgrep)
+; (use-package delsel)
 (use-package revbufs)
 (use-package key-bindings)
-(use-package ag
-  :init (setq ag-reuse-window 't))
 
 ;; Projectile
 (use-package projectile
