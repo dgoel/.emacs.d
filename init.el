@@ -93,9 +93,6 @@
 ;; Setup extensions
 ; (eval-after-load 'grep '(require 'setup-rgrep))
 
-;; Language specific setup files
-(eval-after-load 'cc-mode '(require 'setup-c))
-
 ; (use-package delsel)
 (use-package revbufs)
 (use-package key-bindings)

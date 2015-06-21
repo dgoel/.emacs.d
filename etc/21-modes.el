@@ -55,6 +55,11 @@
 ;; Specific modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; CC
+(use-package cc-mode
+  :mode ("\\.\\(c\\|cc\\|cpp\\|h\\|hpp\\)\\'" . c-mode)
+  :config (require 'cc-conf "modes.d/cc-conf"))
+
 ;; Markdown
 (use-package markdown-mode
   :mode ("\\.\\(md\\|markdown\\)\\'" . markdown-mode))

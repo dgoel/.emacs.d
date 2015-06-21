@@ -24,5 +24,4 @@
 ;;; Show the current function
 ; (add-hook 'c-mode-common-hook (lambda () (which-function-mode t)))
 
-(provide 'setup-c)
-
+(provide 'cc-conf)
