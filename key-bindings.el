@@ -53,13 +53,6 @@
 
 ;; (global-set-key (kbd "M-h") 'kill-region-or-backward-word)
 
-;; Transpose stuff with M-t
-(global-unset-key (kbd "M-t")) ;; which used to be transpose-words
-(global-set-key (kbd "M-t l") 'transpose-lines)
-(global-set-key (kbd "M-t w") 'transpose-words)
-(global-set-key (kbd "M-t s") 'transpose-sexps)
-(global-set-key (kbd "M-t p") 'transpose-params)
-
 ;; Interactive selective display
 (global-set-key (kbd "C-x $") 'inc-selective-display)
 
