@@ -72,3 +72,10 @@
 (use-package org
   :mode ("\\.\\(org\\|org_archive\\|eml\\)\\'" . org-mode)
   :config (require 'org-conf "modes.d/org-conf"))
+
+
+;;; auto-mode-alist entries
+(add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
+(add-to-list 'auto-mode-alist '("[._]bash.*" . shell-script-mode))
+(add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("[Mm]akefile" . makefile-gmake-mode))
