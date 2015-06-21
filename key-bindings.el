@@ -134,12 +134,6 @@
 ;; Copy file path to kill ring
 (global-set-key (kbd "C-x M-w") 'copy-current-file-path)
 
-;; Window switching
-(windmove-default-keybindings) ;; Shift+direction
-(global-set-key (kbd "C-x -") 'rotate-windows)
-(global-set-key (kbd "C-x |") 'toggle-window-split)
-
-(global-set-key (kbd "C-x 3") 'split-window-right-and-move-there-dammit)
 
 ;; Indentation help
 (global-set-key (kbd "M-j") (λ (join-line -1)))
