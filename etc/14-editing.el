@@ -64,3 +64,7 @@
 (use-package move-text
   :bind (("<C-S-down>" . move-text-down)
          ("<C-S-up>" . move-text-up)))
+
+;; Revert all buffers
+(use-package revbufs
+  :commands (revbufs))

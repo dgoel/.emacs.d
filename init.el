@@ -94,7 +94,6 @@
 ; (eval-after-load 'grep '(require 'setup-rgrep))
 
 ; (use-package delsel)
-(use-package revbufs)
 (use-package key-bindings)
 
 ;; Emacs server
