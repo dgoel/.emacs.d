@@ -59,3 +59,8 @@
                           (point))))
       (transpose-regions start-of-first end-of-first start-of-last end-of-last)))
   )
+
+;; Line movement
+(use-package move-text
+  :bind (("<C-S-down>" . move-text-down)
+         ("<C-S-up>" . move-text-up)))
