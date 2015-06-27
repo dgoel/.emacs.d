@@ -8,7 +8,7 @@
          ("C-<"         . mc/mark-previous-like-this)
          ("C-c C-<"     . mc/mark-all-like-this)
          ("S-SPC"       . set-rectangular-region-anchor))
-  :init (setq mc/list-file (expand-file-name ".mc-lists.el")))
+  :config (setq mc/list-file (expand-file-name ".mc-lists.el" var-dir)))
 
 ;; Undo tree
 (use-package undo-tree
