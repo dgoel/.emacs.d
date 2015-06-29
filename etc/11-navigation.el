@@ -41,6 +41,12 @@
   :load-path "site-lisp/inc-seldisp.el"
   :bind ("C-x $" . inc-selective-display))
 
+;; Highlight and search current symbol
+(use-package cursym
+  :load-path "site-lisp/cursym.el"
+  :bind ("C-*" . isearch-current-symbol)
+        ("C-#" . isearch-backward-current-symbol))
+
 ;; Move more quickly
 (global-set-key (kbd "C-S-n") (λ (ignore-errors (next-line 5))))
 (global-set-key (kbd "C-S-p") (λ (ignore-errors (previous-line 5))))
