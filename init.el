@@ -3,9 +3,6 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-;; No splash screen please ... jeez
-(setq inhibit-startup-message t)
-
 ;; Benchmark packages
 (add-to-list 'load-path (expand-file-name "benchmark" user-emacs-directory))
 (require 'benchmark-init-loaddefs)

@@ -1,3 +1,6 @@
+;; No splash screen please
+(setq inhibit-startup-message t)
+
 ;; Allow pasting selection outside of Emacs
 (setq x-select-enable-clipboard t)
 
@@ -155,4 +158,3 @@
      (list (line-beginning-position)
            (line-beginning-position 2)))))
 
-(provide 'sane-defaults)
