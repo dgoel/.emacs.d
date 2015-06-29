@@ -1,5 +1,5 @@
 ;; Load org mode files from here
-(add-to-list 'load-path "/usr/share/org-mode/lisp")
+;(add-to-list 'load-path "/usr/share/org-mode/lisp")
 
 ;; Top directory
 (setq org-directory "~/org")
@@ -13,8 +13,14 @@
 
 ;; Only show one star
 (setq org-hide-leading-stars t)
-; (setq org-startup-indented t)
-; (setq org-indent-mode t)
+
+;; Don't ruin S-arrow to switch windows please
+;; (use M-+ and M-- instead to toggle)
+(setq org-replace-disputed-keys t)
+
+;; No indent
+(setq org-startup-indented nil)
+(setq org-indent-mode nil)
 
 ;; Follow links
 (setq org-return-follows-link t)
@@ -25,11 +31,11 @@
 ;; Very popular -- fast state change
 (setq org-use-fast-todo-selection t)
 
-;; Hides blank lines between headings to keep the folded view compact
-(setq org-cycle-separator-lines 0)
+;; Don't hide blank lines
+; (setq org-cycle-separator-lines 0)
 
 ;; Enable auto-fill
-(add-hook 'org-mode-hook 'auto-fill-mode)
+(add-hook 'org-mode-hook 'turn-on-filladapt-mode)
 
 ;; highlight current line
 (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
@@ -74,7 +80,7 @@
 
 
 ;; Latex export for org-article class
-(require 'org-latex)
+(require 'ob-latex)
 (setq org-export-latex-listings t)
 
 (defun myorg-update-parent-cookie ()
