@@ -37,6 +37,7 @@
 ;; Highlight parenthesis
 (use-package highlight-parentheses
   :diminish highlight-parentheses-mode
+  :commands (highlight-parentheses-mode)
   :init (hook-into-modes #'(lambda () (highlight-parentheses-mode 1))
                          '(prog-mode-hook
                            c-mode-common-hook
@@ -45,6 +46,7 @@
 ;; Manage whitespace for edited lines only
 (use-package ws-butler
   :diminish ws-butler-mode
+  :commands (ws-butler-mode)
   :init (hook-into-modes #'(lambda () (ws-butler-mode 1))
                          '(prog-mode-hook
                            c-mode-common-hook
@@ -57,16 +59,19 @@
 
 ;; CC
 (use-package cc-mode
-  :mode ("\\.\\(c\\|cc\\|cpp\\|h\\|hpp\\)\\'" . c-mode)
+  :mode (("\\.\\(cc\\|cpp\\|cxx\\|hpp\\|hxx\\)\\'" . c++-mode)
+         ("\\.\\(c\\|h\\)\\'" . c-mode))
   :config (require 'cc-conf "modes.d/cc-conf"))
 
 ;; Markdown
 (use-package markdown-mode
-  :mode ("\\.\\(md\\|markdown\\)\\'" . markdown-mode))
+  :mode ("\\.\\(md\\|markdown\\)\\'" . markdown-mode)
+  :config (setf sentence-end-double-space nil))
 
 ;; Python
 (use-package python
-  :mode ("\\<\\(SConscript\\|SConstruct\\)\\>" . python-mode)
+  :mode (("\\<\\(SConscript\\|SConstruct\\)\\>" . python-mode)
+         ("\\.py\\'" . python-mode))
   ;; :config (progn
   ;;           (use-package elpy
   ;;             :config (elpy-enable)
