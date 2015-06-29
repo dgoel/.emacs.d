@@ -103,17 +103,8 @@
 ;; Don't be so stingy on the memory, we have lots now
 (setq gc-cons-threshold 20000000)
 
-;; org-mode: Don't ruin S-arrow to switch windows please
-;; (use M-+ and M-- instead to toggle)
-(setq org-replace-disputed-keys t)
-
 ;; Sentences do not need double spaces to end. Period.
 (set-default 'sentence-end-double-space nil)
-
-;; A saner ediff
-(setq ediff-diff-options "-w")
-(setq ediff-split-window-function 'split-window-horizontally)
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 ;; Dont resize minibuffer
 (setq resize-mini-windows nil)
