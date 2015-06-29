@@ -1,6 +1,8 @@
 ;; recentf
 (use-package recentf
+  :defer 10
   :bind ("C-x f" . ido-recentf-open)
+  :commands (recentf-mode)
   :config
   (progn
     (message "Loading recentf")
@@ -71,15 +73,20 @@
 
 ;; Undo/redo window configuration with C-c <left>/<right>
 (use-package winner
+  :if (not noninteractive)
+  :defer 5
   :config (progn
             (winner-mode 1)
-            (windmove-default-keybindings))
-  )
-
+            (windmove-default-keybindings)))
 
 ;; Window switching
 (use-package window-move
+  :load-path "site-lisp/window-move.el"
   :bind (("C-x -" . rotate-windows)
          ("C-x |" . toggle-window-split)
-         ("C-x 3" . split-window-right-and-move-there-dammit))
-  )
+         ("C-x 3" . split-window-right-and-move-there-dammit)))
+
+
+;; Multiple scratch buffers
+(use-package scratch
+  :commands (scratch))

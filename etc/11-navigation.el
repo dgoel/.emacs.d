@@ -1,29 +1,28 @@
 ;; Smooth scrolling
 (use-package smooth-scrolling
-  :config (setq smooth-scroll-margin 5)
-  :ensure t)
+  :config (setq smooth-scroll-margin 5))
 
 ;; Expand region (increases selected region by semantic units)
 (use-package expand-region
-  :bind ("C-=" . er/expand-region)
-  :ensure t)
-
+  :bind ("C-=" . er/expand-region))
 
 ;; Quickly jump in document with ace-jump-mode
-(use-package ace-jump-mode
-  :bind ("C-c SPC" . ace-jump-mode))
+;; (use-package ace-jump-mode
+;;   :bind ("M-g j" . ace-jump-mode))
+;; Avy mode to jump
+(use-package avy
+  :bind ("M-g w" . avy-goto-word-1)
+        ("M-g c" . avy-goto-char-2))
 
 ;; iy-go-to-char - like f in Vim
 (use-package jump-char
   :bind (("M-m" . jump-char-forward)
-         ("M-M" . jump-char-backward))
-  :ensure t)
+         ("M-M" . jump-char-backward)))
 
 ;; Browse kill ring
 (use-package browse-kill-ring
   :bind ("C-x C-y" . browse-kill-ring)
-  :init
-  (setq browse-kill-ring-quit-action 'save-and-restore))
+  :config (setq browse-kill-ring-quit-action 'save-and-restore))
 
 (use-package smart-forward
   :bind (("M-<up>"    . smart-up)
@@ -48,3 +47,7 @@
 (global-set-key (kbd "C-S-f") (λ (ignore-errors (forward-char 5))))
 (global-set-key (kbd "C-S-b") (λ (ignore-errors (backward-char 5))))
 
+
+;; Navigation bindings
+(global-set-key [remap goto-line] 'goto-line-with-feedback)
+(global-set-key (kbd "M-g M-c") 'go-to-column)

@@ -17,6 +17,7 @@
 (defconst my-packages
    '(ace-jump-mode
      ag
+     avy
      change-inner
      dash
      expand-region
@@ -48,6 +49,7 @@
      persp-projectile
      projectile
      s
+     scratch
      smartparens
      smart-forward
      smooth-scrolling
