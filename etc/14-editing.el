@@ -13,24 +13,22 @@
 ;; Undo tree
 (use-package undo-tree
   :bind ("C-x u" . undo-tree-visualize)
-  :init
-  (progn
-    (global-undo-tree-mode 1)
-    (setq undo-tree-mode-lighter "")
-    (setq undo-tree-visualizer-timestamps t)
-    (setq undo-tree-visualizer-diff t))
   :config
-  ;; Keep region when undoing in region
-  (defadvice undo-tree-undo (around keep-region activate)
-    (if (use-region-p)
-        (let ((m (set-marker (make-marker) (mark)))
-              (p (set-marker (make-marker) (point))))
-          ad-do-it
-          (goto-char p)
-          (set-mark m)
-          (set-marker p nil)
-          (set-marker m nil))
-      ad-do-it)))
+  (;;(global-undo-tree-mode 1)
+   (setq undo-tree-mode-lighter "")
+   (setq undo-tree-visualizer-timestamps t)
+   (setq undo-tree-visualizer-diff t)
+   (defadvice undo-tree-undo (around keep-region activate)
+     "Keep region when undoing in region"
+     (if (use-region-p)
+         (let ((m (set-marker (make-marker) (mark)))
+               (p (set-marker (make-marker) (point))))
+           ad-do-it
+           (goto-char p)
+           (set-mark m)
+           (set-marker p nil)
+           (set-marker m nil))
+       ad-do-it))))
 
 ;; Transpose
 (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
