@@ -47,6 +47,11 @@
   :bind ("C-*" . isearch-current-symbol)
         ("C-#" . isearch-backward-current-symbol))
 
+;; imenu
+(use-package idomenu
+  :bind ("C-x TAB" . imenu))
+
+
 ;; Move more quickly
 (global-set-key (kbd "C-S-n") (λ (ignore-errors (next-line 5))))
 (global-set-key (kbd "C-S-p") (λ (ignore-errors (previous-line 5))))

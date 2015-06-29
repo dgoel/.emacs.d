@@ -27,6 +27,7 @@
      flx-ido
      ;; ido-vertical-mode
      ido-at-point
+     idomenu
      ido-ubiquitous
      guide-key
      highlight-escape-sequences
