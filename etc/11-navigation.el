@@ -37,6 +37,11 @@
          ("C-c C-F" . fold-this)
          ("C-c M-f" . fold-this-unfold-all)))
 
+;; Interactive selective display
+(use-package inc-seldisp
+  :load-path "site-lisp/inc-seldisp.el"
+  :bind ("C-x $" . inc-selective-display))
+
 ;; Move more quickly
 (global-set-key (kbd "C-S-n") (λ (ignore-errors (next-line 5))))
 (global-set-key (kbd "C-S-p") (λ (ignore-errors (previous-line 5))))
