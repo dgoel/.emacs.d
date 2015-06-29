@@ -4,8 +4,6 @@
   :commands (elfeed elfeed-update)
   :config (require 'feeds "personal/feeds.el"))
 
-(setq url-cookie-file (expand-file-name "url" var-dir))
-
 (use-package browse-url
   :defer t
   :commands (browse-url browse-url-at-point browse-url-at-mouse)
@@ -17,7 +15,8 @@
         (browse-url-default-browser url)
       (eww-browse-url url)))
   (setq browse-url-browser-function 'choose-browser)
-  (setf url-cache-directory (expand-file-name "url" var-dir)))
+  (setf url-cache-directory (expand-file-name "url" var-dir))
+  (setq url-cookie-file (expand-file-name "url/cookies" var-dir)))
 
 ;; eww
 (use-package eww
