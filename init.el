@@ -80,12 +80,6 @@
   :config (progn
             (yas-reload-all)))
 
-;; Highlight escape sequences
-(use-package highlight-escape-sequences
-  :config
-  (progn (hes-mode)
-         (put 'font-lock-regexp-grouping-backslash
-              'face-alias 'font-lock-builtin-face)))
 
 ;; Setup extensions
 ; (eval-after-load 'grep '(require 'setup-rgrep))

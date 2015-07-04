@@ -31,7 +31,6 @@
      idomenu
      ido-ubiquitous
      guide-key
-     highlight-escape-sequences
      highlight-parentheses
      ;; elisp-slime-nav
      git-commit-mode
