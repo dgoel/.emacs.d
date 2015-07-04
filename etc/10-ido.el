@@ -79,6 +79,24 @@
             (setq smex-save-file (expand-file-name "smex-items" var-dir))
             (smex-initialize)))
 
+(use-package ido-hacks
+  :disabled t
+  :bind ("M-x" . my-ido-hacks-execute-extended-command)
+  :config
+  (ido-hacks-mode 1)
+
+  (defvar ido-hacks-completing-read (symbol-function 'completing-read))
+  (fset 'completing-read ido-hacks-orgin-completing-read-function)
+  (defun my-ido-hacks-execute-extended-command (&optional arg)
+    (interactive "P")
+    (flet ((completing-read
+            (prompt collection &optional predicate require-match
+                    initial-input hist def inherit-input-method)
+            (funcall ido-hacks-completing-read
+                     prompt collection predicate require-match
+                     initial-input hist def inherit-input-method)))
+      (ido-hacks-execute-extended-command arg))))
+
 
 ;; Fix ido-ubiquitous for newer packages
 (defmacro ido-ubiquitous-use-new-completing-read (cmd package)

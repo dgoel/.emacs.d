@@ -27,6 +27,7 @@
      flx-ido
      ;; ido-vertical-mode
      ido-at-point
+     ido-hacks
      idomenu
      ido-ubiquitous
      guide-key
