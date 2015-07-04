@@ -2,7 +2,9 @@
 (use-package elfeed
   :defer t
   :commands (elfeed elfeed-update)
-  :config (require 'feeds "personal/feeds.el"))
+  :config
+  (require 'feeds "personal/feeds.el")
+  (setf url-queue-timeout 30))
 
 (use-package browse-url
   :defer t
