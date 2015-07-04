@@ -52,6 +52,30 @@
                            c-mode-common-hook
                            python-mode-hook)))
 
+;;;;  using use-package
+(defmacro hook-into-modes (func modes)
+  `(dolist (mode-hook ,modes)
+     (add-hook mode-hook ,func)))
+
+(use-package yasnippet
+  :disabled t
+  :if (not noninteractive)
+  :diminish yas-minor-mode
+  :commands (yas-minor-mode yas-expand)
+  :mode ("/\\.emacs\\.d/etc/snippets/" . snippet-mode)
+  :init (hook-into-modes #'(lambda () (yas-minor-mode 1))
+                         '(prog-mode-hook
+                           org-mode-hook
+                           message-mode-hook
+                           gud-mode-hook
+                           erc-mode-hook))
+  :config
+  ((yas-load-directory (expand-file-name "snippets/" user-emacs-directory))
+   (setq yas-prompt-functions '(yas/ido-prompt yas/completing-prompt))
+   (setq yas-verbosity 1)
+   ;; Wrap around region
+   (setq yas-wrap-around-region t)
+    (bind-key "<tab>" 'yas-next-field-or-maybe-expand yas-keymap)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Specific modes

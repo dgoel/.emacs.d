@@ -66,19 +66,6 @@
           (setq guide-key/recursive-key-sequence-flag t)
           (setq guide-key/popup-window-position 'bottom)))
 
-;; Yasnippet
-;; (custom snippets from snippets/ directory are automatically loaded)
-(use-package yasnippet
-  :if (not noninteractive)
-  :diminish yas-minor-mode
-  :idle (yas-minor-mode)
-  :init (hook-into-modes #'(lambda () (yas-minor-mode 1))
-                         '(;prog-mode-hook
-                           c-mode-common-hook
-                           python-mode-hook
-                           gud-mode-hook))
-  :config (progn
-            (yas-reload-all)))
 
 
 ;; Setup extensions
