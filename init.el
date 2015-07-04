@@ -56,18 +56,6 @@
     (load file)))
 
 
-;; Guide-key
-(use-package guide-key
-  :diminish guide-key-mode
-  :init (progn
-          (guide-key-mode t)
-          (setq guide-key/guide-key-sequence
-                '("C-c" "C-x r" "C-c p" "C-x 4" "C-x v" "C-x 8" "C-x +"))
-          (setq guide-key/recursive-key-sequence-flag t)
-          (setq guide-key/popup-window-position 'bottom)))
-
-
-
 ;; Setup extensions
 ; (eval-after-load 'grep '(require 'setup-rgrep))
 

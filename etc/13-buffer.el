@@ -1,3 +1,22 @@
+;; Prevent accidentally killing emacs: change to "C-x REALLY QUIT"
+(global-set-key (kbd "C-x R Q") 'save-buffers-kill-terminal)
+(global-unset-key (kbd "C-x C-c")) ; never quit like this
+
+;; ibuffer
+(use-package ibuffer
+  :bind ("C-x C-b" . ibuffer))
+
+;; guide-key
+(use-package guide-key
+  :diminish guide-key-mode
+  ;;:commands guide-key-mode
+  :config (progn
+            (guide-key-mode t)
+            (setq guide-key/guide-key-sequence
+                  '("C-h" "M-s" "C-c" "C-x r" "C-c p" "C-x 4" "C-x v" "C-x 8" "C-x +"))
+            (setq guide-key/recursive-key-sequence-flag t)
+            (setq guide-key/popup-window-position 'bottom)))
+
 ;; recentf
 (use-package recentf
   :defer 10
@@ -85,6 +104,10 @@
   :bind (("C-x -" . rotate-windows)
          ("C-x |" . toggle-window-split)
          ("C-x 3" . split-window-right-and-move-there-dammit)))
+
+;; Resize window
+(global-set-key (kbd "C-}") 'shrink-window-horizontally)
+(global-set-key (kbd "C-{") 'enlarge-window-horizontally)
 
 
 ;; Multiple scratch buffers

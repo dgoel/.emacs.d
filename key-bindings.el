@@ -1,8 +1,3 @@
-;; I don't need to kill emacs that easily
-;; the mnemonic is C-x REALLY QUIT
-(global-set-key (kbd "C-x R Q") 'save-buffers-kill-terminal)
-(global-unset-key (kbd "C-x C-c")) ; never quit like this
-
 ;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 ;; (global-set-key (kbd "C-S-c C-e") 'mc/edit-ends-of-lines)
 ;; (global-set-key (kbd "C-S-c C-a") 'mc/edit-beginnings-of-lines)
@@ -67,10 +62,6 @@
 (global-set-key (kbd "C-x + c") (λ (replace-region-by 's-lower-camel-case)))
 (global-set-key (kbd "C-x + C") (λ (replace-region-by 's-upper-camel-case)))
 
-;; Resizing window
-(global-set-key (kbd "C-}") 'shrink-window-horizontally)
-(global-set-key (kbd "C-{") 'enlarge-window-horizontally)
-
 ;; Killing text
 (global-set-key (kbd "C-S-k") 'kill-and-retry-line)
 ;(global-set-key (kbd "C-w") 'kill-region-or-whole-line)
@@ -112,7 +103,6 @@
 (global-set-key (kbd "C-c y") 'bury-buffer)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; toggle two most recent buffers
 ;(fset 'quick-switch-buffer [?\C-x ?b return])
