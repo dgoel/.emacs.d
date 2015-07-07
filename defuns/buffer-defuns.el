@@ -18,7 +18,7 @@
     (define-key (mode-keymap mode-name-loc) key action)))
 
 (defun create-scratch-buffer nil
-  "create a new scratch buffer to work in. (could be *scratch* - *scratchX*)"
+  "Create a new scratch buffer to work in. (could be *scratch* - *scratchX*)"
   (interactive)
   (let ((n 0)
         bufname)
@@ -53,12 +53,7 @@ Including indent-buffer, which should not be called automatically on save."
   (concat (cadr (reverse (split-string file-name "/"))) "/"
           (file-name-nondirectory file-name)))
 
-(require 's)
-
 (defvar user-home-directory (concat (expand-file-name "~") "/"))
-
-(defun shorter-file-name (file-name)
-  (s-chop-prefix user-home-directory file-name))
 
 (defun kill-other-buffers ()
   "Kill all other buffers."

@@ -30,33 +30,22 @@
            (set-marker m nil))
        ad-do-it))))
 
-;; Transpose
-(global-unset-key (kbd "M-t")) ;; which used to be transpose-words
+;; Simple
 (use-package simple
   :bind (("M-t l" . transpose-lines)
          ("M-t w" . transpose-words)
          ("M-t s" . transpose-sexps)
-         ("M-t p" . transpose-params))
-  :config
-  (defun transpose-params ()
-    "Presumes that params are in the form (p, p, p) or {p, p, p} or [p, p, p]"
-    (interactive)
-    (let* ((end-of-first (cond
-                          ((looking-at ", ") (point))
-                          ((and (looking-back ",") (looking-at " ")) (- (point) 1))
-                          ((looking-back ", ") (- (point) 2))
-                          (t (error "Place point between params to transpose."))))
-           (start-of-first (save-excursion
-                             (goto-char end-of-first)
-                             (move-backward-out-of-param)
-                             (point)))
-           (start-of-last (+ end-of-first 2))
-           (end-of-last (save-excursion
-                          (goto-char start-of-last)
-                          (move-forward-out-of-param)
-                          (point))))
-      (transpose-regions start-of-first end-of-first start-of-last end-of-last)))
-  )
+         ("M-t p" . transpose-params)
+         ("M-z"   . zap-to-char))
+  :init
+  (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
+  (global-set-key (kbd "M-j") (λ (join-line -1)))
+  (global-set-key (kbd "M-Z") (lambda (char)
+                                (interactive "cZap to char: ") (zap-to-char 1 char))))
+
+;; Search & replace
+(use-package replace
+  :bind ("M-&" . query-replace-regexp))
 
 ;; Line movement
 (use-package move-text

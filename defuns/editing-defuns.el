@@ -81,41 +81,6 @@ region-end is used."
      (forward-char -1))
    (duplicate-region num (point-at-bol) (1+ (point-at-eol)))))
 
-;; automatically indenting yanked text if in programming-modes
-
-(require 'dash)
-
-(defvar yank-indent-modes '(prog-mode
-                            sgml-mode
-                            js2-mode)
-  "Modes in which to indent regions that are yanked (or yank-popped)")
-
-(defvar yank-advised-indent-threshold 1000
-  "Threshold (# chars) over which indentation does not automatically occur.")
-
-(defun yank-advised-indent-function (beg end)
-  "Do indentation, as long as the region isn't too large."
-  (if (<= (- end beg) yank-advised-indent-threshold)
-      (indent-region beg end nil)))
-
-(defadvice yank (after yank-indent activate)
-  "If current mode is one of 'yank-indent-modes, indent yanked text (with prefix arg don't indent)."
-  (if (and (not (ad-get-arg 0))
-           (--any? (derived-mode-p it) yank-indent-modes))
-      (let ((transient-mark-mode nil))
-        (yank-advised-indent-function (region-beginning) (region-end)))))
-
-(defadvice yank-pop (after yank-pop-indent activate)
-  "If current mode is one of 'yank-indent-modes, indent yanked text (with prefix arg don't indent)."
-  (if (and (not (ad-get-arg 0))
-           (member major-mode yank-indent-modes))
-      (let ((transient-mark-mode nil))
-        (yank-advised-indent-function (region-beginning) (region-end)))))
-
-(defun yank-unindented ()
-  (interactive)
-  (yank 1))
-
 ;; toggle quotes
 
 (defun current-quotes-char ()
@@ -169,31 +134,41 @@ region-end is used."
 ;; otherwise copy to end of current line
 ;;   * with prefix, copy N whole lines
 
-(defun copy-to-end-of-line ()
+
+(defun move-forward-out-of-param ()
+  (while (not (looking-at ")\\|, \\| ?}\\| ?\\]"))
+    (cond
+     ((point-is-in-string-p) (move-point-forward-out-of-string))
+     ((looking-at "(\\|{\\|\\[") (forward-list))
+     (t (forward-char)))))
+
+(defun move-backward-out-of-param ()
+  (while (not (looking-back "(\\|, \\|{ ?\\|\\[ ?"))
+    (cond
+     ((point-is-in-string-p) (move-point-backward-out-of-string))
+     ((looking-back ")\\|}\\|\\]") (backward-list))
+     (t (backward-char)))))
+
+(defun transpose-params ()
+  "Presumes that params are in the form (p, p, p) or {p, p, p} or [p, p, p]"
+  ;; FIXME: this does not work in params are not on the same line
   (interactive)
-  (kill-ring-save (point)
-                  (line-end-position))
-  (message "Copied to end of line"))
+  (let* ((end-of-first (cond
+                        ((looking-at ", ") (point))
+                        ((and (looking-back ",") (looking-at " ")) (- (point) 1))
+                        ((looking-back ", ") (- (point) 2))
+                        (t (error "Place point between params to transpose."))))
+         (start-of-first (save-excursion
+                           (goto-char end-of-first)
+                           (move-backward-out-of-param)
+                           (point)))
+         (start-of-last (+ end-of-first 2))
+         (end-of-last (save-excursion
+                        (goto-char start-of-last)
+                        (move-forward-out-of-param)
+                        (point))))
+    (transpose-regions start-of-first end-of-first start-of-last end-of-last)))
 
-(defun copy-whole-lines (arg)
-  "Copy lines (as many as prefix argument) in the kill ring"
-  (interactive "p")
-  (kill-ring-save (line-beginning-position)
-                  (line-beginning-position (+ 1 arg)))
-  (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
-
-(defun copy-line (arg)
-  "Copy to end of line, or as many lines as prefix argument"
-  (interactive "P")
-  (if (null arg)
-      (copy-to-end-of-line)
-    (copy-whole-lines (prefix-numeric-value arg))))
-
-(defun save-region-or-current-line (arg)
-  (interactive "P")
-  (if (region-active-p)
-      (kill-ring-save (region-beginning) (region-end))
-    (copy-line arg)))
 
 (defun kill-and-retry-line ()
   "Kill the entire current line and reposition point at indentation"
@@ -217,30 +192,6 @@ region-end is used."
                     (goto-char (point-max))
                     (line-number-at-pos)))))
 
-(require 's)
-
-(defun incs (s &optional num)
-  (let* ((inc (or num 1))
-         (new-number (number-to-string (+ inc (string-to-number s))))
-         (zero-padded? (s-starts-with? "0" s)))
-    (if zero-padded?
-        (s-pad-left (length s) "0" new-number)
-      new-number)))
-
-(defun change-number-at-point (arg)
-  (interactive "p")
-  (unless (or (looking-at "[0-9]")
-              (looking-back "[0-9]"))
-    (error "No number to change at point"))
-  (save-excursion
-    (while (looking-back "[0-9]")
-      (forward-char -1))
-    (re-search-forward "[0-9]+" nil)
-    (replace-match (incs (match-string 0) arg) nil nil)))
-
-(defun subtract-number-at-point (arg)
-  (interactive "p")
-  (change-number-at-point (- arg)))
 
 (defun replace-next-underscore-with-camel (arg)
   (interactive "p")
@@ -263,20 +214,3 @@ region-end is used."
          (snakified (s-snake-case current-word)))
     (replace-string current-word snakified nil beg end)))
 
-
-(defun move-forward-out-of-param ()
-  (while (not (looking-at ")\\|, \\| ?}\\| ?\\]"))
-    (cond
-     ((point-is-in-string-p) (move-point-forward-out-of-string))
-     ((looking-at "(\\|{\\|\\[") (forward-list))
-     (t (forward-char)))))
-
-(defun move-backward-out-of-param ()
-  (while (not (looking-back "(\\|, \\|{ ?\\|\\[ ?"))
-    (cond
-     ((point-is-in-string-p) (move-point-backward-out-of-string))
-     ((looking-back ")\\|}\\|\\]") (backward-list))
-     (t (backward-char)))))
-
-(autoload 'zap-up-to-char "misc"
-  "Kill up to, but not including ARGth occurrence of CHAR.")
