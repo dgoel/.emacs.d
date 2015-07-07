@@ -11,28 +11,33 @@
 ;;             (when (featurep 'filladapt)
 ;;               (c-setup-filladapt))))
 
-(require 'filladapt)
-(setq filladapt-mode-line-string nil)
-; (setq-default filladapt-mode t)
-(add-hook 'text-mode-hook 'turn-on-filladapt-mode)
+(defmacro hook-into-modes (func modes)
+  `(dolist (mode-hook ,modes)
+     (add-hook mode-hook ,func)))
 
-;; TODO move this to CC mode?
-(defun my-c-mode-common-hook ()
-  (c-setup-filladapt)
-  (filladapt-mode 1))
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-
-;; Auto wrap comments in programming modes
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (setq fill-column 80)
-            (set (make-local-variable 'comment-auto-fill-only-comments) t)))
+(use-package filladapt
+  :demand t
+  :init (progn
+          (setq filladapt-mode-line-string nil)
+          (add-hook 'text-mode-hook 'turn-on-filladapt-mode)
+          ;; Auto wrap comments in programming modes
+          (add-hook 'prog-mode-hook
+                    (lambda ()
+                      (setq fill-column 80)
+                      (set (make-local-variable 'comment-auto-fill-only-comments) t)))))
 
 ;; (use-package auto-fill
 ;;   :diminish auto-fill-mode
 ;;   :init (hook-into-modes #'(lambda () (auto-fill-mode 1))
 ;;                          '(prog-mode-hook)))
 
+
+;; Highlight keywords
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (font-lock-add-keywords nil
+                                    '(("\\<\\(FIX\\(ME\\)?\\|HACK\\|NOTE\\|OPTIMIZE\\|TODO\\|XXX\\|WTF\\):"
+                                       1 font-lock-warning-face t)))))
 
 ;; Highlight parenthesis
 (use-package highlight-parentheses
@@ -56,6 +61,48 @@
 (defmacro hook-into-modes (func modes)
   `(dolist (mode-hook ,modes)
      (add-hook mode-hook ,func)))
+;; semantics
+(use-package semantics
+  :init (setq semanticdb-default-save-directory
+              (lambda() (expand-file-name ("semanticdb" var-dir))))
+  :config
+  (semantic-add-system-include "/usr/include/c++" 'c++mode))
+
+
+;; company
+(use-package company
+  :diminish company-mode
+  :bind ("C-." . company-complete)
+  :commands (company-mode company-complete)
+  :init (progn
+          (setq
+           ;; never start auto-completion unless I ask for it
+           company-idle-delay nil
+           ;; autocomplete right after '.'
+           company-minimum-prefix-length 0
+           ;; limit to 10
+           company-tooltip-limit 10
+           ;; remove echo delay
+           company-echo-delay 0
+           ;; don't invert the navigation direction if the the completion popup-isearch-match
+           ;; is displayed on top (happens near the bottom of windows)
+           company-tooltip-flip-when-above nil)
+          ;; (hook-into-modes #'(lambda () (company-mode 1))
+          ;;                  '(prog-mode-hook))
+          )
+  :config
+  ;;(bind-keys :map company-active-map
+  ;; ("C-n" . company-select-next)
+  ;; ("C-p" . company-select-previous)
+  ;; ("C-d" . company-show-doc-buffer)
+  ;; ("<tab>" . company-complete)))
+
+  ;; From https://github.com/company-mode/company-mode/issues/87
+  ;; See also https://github.com/company-mode/company-mode/issues/123
+  (defadvice company-pseudo-tooltip-unless-just-one-frontend
+      (around only-show-tooltip-when-invoked activate)
+    (when (company-explicit-action-p)
+      ad-do-it)))
 
 (use-package yasnippet
   :disabled t
@@ -107,6 +154,10 @@
   :mode ("\\.\\(org\\|org_archive\\|eml\\)\\'" . org-mode)
   :config (require 'org-conf "modes.d/org-conf"))
 
+
+(use-package cmake-mode
+  :mode (("CMakeLists\\.txt\\'" . cmake-mode)
+         ("\\.cmake\\'"         . cmake-mode)))
 
 ;;; auto-mode-alist entries
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))

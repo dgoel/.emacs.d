@@ -16,6 +16,15 @@
 ;(c-set-offset 'case-label '*)
 ;(c-set-offset 'access-label '0)
 
+;; auto fill comments
+(defun my-c-mode-common-hook ()
+  (c-setup-filladapt)
+  (filladapt-mode 1))
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+
+;; indent comments
+(setq c-indent-comments-syntactically-p t)
+
 ;;; switch between source and header file in C-mode
 (add-hook 'c-mode-common-hook
           (lambda()
@@ -24,4 +33,50 @@
 ;;; Show the current function
 ; (add-hook 'c-mode-common-hook (lambda () (which-function-mode t)))
 
+(require 'company-c-headers)
+
+;; add company mode
+(add-hook 'c-mode-common-hook (lambda()
+                                (company-mode 1)
+                                (delete 'company-semantic company-backends)
+                                (add-to-list 'company-backends 'company-c-headers)
+                                (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.1.1/")))
+
+
+;; =============
+;; irony-mode
+;; =============
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+
+;; =============
+;; company mode
+;; =============
+(add-hook 'c++-mode-hook 'company-mode)
+(add-hook 'c-mode-hook 'company-mode)
+;; replace the `completion-at-point' and `complete-symbol' bindings in
+;; irony-mode's buffers by irony-mode's function
+(defun my-irony-mode-hook ()
+  (define-key irony-mode-map [remap completion-at-point]
+    'irony-completion-at-point-async)
+  (define-key irony-mode-map [remap complete-symbol]
+    'irony-completion-at-point-async))
+(add-hook 'irony-mode-hook 'my-irony-mode-hook)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+;; (optional) adds CC special commands to `company-begin-commands' in order to
+;; trigger completion at interesting places, such as after scope operator
+;;     std::|
+(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+
+
+;; =============
+;; eldoc-mode
+;; =============
+(add-hook 'irony-mode-hook 'irony-eldoc)
+
+
+
 (provide 'cc-conf)
+

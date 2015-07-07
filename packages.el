@@ -19,21 +19,30 @@
      ag
      avy
      change-inner
+     company
+     company-auctex
+     company-c-headers
+     company-irony
+     company-math
+     company-jedi  ;; needs jedi system package
      dash
      expand-region
      elfeed
      ;; elpy
      flx
      flx-ido
+     flycheck-irony
      ;; ido-vertical-mode
      ido-at-point
      ido-hacks
      idomenu
      ido-ubiquitous
+     irony
+     irony-eldoc
      guide-key
      highlight-parentheses
      ;; elisp-slime-nav
-     git-commit-mode
+;;     git-commit-mode
      gitconfig-mode
      gitignore-mode
      git-timemachine
