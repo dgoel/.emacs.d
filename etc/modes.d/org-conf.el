@@ -96,4 +96,4 @@
 (defadvice kill-whole-line (after fix-cookies activate)
   (myorg-update-parent-cookie))
 
-(provide 'setup-org)
+(provide 'org-conf)
