@@ -20,17 +20,13 @@
   :init (progn
           (setq filladapt-mode-line-string nil)
           (add-hook 'text-mode-hook 'turn-on-filladapt-mode)
+          (add-hook 'text-mode-hook 'auto-fill-mode)
           ;; Auto wrap comments in programming modes
           (add-hook 'prog-mode-hook
                     (lambda ()
                       (setq fill-column 80)
+                      (auto-fill-mode 1)
                       (set (make-local-variable 'comment-auto-fill-only-comments) t)))))
-
-;; (use-package auto-fill
-;;   :diminish auto-fill-mode
-;;   :init (hook-into-modes #'(lambda () (auto-fill-mode 1))
-;;                          '(prog-mode-hook)))
-
 
 ;; Highlight keywords
 (add-hook 'prog-mode-hook
