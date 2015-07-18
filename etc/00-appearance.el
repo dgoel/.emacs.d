@@ -17,6 +17,7 @@
 ;; solarized
 (use-package color-theme-solarized
   :disabled t
+  :load-path (lambda() (expand-file-name "dgoel-solarized" themes-dir))
   :init
   (progn
     (add-to-list 'custom-theme-load-path (expand-file-name "dgoel-solarized" themes-dir))
@@ -27,7 +28,7 @@
 ;; monokai
 (use-package monokai
   :disabled t
-  :load-path "themes/dgoel-monokai"
+  :load-path (lambda() (expand-file-name "dgoel-monokai" themes-dir))
   :init
   (progn
     (add-to-list 'custom-theme-load-path (expand-file-name "dgoel-monokai" themes-dir))
@@ -42,9 +43,10 @@
 ;; sanity-inc tomorrow
 (use-package color-theme-sanityinc-tomorrow
   :demand t
-  :load-path "themes/dgoel-sanityinc-tomorrow"
+  :load-path (lambda() (expand-file-name "dgoel-sanityinc-tomorrow" themes-dir))
   :init
   (progn
+    (add-to-list 'custom-theme-load-path (expand-file-name "dgoel-sanityinc-tomorrow" themes-dir))
     (load-theme 'sanityinc-tomorrow-eighties :no-confirm)
     ;; (custom-set-faces
     ;;  '(cursor               ((t :background "#eebb28")))
