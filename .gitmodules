@@ -25,3 +25,6 @@
 [submodule "site-lisp/benchmark-init-el"]
 	path = site-lisp/benchmark-init-el
 	url = https://github.com/dholm/benchmark-init-el
+[submodule "etc/personal"]
+	path = etc/personal
+	url = https://dhirajgoel@bitbucket.org/dhirajgoel/emacs-personal.git
