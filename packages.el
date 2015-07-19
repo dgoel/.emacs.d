@@ -62,7 +62,6 @@
      smartparens
      smart-forward
      smooth-scrolling
-     undo-tree
      visual-regexp
      visual-regexp-steroids
      wgrep

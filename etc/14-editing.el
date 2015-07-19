@@ -12,6 +12,7 @@
 
 ;; Undo tree
 (use-package undo-tree
+  :load-path (lambda() (expand-file-name "undo-tree" site-lisp-dir))
   :bind ("C-x u" . undo-tree-visualize)
   :config
   (;;(global-undo-tree-mode 1)
