@@ -1,5 +1,6 @@
 ;; Multiple-cursors
 (use-package multiple-cursors
+  :load-path (lambda() (expand-file-name "multiple-cursors" site-lisp-dir))
   :bind (("C-S-c C-S-c" . mc/edit-lines)
          ("C-S-c C-e"   . mc/edit-ends-of-lines)
          ("C-S-c C-a"   . mc/edit-beginnings-of-lines)

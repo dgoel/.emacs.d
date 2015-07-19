@@ -49,7 +49,6 @@
      magit
      manage-minor-mode
      move-text
-     multiple-cursors
      org
      org-plus-contrib
      paredit
