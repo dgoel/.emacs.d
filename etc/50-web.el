@@ -1,6 +1,7 @@
 ;; Elfeed
 (use-package elfeed
   :defer t
+  :load-path (lambda() (expand-file-name "elfeed" site-lisp-dir))
   :commands (elfeed elfeed-update)
   :config
   (require 'feeds "personal/feeds.el")

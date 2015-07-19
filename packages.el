@@ -27,7 +27,6 @@
      company-jedi  ;; needs jedi system package
      dash
      expand-region
-     elfeed
      ;; elpy
      flx
      flx-ido
