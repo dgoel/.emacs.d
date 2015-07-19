@@ -61,7 +61,6 @@
      scratch
      smartparens
      smart-forward
-     smooth-scrolling
      visual-regexp
      visual-regexp-steroids
      wgrep
