@@ -63,7 +63,6 @@
      visual-regexp
      visual-regexp-steroids
      wgrep
-     ws-butler
      yasnippet)
    "List of packages to install")
 
