@@ -5,8 +5,8 @@
   (add-hook 'grep-mode-hook #'(lambda () (use-package wgrep)))
   (setq wgrep-enable-key "e")
   (define-key grep-mode-map (kbd "C-x C-s") 'wgrep-save-all-buffers)
-  )
-
+  (define-key grep-mode-map (kbd "C-x C-q") 'wgrep-change-to-wgrep-mode)
+  (define-key grep-mode-map (kbd "C-c C-c") 'wgrep-finish-edit))
 
 ;; SilverSearcher
 (use-package ag
