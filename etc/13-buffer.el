@@ -8,6 +8,7 @@
 
 ;; guide-key
 (use-package guide-key
+  :disabled t
   :diminish guide-key-mode
   ;;:commands guide-key-mode
   :config (progn
@@ -16,6 +17,14 @@
                   '("C-h" "M-s" "C-c" "C-x r" "C-c p" "C-x 4" "C-x v" "C-x 8" "C-x +"))
             (setq guide-key/recursive-key-sequence-flag t)
             (setq guide-key/popup-window-position 'bottom)))
+
+;; which-key: better than guide-key
+(use-package which-key
+  :diminish which-key-mode
+  :config
+  (which-key-mode)
+  (which-key-setup-side-window-bottom))
+
 
 ;; recentf
 (use-package recentf

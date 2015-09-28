@@ -63,6 +63,7 @@
      visual-regexp
      visual-regexp-steroids
      wgrep
+     which-key
      yasnippet)
    "List of packages to install")
 
