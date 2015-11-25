@@ -59,3 +59,20 @@ Including indent-buffer, which should not be called automatically on save."
   "Kill all other buffers."
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+
+;; credit: http://mbork.pl/2015-11-14_A_simple_unfilling_function
+(defun unfill-region (begin end)
+  "Change isolated newlines in region into spaces."
+  (interactive (if (use-region-p)
+                   (list (region-beginning)
+                         (region-end))
+                 (list nil nil)))
+  (save-restriction
+    (narrow-to-region (or begin (point-min))
+                      (or end (point-max)))
+    (goto-char (point-min))
+    (while (search-forward "\n" nil t)
+      (if (eq (char-after) ?\n)
+          (skip-chars-forward "\n")
+        (delete-char -1)
+        (insert ?\s)))))
