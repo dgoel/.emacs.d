@@ -10,3 +10,6 @@ emms
 site-lisp/adventur-mode
 *.elc
 .yas-compiled-snippets.el
+var
+/.project
+.python-environments
