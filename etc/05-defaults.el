@@ -112,10 +112,6 @@
 ;; Sentences do not need double spaces to end. Period.
 (set-default 'sentence-end-double-space nil)
 
-;; Dont resize minibuffer
-(setq resize-mini-windows nil)
-; (setq max-mini-window-height 2)
-
 ;; Dont truncate lines in the minibuffer
 (add-hook 'minibuffer-setup-hook
           (lambda () (setq truncate-lines nil)))

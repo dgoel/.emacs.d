@@ -1,7 +1,10 @@
 ;; Interactively Do Things
 
 (use-package ido
-  :ensure t
+  :init (progn
+          (setq ido-create-new-buffer 'always)
+          ;; Dont resize minibuffer
+          (setq resize-mini-windows nil))
   :config
   (ido-mode t)
   (ido-everywhere)
@@ -67,7 +70,7 @@
 ;; Copied from:
 ;; http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/
 ;; (setq ido-use-filename-at-point 'guess)
-(setq ido-create-new-buffer 'always)
+
 
 ;; Smart M-x
 (use-package smex
