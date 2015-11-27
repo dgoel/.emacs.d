@@ -14,23 +14,24 @@
 ;; Undo tree
 (use-package undo-tree
   :load-path (lambda() (expand-file-name "undo-tree" site-lisp-dir))
+  :diminish undo-tree-mode
   :bind ("C-x u" . undo-tree-visualize)
   :config
-  (;;(global-undo-tree-mode 1)
-   (setq undo-tree-mode-lighter "")
-   (setq undo-tree-visualizer-timestamps t)
-   (setq undo-tree-visualizer-diff t)
-   (defadvice undo-tree-undo (around keep-region activate)
-     "Keep region when undoing in region"
-     (if (use-region-p)
-         (let ((m (set-marker (make-marker) (mark)))
-               (p (set-marker (make-marker) (point))))
-           ad-do-it
-           (goto-char p)
-           (set-mark m)
-           (set-marker p nil)
-           (set-marker m nil))
-       ad-do-it))))
+  (global-undo-tree-mode)
+  (setq undo-tree-mode-lighter "")
+  (setq undo-tree-visualizer-timestamps t)
+  (setq undo-tree-visualizer-diff t)
+  (defadvice undo-tree-undo (around keep-region activate)
+    "Keep region when undoing in region"
+    (if (use-region-p)
+        (let ((m (set-marker (make-marker) (mark)))
+              (p (set-marker (make-marker) (point))))
+          ad-do-it
+          (goto-char p)
+          (set-mark m)
+          (set-marker p nil)
+          (set-marker m nil))
+      ad-do-it)))
 
 ;; Simple
 (use-package simple
