@@ -3,19 +3,13 @@ emacs ?= emacs
 BASEDIR := $(shell pwd)
 BYTE_COMPILE_DIRS = etc/themes site-lisp defuns
 
-profile:
-	$(emacs) -Q -l profile-dotemacs.el \
-	--eval "(setq profile-dotemacs-file \
-        (setq load-file-name \"$(abspath init.el)\"))" \
-	-f profile-dotemacs
-
 pull:
 	git pull
 	git submodule init
 	git submodule update
 
 install: pull
-	mkdir var
+	# mkdir var
 	$(emacs) -batch -l packages.el
 	sudo dnf install emacs-auctex emacs-auctex-doc the_silver_searcher
 
@@ -26,7 +20,6 @@ compile:
 
 up: pull
 	$(emacs) -batch -l packages.el
-	$(emacs) -Q -l init.el
 
 run:
 	$(emacs) -Q -l init.el
