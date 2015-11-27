@@ -5,6 +5,8 @@
   :commands (elfeed elfeed-update)
   :config
   (require 'feeds "personal/feeds.el")
+  ;; garabage collect databse
+  (elfeed-db-gc)
   (setf url-queue-timeout 30))
 
 (use-package browse-url
