@@ -8,6 +8,7 @@
 (package-initialize)
 (setq package-archives
       '(("melpa" . "http://melpa.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")
         ("marmalade" . "http://marmalade-repo.org/packages/")
         ("org" . "http://orgmode.org/elpa/")
         ("elpy" . "http://jorgenschaefer.github.io/packages/")))
@@ -17,6 +18,7 @@
 (defconst my-packages
    '(ace-jump-mode
      ag
+     aggressive-indent
      avy
      change-inner
      company
@@ -30,6 +32,7 @@
      ;; elpy
      flx
      flx-ido
+     flycheck
      flycheck-irony
      ;; ido-vertical-mode
      ido-at-point
