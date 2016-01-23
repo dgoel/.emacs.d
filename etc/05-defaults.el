@@ -93,6 +93,7 @@
 
 ;; Never insert tabs
 (set-default 'indent-tabs-mode nil)
+(setq-default tab-width 4)
 
 ;; Show me empty lines after buffer end
 (set-default 'indicate-empty-lines t)
@@ -157,3 +158,14 @@
      (list (line-beginning-position)
            (line-beginning-position 2)))))
 
+
+;; http://endlessparentheses.com/faster-pop-to-mark-command.html?source=rss
+;; When popping the mark, continue popping until the cursor actually moves
+(defadvice pop-to-mark-command (around ensure-new-position activate)
+  (let ((p (point)))
+    (dotimes (i 10)
+      (when (= p (point)) ad-do-it))))
+;; Finally, a simple setq ensures we can quickly pop the mark several times by
+;; typing C-u C-SPC C-SPC, instead of having to type C-u C-SPC C-u C-SPC.
+
+(setq set-mark-command-repeat-pop t)
