@@ -16,6 +16,9 @@
 ;(c-set-offset 'case-label '*)
 ;(c-set-offset 'access-label '0)
 
+; Compilation output
+(setq compilation-scroll-output t)
+
 ;; auto fill comments
 (defun my-c-mode-common-hook ()
   (c-setup-filladapt)
@@ -33,14 +36,12 @@
 ;;; Show the current function
 ; (add-hook 'c-mode-common-hook (lambda () (which-function-mode t)))
 
-(require 'company-c-headers)
-
 ;; add company mode
 (add-hook 'c-mode-common-hook (lambda()
                                 (company-mode 1)
                                 (delete 'company-semantic company-backends)
-                                (add-to-list 'company-backends 'company-c-headers)
-                                (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.1.1/")))
+                                ;;(add-to-list 'company-backends 'company-c-headers)
+                                (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.3.1/")))
 
 
 ;; =============
@@ -69,6 +70,15 @@
 ;; trigger completion at interesting places, such as after scope operator
 ;;     std::|
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+
+;; =============
+;; flycheck
+;; =============
+(setq flycheck-check-syntax-automatically '(mode-enabled save))
+(require 'flycheck)
+(add-hook 'c-mode-common-hook 'flycheck-mode)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
 
 ;; =============
