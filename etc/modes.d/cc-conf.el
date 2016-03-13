@@ -37,6 +37,7 @@
 ; (add-hook 'c-mode-common-hook (lambda () (which-function-mode t)))
 
 ;; add company mode
+(require 'company-c-headers)
 (add-hook 'c-mode-common-hook (lambda()
                                 (company-mode 1)
                                 (delete 'company-semantic company-backends)
