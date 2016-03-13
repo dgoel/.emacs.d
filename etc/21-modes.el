@@ -66,6 +66,15 @@
   (semantic-add-system-include "/usr/include/c++" 'c++mode))
 
 
+;; flycheck
+(use-package flycheck
+  :diminish flycheck-mode
+  :commands flycheck-mode
+  :config
+  ;; run flycheck when file is saved
+  (setq flycheck-check-syntax-automatically '(mode-enabled save)))
+
+
 ;; company
 (use-package company
   :diminish company-mode
