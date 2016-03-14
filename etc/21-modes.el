@@ -145,16 +145,13 @@
   :mode ("\\.\\(md\\|markdown\\)\\'" . markdown-mode)
   :config (setf sentence-end-double-space nil))
 
+
 ;; Python
 (use-package python
   :mode (("\\<\\(SConscript\\|SConstruct\\)\\>" . python-mode)
          ("\\.py\\'" . python-mode))
-  ;; :config (progn
-  ;;           (use-package elpy
-  ;;             :config (elpy-enable)
-  ;;             :ensure t))
-  )
-; (elpy-enable)
+  :config (require 'python-conf "modes.d/python-conf"))
+
 
 (use-package org
   :mode ("\\.\\(org\\|org_archive\\|eml\\)\\'" . org-mode)
