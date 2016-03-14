@@ -214,3 +214,18 @@ region-end is used."
          (snakified (s-snake-case current-word)))
     (replace-string current-word snakified nil beg end)))
 
+
+;; Aligning text: http://pragmaticemacs.com/emacs/aligning-text/
+;; Couple of simple wrappers around align-regexp for common tasks. The first
+;; aligns on whitespace, and the second aligns on & (useful for LaTeX tables).
+(defun dgoel/align-whitespace (start end)
+  "Align columns by whitespace"
+  (interactive "r")
+  (align-regexp start end
+                "\\(\\s-*\\)\\s-" 1 0 t))
+
+(defun dgoel/align-& (start end)
+  "Align columns by ampersand"
+  (interactive "r")
+  (align-regexp start end
+                "\\(\\s-*\\)\\&" 1 1 t))
