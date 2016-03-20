@@ -52,6 +52,7 @@
   :init (add-hook 'c-mode-common-hook 'irony-mode)
   :config
   (progn
+    (setq irony-server-install-prefix "~/.emacs.d/bin/irony")
     (eval-after-load 'company
       '(add-to-list 'company-backends 'company-irony))
     (add-hook 'irony-mode-hook
