@@ -1,55 +1,8 @@
-;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-;; (global-set-key (kbd "C-S-c C-e") 'mc/edit-ends-of-lines)
-;; (global-set-key (kbd "C-S-c C-a") 'mc/edit-beginnings-of-lines)
-;; (global-set-key (kbd "C-'") 'mc/mark-all-symbols-like-this-in-defun)
-;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-
-;; Mark additional regions matching current region
-;; (global-set-key (kbd "M-æ") 'mc/mark-all-dwim)
-;; (global-set-key (kbd "C-å") 'mc/mark-previous-like-this)
-;; (global-set-key (kbd "C-æ") 'mc/mark-next-like-this)
-;; (global-set-key (kbd "C-Æ") 'mc/mark-more-like-this-extended)
-;; (global-set-key (kbd "M-å") 'mc/mark-all-in-region)
-
-;; ;; Symbol and word specific mark-more
-;; (global-set-key (kbd "s-æ") 'mc/mark-next-word-like-this)
-;; (global-set-key (kbd "s-å") 'mc/mark-previous-word-like-this)
-;; (global-set-key (kbd "M-s-æ") 'mc/mark-all-words-like-this)
-;; (global-set-key (kbd "s-Æ") 'mc/mark-next-symbol-like-this)
-;; (global-set-key (kbd "s-Å") 'mc/mark-previous-symbol-like-this)
-;; (global-set-key (kbd "M-s-Æ") 'mc/mark-all-symbols-like-this)
-
-;; Extra multiple cursors stuff
-;; (global-set-key (kbd "C-~") 'mc/reverse-regions)
-;; (global-set-key (kbd "M-~") 'mc/sort-regions)
-
-
-;; Quickly search symbol at point
-(global-set-key (kbd "C-*") 'isearch-current-symbol)
-(global-set-key (kbd "C-#") 'isearch-backward-current-symbol)
 
 ;; Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 (global-set-key (kbd "C-c C-n") 'cleanup-buffer)
 (global-set-key (kbd "C-c C-<return>") 'delete-blank-lines)
-
-;; M-i for back-to-indentation
-(global-set-key (kbd "M-i") 'back-to-indentation)
-
-;; Turn on the menu bar for exploring new modes
-;; (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
-
-;; Use shell-like backspace C-h, rebind help to F1
-; (define-key key-translation-map [?\C-h] [?\C-?])
-; (global-set-key (kbd "<f1>") 'help-command)
-;; (define-key god-local-mode-map (kbd "h") 'backward-delete-char)
-
-;; (global-set-key (kbd "M-h") 'kill-region-or-backward-word)
-
-;; Interactive selective display
-(global-set-key (kbd "C-x $") 'inc-selective-display)
 
 ;; Change next underscore with a camel case
 (global-set-key (kbd "C-c C--") 'replace-next-underscore-with-camel)
@@ -64,24 +17,7 @@
 
 ;; Killing text
 (global-set-key (kbd "C-S-k") 'kill-and-retry-line)
-;(global-set-key (kbd "C-w") 'kill-region-or-whole-line)
 (global-set-key (kbd "C-c C-w") 'kill-to-beginning-of-line)
-
-;; Use M-w for copy-line if no active region
-;(global-set-key (kbd "M-W") 'save-region-or-current-line)
-;(global-set-key (kbd "s-w") 'save-region-or-current-line)
-;(global-set-key (kbd "M-w") (λ (save-region-or-current-line 1)))
-
-;; Make shell more convenient, and suspend-frame less
-(global-set-key (kbd "C-z") 'shell)
-(global-set-key (kbd "C-x M-z") 'suspend-frame)
-
-;; Zap to char
-(global-set-key (kbd "M-z") 'zap-up-to-char)
-;(global-set-key (kbd "s-z") (lambda (char) (interactive "cZap up to char backwards: ") (zap-up-to-char -1 char)))
-
-(global-set-key (kbd "M-Z") (lambda (char) (interactive "cZap to char: ") (zap-to-char 1 char)))
-; (global-set-key (kbd "s-Z") (lambda (char) (interactive "cZap to char backwards: ") (zap-to-char -1 char)))
 
 ;; vim's ci and co commands
 ; (global-set-key (kbd "M-I") 'change-inner)
@@ -92,9 +28,6 @@
 
 ;; Create new frame
 (define-key global-map (kbd "C-x C-n") 'make-frame-command)
-
-;; Jump to a definition in the current file. (This is awesome)
-(global-set-key (kbd "C-x C-i") 'ido-imenu)
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
@@ -109,7 +42,7 @@
 ;(global-set-key (kbd "s-b") 'quick-switch-buffer)
 
 ;; Revert without any fuss
-(global-set-key (kbd "M-<escape>") (λ (revert-buffer t t)))
+; (global-set-key (kbd "M-<escape>") (λ (revert-buffer t t)))
 
 ;; Edit file with sudo
 (global-set-key (kbd "M-s e") 'sudo-edit)
@@ -118,15 +51,8 @@
 (global-set-key (kbd "C-x M-w") 'copy-current-file-path)
 
 
-;; Indentation help
-(global-set-key (kbd "M-j") (λ (join-line -1)))
-
 ;; Should be able to eval-and-replace anywhere.
 (global-set-key (kbd "C-c C-e") 'eval-and-replace)
-
-;; Navigation bindings
-(global-set-key [remap goto-line] 'goto-line-with-feedback)
-(global-set-key (kbd "M-g M-c") 'go-to-column)
 
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
@@ -144,27 +70,14 @@
 ;; (global-set-key (kbd "C-S-r") 'isearch-backward)
 
 
-;; Query replace regex key binding
-(global-set-key (kbd "M-&") 'query-replace-regexp)
-
 ;; Yank selection in isearch
 (define-key isearch-mode-map (kbd "C-o") 'isearch-yank-selection)
-
-;; Comment/uncomment block
-(global-set-key (kbd "C-c c") 'comment-or-uncomment-region)
-(global-set-key (kbd "C-c u") 'uncomment-region)
 
 ;; Eval buffer
 (global-set-key (kbd "C-c v") 'eval-buffer)
 
 ;; Create scratch buffer
 (global-set-key (kbd "C-c b") 'create-scratch-buffer)
-
-;; Move windows, even in org-mode
-(global-set-key (kbd "<s-right>") 'windmove-right)
-(global-set-key (kbd "<s-left>") 'windmove-left)
-(global-set-key (kbd "<s-up>") 'windmove-up)
-(global-set-key (kbd "<s-down>") 'windmove-down)
 
 ;; Clever newlines
 (global-set-key (kbd "C-o") 'open-line-and-indent)
@@ -175,7 +88,7 @@
 ;; Duplicate region
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 
-;; Yank and indent
+;; Yank without indent
 (global-set-key (kbd "C-S-y") 'yank-unindented)
 
 ;; Toggle quotes
@@ -184,13 +97,6 @@
 ;; Sorting
 (global-set-key (kbd "M-s l") 'sort-lines)
 
-(eval-after-load 'undo-tree '(define-key undo-tree-map (kbd "C-?") nil))
-
-;; Browse the kill ring
-(global-set-key (kbd "C-x C-y") 'browse-kill-ring)
-
-;; Buffer file functions
-
 ; Don't rebind C-x as it is used to transpose region?
 ;(global-set-key (kbd "C-x t") 'touch-buffer-file)
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
@@ -198,7 +104,6 @@
 
 ;; Jump from file to containing directory
 (global-set-key (kbd "C-x C-j") 'dired-jump) (autoload 'dired-jump "dired")
-(global-set-key (kbd "C-x M-j") '(λ (dired-jump 1)))
 
 ;; Easy-mode fullscreen rgrep
 (global-set-key (kbd "M-s s") 'git-grep-fullscreen)
@@ -208,38 +113,8 @@
 (global-set-key (kbd "M-s m") 'multi-occur)
 (global-set-key (kbd "M-s M") 'multi-occur-in-matching-buffers)
 
-;; Display and edit occurances of regexp in buffer
-; (global-set-key (kbd "C-c o") 'occur)
-
 ;; Find files by name and display results in dired
 (global-set-key (kbd "M-s f") 'find-name-dired)
-
-;; Find file in project
-; (global-set-key (kbd "C-x o") 'find-file-in-project)
-
-;; Find file in project, with specific patterns
-;; (global-unset-key (kbd "C-x C-o")) ;; which used to be delete-blank-lines (also bound to C-c C-<return>)
-;; (global-set-key (kbd "C-x C-o ja") (ffip-create-pattern-file-finder "*.java"))
-;; (global-set-key (kbd "C-x C-o js") (ffip-create-pattern-file-finder "*.js"))
-;; (global-set-key (kbd "C-x C-o ht") (ffip-create-pattern-file-finder "*.html"))
-;; (global-set-key (kbd "C-x C-o jp") (ffip-create-pattern-file-finder "*.jsp"))
-;; (global-set-key (kbd "C-x C-o cs") (ffip-create-pattern-file-finder "*.css"))
-;; (global-set-key (kbd "C-x C-o ft") (ffip-create-pattern-file-finder "*.feature"))
-;; (global-set-key (kbd "C-x C-o cl") (ffip-create-pattern-file-finder "*.clj"))
-;; (global-set-key (kbd "C-x C-o el") (ffip-create-pattern-file-finder "*.el"))
-;; (global-set-key (kbd "C-x C-o md") (ffip-create-pattern-file-finder "*.md"))
-;; (global-set-key (kbd "C-x C-o rb") (ffip-create-pattern-file-finder "*.rb"))
-;; (global-set-key (kbd "C-x C-o or") (ffip-create-pattern-file-finder "*.org"))
-;; (global-set-key (kbd "C-x C-o ph") (ffip-create-pattern-file-finder "*.php"))
-;; (global-set-key (kbd "C-x C-o tx") (ffip-create-pattern-file-finder "*.txt"))
-;; (global-set-key (kbd "C-x C-o vm") (ffip-create-pattern-file-finder "*.vm"))
-;; (global-set-key (kbd "C-x C-o xm") (ffip-create-pattern-file-finder "*.xml"))
-;; (global-set-key (kbd "C-x C-o in") (ffip-create-pattern-file-finder "*.ini"))
-;; (global-set-key (kbd "C-x C-o pr") (ffip-create-pattern-file-finder "*.properties"))
-;; (global-set-key (kbd "C-x C-o in") (ffip-create-pattern-file-finder "*.ini"))
-;; (global-set-key (kbd "C-x C-o gr") (ffip-create-pattern-file-finder "*.groovy"))
-;; (global-set-key (kbd "C-x C-o ga") (ffip-create-pattern-file-finder "*.gradle"))
-;; (global-set-key (kbd "C-x C-o !") (ffip-create-pattern-file-finder "*"))
 
 ;; View occurrence in occur mode
 (define-key occur-mode-map (kbd "v") 'occur-mode-display-occurrence)
