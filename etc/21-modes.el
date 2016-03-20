@@ -153,17 +153,33 @@
   :config (require 'python-conf "modes.d/python-conf"))
 
 
+;; Org
 (use-package org
   :mode ("\\.\\(org\\|org_archive\\|eml\\)\\'" . org-mode)
   :config (require 'org-conf "modes.d/org-conf"))
 
 
+;; Tex
+;; NOTE: emacs-auctex system package has to be installed
+(use-package latex-mode
+  :mode ("\\.tex\\'" . latex-mode)
+  :config (require 'tex-conf "modes.d/tex-conf"))
+
+
+;; Cmake
 (use-package cmake-mode
   :mode (("CMakeLists\\.txt\\'" . cmake-mode)
          ("\\.cmake\\'"         . cmake-mode)))
 
+
+;; Emacs lisp
+(use-package emacs-lisp-mode
+  :mode (("\\.el\\'" . emacs-lisp-mode)
+         ("Cask" . emacs-lisp-mode))
+  :init (add-hook 'emacs-lisp-mode-hook 'company-mode))
+
+
 ;;; auto-mode-alist entries
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
 (add-to-list 'auto-mode-alist '("[._]bash.*" . shell-script-mode))
-(add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("[Mm]akefile" . makefile-gmake-mode))
