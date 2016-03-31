@@ -28,6 +28,7 @@
      company-math
      company-jedi  ;; needs jedi system package
      dash
+     define-word
      expand-region
      ;; elpy
      flx

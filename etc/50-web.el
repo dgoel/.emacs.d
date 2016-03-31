@@ -27,3 +27,7 @@
 (use-package eww
   :defer t
   :commands (eww eww-mode))
+
+;; define word
+(use-package define-word
+  :commands (define-word define-word-at-point))
