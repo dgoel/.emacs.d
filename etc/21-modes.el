@@ -74,6 +74,12 @@
   ;; run flycheck when file is saved
   (setq flycheck-check-syntax-automatically '(mode-enabled save)))
 
+;; ggtags
+(use-package ggtags
+  :commands ggtags-mode
+  :diminish ggtags-mode
+  :config (setq ggtags-highlight-tag nil))
+
 
 ;; company
 (use-package company

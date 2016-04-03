@@ -42,6 +42,7 @@
      ido-ubiquitous
      irony
      irony-eldoc
+     ggtags
      guide-key
      highlight-parentheses
      ;; elisp-slime-nav

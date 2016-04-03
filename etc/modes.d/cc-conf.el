@@ -29,6 +29,7 @@
             ;; auto fill comments
             (c-setup-filladapt)
             (filladapt-mode 1)
+            (ggtags-mode 1)
             ;; show the current function
             ;; (which-function-mode t)
             ))
