@@ -53,9 +53,16 @@
   :init (add-hook 'c-mode-common-hook 'irony-mode)
   :config
   (progn
+    ;; install here
     (setq irony-server-install-prefix "~/.emacs.d/bin/irony")
+
+    ;; compancy-irony-c-headers must be loaded after irony-mode, while the
+    ;; backend should be grouped with company-irony, and before it.
+    (require 'company-irony-c-headers)
     (eval-after-load 'company
-      '(add-to-list 'company-backends 'company-irony))
+      '(add-to-list
+        'company-backends '(company-irony-c-headers company-irony)))
+
     (add-hook 'irony-mode-hook
               (lambda()
                 ;; replace the `completion-at-point' and `complete-symbol' bindings in

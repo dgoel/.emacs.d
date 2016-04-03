@@ -25,6 +25,7 @@
      company-auctex
      company-c-headers
      company-irony
+     company-irony-c-headers
      company-math
      company-jedi  ;; needs jedi system package
      dash
