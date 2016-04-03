@@ -8,6 +8,7 @@
 (package-initialize)
 (setq package-archives
       '(("melpa" . "http://melpa.org/packages/")
+        ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")
         ("marmalade" . "http://marmalade-repo.org/packages/")
         ("org" . "http://orgmode.org/elpa/")
@@ -66,6 +67,7 @@
      scratch
      smartparens
      smart-forward
+     smex
      visual-regexp
      visual-regexp-steroids
      wgrep
