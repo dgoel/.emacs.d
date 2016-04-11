@@ -3,10 +3,10 @@
    (file-chase-links load-file-name)))
 
 ;; Set-up repositorires
-(setq package-user-dir
+(defconst package-user-dir
       (expand-file-name "elpa" emacs-d))
 (package-initialize)
-(setq package-archives
+(defconst package-archives
       '(("melpa" . "http://melpa.org/packages/")
         ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")

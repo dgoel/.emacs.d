@@ -9,13 +9,12 @@
 (benchmark-init/activate)
 
 ;; Set path to dependencies
-(setq site-lisp-dir
-      (expand-file-name "site-lisp" user-emacs-directory))
-(setq etc-dir
-      (expand-file-name "etc" user-emacs-directory))
-(setq var-dir
-      (expand-file-name "var" user-emacs-directory))
-
+(defconst site-lisp-dir
+  (expand-file-name "site-lisp" user-emacs-directory))
+(defconst etc-dir
+  (expand-file-name "etc" user-emacs-directory))
+(defconst var-dir
+  (expand-file-name "var" user-emacs-directory))
 
 ;; Set up load path
 (add-to-list 'load-path user-emacs-directory)
@@ -40,7 +39,7 @@
 (require 'use-package)
 
 ;; Setup packages
-(setq package-user-dir
+(defconst package-user-dir
       (expand-file-name "elpa" user-emacs-directory))
 (package-initialize)
 

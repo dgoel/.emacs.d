@@ -11,8 +11,8 @@
                     :height 110)
 
 ;; Themes directory
-(setq themes-dir
-      (expand-file-name "themes" (file-name-directory (or load-file-name buffer-file-name))))
+(defconst themes-dir
+  (expand-file-name "themes" (file-name-directory (or load-file-name buffer-file-name))))
 
 ;; solarized
 (use-package color-theme-solarized
