@@ -32,7 +32,7 @@
 (add-hook 'prog-mode-hook
           (lambda ()
             (font-lock-add-keywords nil
-                                    '(("\\<\\(FIX\\(ME\\)?\\|HACK\\|NOTE\\|OPTIMIZE\\|TODO\\|XXX\\|WTF\\):"
+                                    '(("\\<\\(FIXME\\|HACK\\|NOTE\\|TODO\\|WTF\\):"
                                        1 font-lock-warning-face t)))))
 
 ;; Highlight parenthesis
