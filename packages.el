@@ -63,6 +63,8 @@
      perspective
      persp-projectile
      projectile
+     rainbow-mode
+     rainbow-delimiters
      s
      scratch
      smartparens

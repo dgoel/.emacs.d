@@ -178,11 +178,32 @@
          ("\\.cmake\\'"         . cmake-mode)))
 
 
+
 ;; Emacs lisp
+;;NOTE: loading rainbow-mode and rainbow-delimiters package in :config of
+;;emacs-lisp-mode gives issues, for example, rainbow-mode does not get diminished
+(use-package rainbow-mode
+  :diminish rainbow-mode
+  :commands rainbow-mode)
+(use-package rainbow-delimiters
+  :diminish rainbow-delimiters-mode
+  :commands rainbow-delimiters-mode)
 (use-package emacs-lisp-mode
   :mode (("\\.el\\'" . emacs-lisp-mode)
-         ("Cask" . emacs-lisp-mode))
-  :init (add-hook 'emacs-lisp-mode-hook 'company-mode))
+         ("Cask"     . emacs-lisp-mode))
+  :init
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (setq show-trailing-whitespace t)
+              (show-paren-mode)
+              ;;(focus-mode)
+              (rainbow-mode)
+              (rainbow-delimiters-mode)
+              ;;(prettify-symbols-mode)
+              (eldoc-mode)
+              ;;(flycheck-mode)
+              (company-mode)
+              )))
 
 
 ;;; auto-mode-alist entries
