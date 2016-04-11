@@ -74,6 +74,7 @@
      visual-regexp-steroids
      wgrep
      which-key
+     yaml-mode
      yasnippet)
    "List of packages to install")
 

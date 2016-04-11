@@ -206,6 +206,11 @@
               )))
 
 
+;; Yaml
+(use-package yaml-mode
+  :mode ("\\.yml$" . yaml-mode))
+
+
 ;;; auto-mode-alist entries
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
 (add-to-list 'auto-mode-alist '("[._]bash.*" . shell-script-mode))
