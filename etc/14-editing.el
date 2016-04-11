@@ -59,3 +59,6 @@
 (use-package revbufs
   :load-path (lambda() (expand-file-name "revbufs" site-lisp-dir))
   :commands (revbufs))
+
+;; Contextual backspace (delete whitespace)
+(global-set-key (kbd "C-<backspace>") 'dgoel/contextual-backspace)
