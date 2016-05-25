@@ -72,6 +72,7 @@
      smex
      visual-regexp
      visual-regexp-steroids
+     volatile-highlights
      wgrep
      which-key
      yaml-mode

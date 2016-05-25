@@ -50,6 +50,11 @@
 (use-package replace
   :bind ("M-&" . query-replace-regexp))
 
+;; volatile highlights - temporarily highlight changes from pasting etc
+(use-package volatile-highlights
+  :diminish volatile-highlights-mode
+  :config (volatile-highlights-mode t))
+
 ;; Line movement
 (use-package move-text
   :bind (("<C-S-down>" . move-text-down)
