@@ -73,6 +73,9 @@
 (use-package server)
 (unless (server-running-p)
   (server-start))
+;; Quickly try new packages
+(use-package try)
+
 
 ;; Conclude init by setting up specifics for the current user
 ;; (when (file-exists-p user-settings-dir)

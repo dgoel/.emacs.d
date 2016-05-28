@@ -70,6 +70,7 @@
      smartparens
      smart-forward
      smex
+     try
      visual-regexp
      visual-regexp-steroids
      volatile-highlights
