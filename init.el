@@ -68,11 +68,12 @@
           (add-hook 'after-init-hook 'server-start t)
           (add-hook 'after-init-hook 'edit-server-start t)))
 
+(use-package server
+  :config
+  (unless (server-running-p)
+    (server-start)))
 
-;; Emacs server
-(use-package server)
-(unless (server-running-p)
-  (server-start))
+
 ;; Quickly try new packages
 (use-package try)
 
