@@ -107,9 +107,6 @@
 ;; Allow recursive minibuffers
 (setq enable-recursive-minibuffers t)
 
-;; Don't be so stingy on the memory, we have lots now
-(setq gc-cons-threshold 20000000)
-
 ;; Sentences do not need double spaces to end. Period.
 (set-default 'sentence-end-double-space nil)
 
@@ -169,3 +166,16 @@
 ;; typing C-u C-SPC C-SPC, instead of having to type C-u C-SPC C-u C-SPC.
 
 (setq set-mark-command-repeat-pop t)
+
+;; http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
+;; While the minibuffer is open, garbage collection will never occur, but once
+;; we make a selection, or cancel, garbage collection will kick off immediately
+;; and then revert back to the default, sensible behavior.
+(defun my-minibuffer-setup-hook ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun my-minibuffer-exit-hook ()
+  (setq gc-cons-threshold 800000))
+
+(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
