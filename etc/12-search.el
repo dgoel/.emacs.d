@@ -13,8 +13,8 @@
   ;:ensure ag
   :commands (ag ag-regexp)
   :init (progn
-           (setq ag-reuse-window t)
-           (setq ag-highlight-search t))
+          (setq ag-reuse-window t)
+          (setq ag-highlight-search t))
   :config (progn
           (use-package wgrep-ag :ensure wgrep-ag))
   )
