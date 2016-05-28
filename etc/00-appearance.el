@@ -22,6 +22,7 @@
   (progn
     (add-to-list 'custom-theme-load-path (expand-file-name "dgoel-solarized" themes-dir))
     (set-frame-parameter nil 'background-mode 'dark)
+    (set-terminal-parameter nil 'background-mode 'dark)
     (load-theme 'solarized :no-confirm)
     (enable-theme 'solarized)))
 
