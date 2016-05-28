@@ -10,13 +10,17 @@
 ;; Turn on text highlight
 (add-hook 'org-mode-hook 'turn-on-font-lock)
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
+(add-hook 'org-mode-hook 'auto-fill-mode)
 
 ;; Only show one star
 (setq org-hide-leading-stars t)
 
 ;; Don't ruin S-arrow to switch windows please
 ;; (use M-+ and M-- instead to toggle)
-(setq org-replace-disputed-keys t)
+; (setq org-replace-disputed-keys t)
+
+;; Hide emphasis markers
+(setq org-hide-emphasis-markers t)
 
 ;; No indent
 (setq org-startup-indented nil)
@@ -49,6 +53,18 @@
 ;; Capture
 (setq org-default-notes-file
       (concat org-directory "/refile.org"))
+
+;; http://endlessparentheses.com/ispell-and-org-mode.html
+;; Improve spell check in org mode
+(defun endless/org-ispell ()
+  "Configure `ispell-skip-region-alist' for `org-mode'."
+  (make-local-variable 'ispell-skip-region-alist)
+  (add-to-list 'ispell-skip-region-alist '(org-property-drawer-re))
+  (add-to-list 'ispell-skip-region-alist '("~" "~"))
+  (add-to-list 'ispell-skip-region-alist '("=" "="))
+  (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_SRC" . "^#\\+END_SRC")))
+(add-hook 'org-mode-hook #'endless/org-ispell)
+
 
 ;; Babel setup
 (org-babel-do-load-languages
