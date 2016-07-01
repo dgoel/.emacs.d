@@ -27,7 +27,7 @@
 	url = https://github.com/dholm/benchmark-init-el
 [submodule "etc/personal"]
 	path = etc/personal
-	url = https://dhirajgoel@bitbucket.org/dhirajgoel/emacs-personal.git
+	url = git@bitbucket.org:dhirajgoel/emacs-personal.git
 [submodule "site-lisp/elfeed"]
 	path = site-lisp/elfeed
 	url = https://github.com/skeeto/elfeed
