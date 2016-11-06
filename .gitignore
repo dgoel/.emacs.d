@@ -10,6 +10,11 @@ emms
 site-lisp/adventur-mode
 *.elc
 .yas-compiled-snippets.el
-var
+var/*
+bin/*
 /.project
 .python-environments
+
+# Don't ignore these files
+!var/.keep
+!bin/.keep
