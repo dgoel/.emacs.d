@@ -1,14 +1,32 @@
+;; Some reasonable defaults
 (setq visible-bell nil
       ring-bell-function 'ignore
       font-lock-maximum-decoration t
       color-theme-is-global t
       truncate-partial-width-windows nil)
 
-; Set font height
+;; Stop blinking
+(blink-cursor-mode -1)
+
+;; Show filepath in frame title
+(when window-system
+  (setq frame-title-format '(buffer-file-truename "%f" ("%b"))))
+
+;; Default monospace font
 (set-face-attribute 'default nil
-                    :family "Droid Sans Mono"
-                    ;;:family "Inconsolata"
-                    :height 110)
+                    ;; :family "Droid Sans Mono"   :height 105
+                    ;; :family "Noto Sans Mono"    :height 105
+                    ;; :family "DejaVu Sans Mono"  :height 110
+                    ;; :family "Liberation Mono"   :height 110
+                       :family "Inconsolata"       :height 110)
+
+;; Default variable-pitch font
+(set-face-attribute 'variable-pitch nil
+                    :family "DejaVu Sans" :height 110)
+
+;; Default font for all unicode characters
+(set-fontset-font t 'unicode "DejaVu Sans Mono" nil 'prepend)
+
 
 ;; Themes directory
 (defconst themes-dir
@@ -57,7 +75,3 @@
     ;;  '(magit-item-highlight ((t :background "black")))
     ;;  '(hl-line              ((t :background "gray10")))
     ))
-
-(when window-system
-  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-  (blink-cursor-mode -1))
