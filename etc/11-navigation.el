@@ -1,4 +1,6 @@
 ;; Interactively Do Things
+;; TODO: better ido-find-file: http://oremacs.com/2015/01/09/ido-find-file-tilde/
+;; TODO: out-of-place fuzzy matching: https://github.com/vic/ido-better-flex
 (use-package ido
   :init
   (setq ido-create-new-buffer 'always)
@@ -18,16 +20,27 @@
   ;; http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/
   ;; (setq ido-use-filename-at-point 'guess)
 
-  ;; https://github.com/howardabrams/dot-files/blob/master/emacs.org
+  ;; https://www.masteringemacs.org/article/effective-editing-movement
   (defun ido-find-tag ()
     "Find a tag using ido"
     (interactive)
     (tags-completion-table)
     (let (tag-names)
-      (mapatoms (lambda (x)
-                  (push (prin1-to-string x t) tag-names))
-                tags-completion-table)
+      (mapc (lambda (x)
+              (unless (integerp x)
+                (push (prin1-to-string x t) tag-names)))
+            tags-completion-table)
       (find-tag (ido-completing-read "Tag: " tag-names))))
+  (defun ido-find-file-in-tag-files ()
+    "Find file using ido and tags table"
+    (interactive)
+    (save-excursion
+      (let ((enable-recursive-minibuffers t))
+        (visit-tags-table-buffer))
+      (find-file
+       (expand-file-name
+        (ido-completing-read
+         "Project file: " (tags-table-files) nil t)))))
 
   ;; As of now, I am not a big fan of vertical minibuffer but may be one day so
   ;; keep the configuration around.
