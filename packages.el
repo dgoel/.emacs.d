@@ -33,6 +33,7 @@
      define-word
      expand-region
      ;; elpy
+     exec-path-from-shell
      flx
      flx-ido
      flycheck

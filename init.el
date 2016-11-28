@@ -57,6 +57,11 @@
 (require 's)
 (require 'dash)
 
+;; import shell paths
+(use-package exec-path-from-shell
+  :demand t
+  :config (exec-path-from-shell-initialize))
+
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
 (dolist (file (directory-files defuns-dir t "\\w+"))
