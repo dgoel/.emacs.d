@@ -4,6 +4,10 @@
 ;; Allow pasting selection outside of Emacs
 (setq x-select-enable-clipboard t)
 
+;; Save whatever’s in the current (system) clipboard before replacing it with
+;; the Emacs’ text. https://github.com/dakrone/eos/blob/master/eos.org
+(setq save-interprogram-paste-before-kill t)
+
 ;; Enable mouse in xterm
 (setq xterm-mouse-mode t)
 
