@@ -1,15 +1,33 @@
-;; No splash screen please
-(setq inhibit-startup-message t)
+;; Customizations
+(setq  visible-bell nil
+       ring-bell-function 'ignore
 
-;; Allow pasting selection outside of Emacs
-(setq x-select-enable-clipboard t)
+       ;; No splash screen please
+       inhibit-startup-message t
+       confirm-nonexistent-file-or-buffer  t
+       mouse-yank-at-point                 t
 
-;; Save whatever’s in the current (system) clipboard before replacing it with
-;; the Emacs’ text. https://github.com/dakrone/eos/blob/master/eos.org
-(setq save-interprogram-paste-before-kill t)
+       ;; Enable mouse in xterm
+       xterm-mouse-mode                    t
 
-;; Enable mouse in xterm
-(setq xterm-mouse-mode t)
+       ;; set default custom file and not let it clobber init.el
+       custom-file                         "~/.emacs.d/custom.el"
+
+       ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
+       minibuffer-prompt-properties
+       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
+
+       ;; Disable non selected window highlight
+       cursor-in-non-selected-windows     nil
+       highlight-nonselected-windows      nil
+
+       ;; Allow pasting selection outside of Emacs
+       x-select-enable-clipboard t
+
+       ;; Save whatever’s in the current (system) clipboard before replacing it with
+       ;; the Emacs’ text. https://github.com/dakrone/eos/blob/master/eos.org
+       save-interprogram-paste-before-kill t)
+
 
 ;; Seed the random-number generator
 (random t)
@@ -65,11 +83,13 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; UTF-8 please
+(set-charset-priority 'unicode)
 (setq locale-coding-system 'utf-8) ; pretty
 (set-terminal-coding-system 'utf-8) ; pretty
 (set-keyboard-coding-system 'utf-8) ; pretty
 (set-selection-coding-system 'utf-8) ; please
 (prefer-coding-system 'utf-8) ; with sugar on top
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
 ;; Show active region
 (transient-mark-mode 1)
