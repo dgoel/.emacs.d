@@ -28,6 +28,9 @@
        ;; the Emacs’ text. https://github.com/dakrone/eos/blob/master/eos.org
        save-interprogram-paste-before-kill t)
 
+;; Persistent bookmarks
+(setq  bookmark-save-flag    t
+       bookmark-default-file (concat var-dir "/bookmarks"))
 
 ;; Seed the random-number generator
 (random t)
