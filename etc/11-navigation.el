@@ -133,13 +133,10 @@
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
 
-;; Quickly jump in document with ace-jump-mode
-;; (use-package ace-jump-mode
-;;   :bind ("M-g j" . ace-jump-mode))
 ;; Avy mode to jump
 (use-package avy
-  :bind ("M-g w" . avy-goto-word-1)
-        ("M-g c" . avy-goto-char-2))
+  :bind (("M-g w" . avy-goto-word-1)
+         ("M-g c" . avy-goto-char-timer)))
 
 ;; iy-go-to-char - like f in Vim
 (use-package jump-char
