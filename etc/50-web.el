@@ -1,7 +1,7 @@
 ;; Elfeed
 (use-package elfeed
   :defer t
-  :load-path (lambda() (expand-file-name "elfeed" site-lisp-dir))
+  ;;:load-path (lambda() (expand-file-name "elfeed" site-lisp-dir))
   :bind (:map elfeed-search-mode-map
               ("*" . bjm/elfeed-star)
               ("8" . bjm/elfeed-unstar)

@@ -28,9 +28,6 @@
 [submodule "etc/personal"]
 	path = etc/personal
 	url = git@bitbucket.org:dhirajgoel/emacs-personal.git
-[submodule "site-lisp/elfeed"]
-	path = site-lisp/elfeed
-	url = https://github.com/skeeto/elfeed
 [submodule "site-lisp/undo-tree"]
 	path = site-lisp/undo-tree
 	url = https://github.com/emacsmirror/undo-tree

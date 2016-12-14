@@ -33,6 +33,8 @@
      define-word
      expand-region
      ;; elpy
+     elfeed
+     elfeed-goodies
      exec-path-from-shell
      flx
      flx-ido
