@@ -46,7 +46,7 @@
 
 ;; Manage whitespace for edited lines only
 (use-package ws-butler
-  :load-path (lambda() (expand-file-name "ws-butler" site-lisp-dir))
+  ;;:load-path (lambda() (expand-file-name "ws-butler" site-lisp-dir))
   :diminish ws-butler-mode
   :commands (ws-butler-mode)
   :init (hook-into-modes #'(lambda () (ws-butler-mode 1))

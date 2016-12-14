@@ -79,6 +79,7 @@
      visual-regexp-steroids
      volatile-highlights
      wgrep
+     ws-butler
      which-key
      yaml-mode
      yasnippet)

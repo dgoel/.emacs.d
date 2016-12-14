@@ -34,6 +34,3 @@
 [submodule "site-lisp/multiple-cursors"]
 	path = site-lisp/multiple-cursors
 	url = https://github.com/magnars/multiple-cursors.el
-[submodule "site-lisp/ws-butler"]
-	path = site-lisp/ws-butler
-	url = https://github.com/lewang/ws-butler
