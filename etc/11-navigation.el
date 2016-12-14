@@ -126,8 +126,9 @@
 
 ;; Smooth scrolling
 (use-package smooth-scrolling
-  :load-path (lambda() (expand-file-name "smooth-scrolling" site-lisp-dir))
-  :config (setq smooth-scroll-margin 5))
+  :config
+  (smooth-scrolling-mode 1)
+  (setq smooth-scroll-margin 5))
 
 ;; Expand region (increases selected region by semantic units)
 (use-package expand-region

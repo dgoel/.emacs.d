@@ -73,6 +73,7 @@
      smartparens
      smart-forward
      smex
+     smooth-scrolling
      try
      visual-regexp
      visual-regexp-steroids
