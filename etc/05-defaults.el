@@ -1,28 +1,17 @@
 ;; Customizations
 (setq  visible-bell nil
        ring-bell-function 'ignore
-
-       ;; No splash screen please
        inhibit-startup-message t
        confirm-nonexistent-file-or-buffer  t
        mouse-yank-at-point                 t
-
-       ;; Enable mouse in xterm
-       xterm-mouse-mode                    t
-
-       ;; set default custom file and not let it clobber init.el
-       custom-file                         "~/.emacs.d/custom.el"
-
-       ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
-       minibuffer-prompt-properties
+       xterm-mouse-mode                    t         ;; Enable mouse in xterm
+       custom-file     "~/.emacs.d/custom.el"        ;; set default custom file and not let it clobber init.el
+       minibuffer-prompt-properties                  ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
        '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
 
-       ;; Disable non selected window highlight
-       cursor-in-non-selected-windows     nil
+       cursor-in-non-selected-windows     nil        ;; Disable non selected window highlight
        highlight-nonselected-windows      nil
-
-       ;; Allow pasting selection outside of Emacs
-       x-select-enable-clipboard t
+       x-select-enable-clipboard            t        ;; Allow pasting selection outside of Emacs
 
        ;; Save whatever’s in the current (system) clipboard before replacing it with
        ;; the Emacs’ text. https://github.com/dakrone/eos/blob/master/eos.org
@@ -55,18 +44,15 @@
 (setq delete-by-moving-to-trash t)
 
 ;; Backups
-(setq   backup-by-copying     t ; don't clobber symlinks
-	delete-old-versions   t
-	kept-new-versions     6
-	kept-old-versions     2
-	version-control       t ; use versioned backups
-	;; Make backups of files, even when they're in version control
-	vc-make-backup-files  t
-	backup-directory-alist      `((".*" . ,temporary-file-directory))
-	auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+(setq backup-by-copying     t     ;; don't clobber symlinks
+      delete-old-versions   t
+      kept-new-versions     6
+      kept-old-versions     2
+      version-control       t     ;; use versioned backups
+      vc-make-backup-files  t     ;; Make backups of files, even when they're in version control
+      backup-directory-alist      `((".*" . ,temporary-file-directory))
+      auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
-
-;; Real emacs knights don't use shift to mark things
 (setq shift-select-mode nil)
 
 ;; Transparently open compressed files
@@ -83,11 +69,11 @@
 
 ;; UTF-8 please
 (set-charset-priority 'unicode)
-(setq locale-coding-system 'utf-8) ; pretty
-(set-terminal-coding-system 'utf-8) ; pretty
-(set-keyboard-coding-system 'utf-8) ; pretty
-(set-selection-coding-system 'utf-8) ; please
-(prefer-coding-system 'utf-8) ; with sugar on top
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
 ;; Show active region
