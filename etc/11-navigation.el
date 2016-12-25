@@ -1,3 +1,35 @@
+;; Ivy
+(use-package ivy
+  :disabled t
+  :diminish (ivy-mode . "")
+  :bind
+  ("C-x s" . swiper)
+  ("C-x C-r" . ivy-resume)
+  (:map ivy-mode-map
+        ("C-'" . ivy-avy))
+  :config
+  (ivy-mode 1)
+  (setq
+   ivy-use-virtual-buffers t     ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’
+   ;;ivy-height            10    ;; number of result lines to display
+   ivy-count-format        ""    ;; do not count candidates
+   )
+  ;; configure regexp engine.
+  ;; (setq ivy-re-builders-alist
+  ;;       ;; allow input not in order
+  ;;       '((t   . ivy--regex-ignore-order)))
+  )
+
+;; counsel
+(use-package counsel
+  :disabled t
+  :bind
+  ("M-x" . counsel-M-x)
+  ("C-x C-m" . counsel-M-x)
+  ("C-x C-f" . counsel-find-file)
+  ("C-x c k" . counsel-yank-pop))
+
+
 ;; Interactively Do Things
 ;; TODO: better ido-find-file: http://oremacs.com/2015/01/09/ido-find-file-tilde/
 ;; TODO: out-of-place fuzzy matching: https://github.com/vic/ido-better-flex
