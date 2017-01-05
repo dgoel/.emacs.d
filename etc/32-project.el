@@ -15,6 +15,10 @@
         projectile-enable-idle-timer t
         projectile-verbose t
         tags-revert-without-query t)
+  ;; if ivy is available
+  (if (featurep 'ivy)
+      (setq projectile-completion-system 'ivy))
+
   ;; (tags-add-table t)
   (add-hook 'projectile-idle-timer-hook 'lambda() (message "Idle timer function triggered"))
 
@@ -50,3 +54,11 @@
         (car matching-files))))
   (setq projectile-completion-system 'rejeep-projectile-completion-fn)
   )
+
+;; counsel interface to projectile
+
+(use-package counsel-projectile
+  :disabled t
+  :bind (("C-x c v" . counsel-projectile)
+         ("C-x c p" . counsel-projectile-ag))
+  :config (counsel-projectile-on))
