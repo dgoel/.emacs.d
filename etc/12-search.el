@@ -12,12 +12,10 @@
 (use-package ag
   ;:ensure ag
   :commands (ag ag-regexp)
-  :init (progn
-          (setq ag-reuse-window t)
-          (setq ag-highlight-search t))
-  :config (progn
-          (use-package wgrep-ag :ensure wgrep-ag))
-  )
+  :init
+  (setq ag-reuse-window t
+        ag-highlight-search t)
+  :config (use-package wgrep-ag :ensure wgrep-ag))
 
 ;; Visual regexp
 (use-package visual-regexp
