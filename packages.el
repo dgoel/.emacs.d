@@ -29,6 +29,8 @@
      company-irony-c-headers
      company-math
      company-jedi  ;; needs jedi system package
+     counsel
+     counsel-projectile
      dash
      define-word
      expand-region
@@ -74,6 +76,7 @@
      smart-forward
      smex
      smooth-scrolling
+     swiper
      try
      visual-regexp
      visual-regexp-steroids
