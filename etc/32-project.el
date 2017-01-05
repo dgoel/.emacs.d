@@ -11,10 +11,10 @@
   ;;                    c-mode-common-hook
   ;;                    python-mode-hook
   ;;                    gud-mode-hook)))
-  (setq projectile-enable-caching t)
-  (setq projectile-enable-idle-timer t)
-  (setq projectile-verbose t)
-  (setq tags-revert-without-query t)
+  (setq projectile-enable-caching t
+        projectile-enable-idle-timer t
+        projectile-verbose t
+        tags-revert-without-query t)
   ;; (tags-add-table t)
   (add-hook 'projectile-idle-timer-hook 'lambda() (message "Idle timer function triggered"))
 
