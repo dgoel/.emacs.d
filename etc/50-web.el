@@ -2,6 +2,12 @@
 (use-package elfeed
   :defer t
   ;;:load-path (lambda() (expand-file-name "elfeed" site-lisp-dir))
+  :preface
+  (progn
+    (setq elfeed-db-directory
+          (let ((dir (locate-user-emacs-file "elfeed_db/"))) ; must end with /
+            (make-directory dir :parents)
+            dir)))
   :bind (:map elfeed-search-mode-map
               ("*" . bjm/elfeed-star)
               ("8" . bjm/elfeed-unstar)
