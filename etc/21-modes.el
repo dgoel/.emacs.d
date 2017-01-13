@@ -86,6 +86,11 @@
   :config
   (editorconfig-mode t))
 
+;; eldoc: print documentation in minibuffer of whatever is at point.
+(use-package eldoc
+  :diminish eldoc-mode
+  :commands eldoc-mode)
+
 ;; company
 (use-package company
   :diminish company-mode
