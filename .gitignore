@@ -12,6 +12,7 @@ site-lisp/adventur-mode
 .yas-compiled-snippets.el
 var/*
 bin/*
+elfeed_db/*
 /.project
 .python-environments
 
