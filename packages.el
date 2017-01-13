@@ -35,6 +35,7 @@
      define-word
      expand-region
      ;; elpy
+     editorconfig
      elfeed
      elfeed-goodies
      exec-path-from-shell

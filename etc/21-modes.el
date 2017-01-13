@@ -81,6 +81,11 @@
   :config (setq ggtags-highlight-tag nil))
 
 
+;; editorconfig
+(use-package editorconfig
+  :config
+  (editorconfig-mode t))
+
 ;; company
 (use-package company
   :diminish company-mode
