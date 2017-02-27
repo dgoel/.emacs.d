@@ -3,32 +3,33 @@ emacs ?= emacs
 BASEDIR := $(shell pwd)
 BYTE_COMPILE_DIRS = etc/themes site-lisp defuns
 
-pull:
+install: ## Setup required directories and install system dependencies
+	mkdir -p bin/irony
+	mkdir -p bin/jedi
+	sudo dnf install emacs-auctex emacs-auctex-doc \
+			the_silver_searcher \
+			python-jedi \
+			python-virtualenv
+	sudo pip install epc
+
+pull: ## Update .emacs.d git repository and submodules
 	git pull
 	git submodule init
 	git submodule update
 
-install: pull
-	# mkdir var
+up: ## Update emacs packages installed through package manager
 	$(emacs) -batch -l packages.el
-	sudo dnf install emacs-auctex emacs-auctex-doc the_silver_searcher
-
-compile:
-	for i in $(BYTE_COMPILE_DIRS); do \
-		$(emacs) -Q -batch --eval '(batch-byte-recompile-directory 0)' $$i; \
-	done
-
-up: pull
-	$(emacs) -batch -l packages.el
-
-run:
-	$(emacs) -Q -l init.el
 
 %.elc: %.el
 	@echo Compiling file $<
 	@$(emacs) -Q -batch  -f batch-byte-compile $<
 
-clean:
+compile: ## Byte compule elisp files in directories specified by ${BYTE_COMPILE_DIRS}
+	for i in $(BYTE_COMPILE_DIRS); do \
+		$(emacs) -Q -batch --eval '(batch-byte-recompile-directory 0)' $$i; \
+	done
+
+clean: ## Cleanup generated elc files
 	rm -f *.elc
 	find . -name '*.elc' | while read file ; do \
             if ! test -f $$(echo $$file | sed 's/\.elc$$/.el/'); then \
@@ -36,4 +37,17 @@ clean:
                 rm $$file ; \
             fi ; \
         done
-.PHONY: profile pull install up run
+
+help: ## This help dialog.
+	@IFS=$$'\n' ; \
+	help_lines=(`fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//'`); \
+	for help_line in $${help_lines[@]}; do \
+		IFS=$$'#' ; \
+		help_split=($$help_line) ; \
+		help_command=`echo $${help_split[0]} | sed -e 's/^ *//' -e 's/ *$$//'` ; \
+		help_info=`echo $${help_split[2]} | sed -e 's/^ *//' -e 's/ *$$//'` ; \
+		printf "%-30s %s\n" $$help_command $$help_info ; \
+	done
+
+
+.PHONY: install pull up compile clean help
