@@ -22,7 +22,6 @@
 (use-package which-key
   :diminish which-key-mode
   :commands which-key-mode
-  :defer 10
   :config
   (which-key-mode 1)
   (which-key-setup-side-window-bottom))
