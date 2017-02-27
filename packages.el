@@ -62,6 +62,7 @@
      manage-minor-mode
      move-text
      multiple-cursors
+     nlinum
      org
      org-plus-contrib
      paredit

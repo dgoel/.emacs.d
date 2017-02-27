@@ -228,8 +228,19 @@
 (global-set-key (kbd "C-S-b") (λ (ignore-errors (backward-char 5))))
 
 
-;; Navigation bindings
-(global-set-key [remap goto-line] 'goto-line-with-feedback)
+;; go-to line with feedback
+(use-package nlinum
+  :preface
+  (defun goto-line-with-feedback ()
+    "Show line numbers temporarily, while prompting for the line number input"
+    (interactive)
+    (unwind-protect
+        (progn
+          (nlinum-mode 1)
+          (goto-char (point-min))
+          (forward-line (read-number "Goto line: ")))
+      (nlinum-mode -1)))
+  :init (global-set-key [remap goto-line] 'goto-line-with-feedback))
 (global-set-key (kbd "M-g M-c") 'go-to-column)
 
 
