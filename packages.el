@@ -10,15 +10,14 @@
       '(("melpa" . "http://melpa.org/packages/")
         ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")
-        ("marmalade" . "http://marmalade-repo.org/packages/")
+        ;;("marmalade" . "http://marmalade-repo.org/packages/")
         ("org" . "http://orgmode.org/elpa/")
         ("elpy" . "http://jorgenschaefer.github.io/packages/")))
 (package-refresh-contents)
 
 ;; My packages
 (defconst my-packages
-   '(ace-jump-mode
-     ag
+   '(ag
      aggressive-indent
      avy
      change-inner
@@ -40,14 +39,14 @@
      elfeed-goodies
      exec-path-from-shell
      flx
-     flx-ido
+     ;;flx-ido
      flycheck
      flycheck-irony
      ;; ido-vertical-mode
-     ido-at-point
-     ido-hacks
-     idomenu
-     ido-ubiquitous
+     ;; ido-at-point
+     ;; ido-hacks
+     ;; idomenu
+     ;; ido-ubiquitous
      irony
      irony-eldoc
      ggtags
@@ -85,6 +84,7 @@
      visual-regexp-steroids
      volatile-highlights
      wgrep
+     wgrep-ag
      ws-butler
      which-key
      yaml-mode
