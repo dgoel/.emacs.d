@@ -22,6 +22,8 @@
 
 ;; counsel
 (use-package counsel
+  ;; counsel uses smex
+  :init (setq smex-save-file (expand-file-name "smex-items" var-dir))
   :disabled t
   :bind
   ("M-x" . counsel-M-x)
@@ -146,14 +148,11 @@
 
   ;; Smart M-x
   (use-package smex
-    :ensure t
+    :init (setq smex-save-file (expand-file-name "smex-items" var-dir))
     :bind (("M-x"     . smex)
            ("M-X"     . smex-major-mode-commands)
            ("C-c M-x" . execute-extended-command))
-    :config
-    (setq smex-save-file (expand-file-name "smex-items" var-dir))
-    (smex-initialize))
-  )
+    :config (smex-initialize)))
 
 
 ;; Smooth scrolling
