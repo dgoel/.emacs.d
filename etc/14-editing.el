@@ -52,6 +52,7 @@
 
 ;; volatile highlights - temporarily highlight changes from pasting etc
 (use-package volatile-highlights
+  :defer 5 ;; nice to have -- can defer loading
   :diminish volatile-highlights-mode
   :config (volatile-highlights-mode t))
 
