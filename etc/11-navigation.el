@@ -34,10 +34,14 @@
   :init (setq smex-save-file (expand-file-name "smex-items" var-dir))
   :bind
   ("M-x" . counsel-M-x)
-  ("C-x C-m" . counsel-M-x)
   ("C-x C-f" . counsel-find-file)
   ("C-x f" . counsel-recentf)
-  ("C-x c k" . counsel-yank-pop))
+  ("C-h f" . counsel-describe-function)
+  ("C-h v" . counsel-describe-variable)
+  ("M-i" . counsel-imenu)
+  ("M-y" . counsel-yank-pop)
+  (:map ivy-minibuffer-map
+        ("M-y" . ivy-next-line)))
 
 
 ;; Interactively Do Things
