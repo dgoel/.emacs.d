@@ -27,6 +27,7 @@
   ("M-x" . counsel-M-x)
   ("C-x C-m" . counsel-M-x)
   ("C-x C-f" . counsel-find-file)
+  ("C-x f" . counsel-recentf)
   ("C-x c k" . counsel-yank-pop))
 
 
