@@ -1,6 +1,5 @@
 ;; Ivy
 (use-package ivy
-  :disabled t
   :diminish (ivy-mode . "")
   :bind
   ("C-x s" . swiper)
@@ -24,7 +23,6 @@
 (use-package counsel
   ;; counsel uses smex
   :init (setq smex-save-file (expand-file-name "smex-items" var-dir))
-  :disabled t
   :bind
   ("M-x" . counsel-M-x)
   ("C-x C-m" . counsel-M-x)
@@ -36,6 +34,7 @@
 ;; TODO: better ido-find-file: http://oremacs.com/2015/01/09/ido-find-file-tilde/
 ;; TODO: out-of-place fuzzy matching: https://github.com/vic/ido-better-flex
 (use-package ido
+  :disabled t
   :init
   (setq ido-create-new-buffer 'always)
   (setq resize-mini-windows nil)
