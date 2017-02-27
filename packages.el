@@ -62,6 +62,7 @@
      magit
      manage-minor-mode
      move-text
+     multiple-cursors
      org
      org-plus-contrib
      paredit
@@ -79,6 +80,7 @@
      smooth-scrolling
      swiper
      try
+     undo-tree
      visual-regexp
      visual-regexp-steroids
      volatile-highlights

@@ -1,6 +1,5 @@
 ;; Multiple-cursors
 (use-package multiple-cursors
-  :load-path (lambda() (expand-file-name "multiple-cursors" site-lisp-dir))
   :bind (("C-S-c C-S-c" . mc/edit-lines)
          ("C-S-c C-e"   . mc/edit-ends-of-lines)
          ("C-S-c C-a"   . mc/edit-beginnings-of-lines)
@@ -13,7 +12,6 @@
 
 ;; Undo tree
 (use-package undo-tree
-  :load-path (lambda() (expand-file-name "undo-tree" site-lisp-dir))
   :diminish undo-tree-mode
   :bind ("C-x u" . undo-tree-visualize)
   :config
