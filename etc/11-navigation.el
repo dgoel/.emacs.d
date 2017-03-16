@@ -318,11 +318,13 @@
   (setq recentf-save-file
         (recentf-expand-file-name (expand-file-name "recentf" var-dir)))
   (recentf-mode 1)
-  (setq recentf-max-saved-items 50)
+  (setq recentf-max-saved-items 100)
   (setq recentf-exclude '("COMMIT_MSG" "COMMIT_EDITMSG"  ; commit messages
                           "/elpa/.*\\'"                  ; Package files
                           ".*-autoloads\\.el\\'"         ; autoload files
                           "TAGS"
+                          "/tmp/"
+                          "/ssh:"
                           ".*cache$")))
 
 ;; Unique file names
