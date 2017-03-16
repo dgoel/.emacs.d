@@ -83,11 +83,6 @@
     (load file)))
 
 
-;; Setup extensions
-; (eval-after-load 'grep '(require 'setup-rgrep))
-
-(require 'key-bindings "~/.emacs.d/key-bindings.el")
-
 ;; Emacs server
 (use-package edit-server
   :if window-system

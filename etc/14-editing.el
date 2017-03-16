@@ -64,5 +64,34 @@
   :load-path (lambda() (expand-file-name "revbufs" site-lisp-dir))
   :commands (revbufs))
 
-;; Contextual backspace (delete whitespace)
-(global-set-key (kbd "C-<backspace>") 'dgoel/contextual-backspace)
+;; Misc keys
+(bind-keys*
+ ("C-<backspace>" . dgoel/contextual-backspace) ;; Contextual backspace (delete whitespace)
+ ("C-c C--"       . replace-next-underscore-with-camel)
+ ("M-s M--"       . snakeify-current-word)
+ ("C-c C-e"       . eval-and-replace)
+ ("C-S-y"         . yank-unindented)
+
+ ;; forward/backward
+ ("M-p"           . backward-paragraph)
+ ("M-n"           . forward-paragraph)
+
+ ;; better line editing
+ ("C-S-k"         . kill-and-retry-line)
+ ("C-c C-w"       . kill-to-beginning-of-line)
+ ("C-o"           . open-line-and-indent)
+ ("<C-return>"    . open-line-below)
+ ("<C-S-return>"  . open-line-above)
+ ("<M-return>"    . new-line-dwim)
+)
+
+;; Change word separators
+(global-unset-key (kbd "C-x +")) ;; used to be balance-windows
+(global-set-key (kbd "C-x + -") (λ (replace-region-by 's-dashed-words)))
+(global-set-key (kbd "C-x + _") (λ (replace-region-by 's-snake-case)))
+(global-set-key (kbd "C-x + c") (λ (replace-region-by 's-lower-camel-case)))
+(global-set-key (kbd "C-x + C") (λ (replace-region-by 's-upper-camel-case)))
+
+;; Yank selection in isearch
+(define-key isearch-mode-map (kbd "C-o") 'isearch-yank-selection)
+

@@ -350,3 +350,11 @@
 ;; Multiple scratch buffers
 (use-package scratch
   :commands (scratch))
+
+;; Misc keys
+(bind-keys*
+ ("C-x C-r"   . rename-current-buffer-file)
+ ("C-x C-k"   . delete-current-buffer-file)
+ ("C-x C-p"   . find-or-create-file-at-point)
+ ("C-x M-w"   . copy-current-file-path)
+ )
