@@ -67,8 +67,8 @@
               (lambda()
                 ;; replace the `completion-at-point' and `complete-symbol' bindings in
                 ;; irony-mode's buffers by irony-mode's function
-                (define-key irony-mode-map [remap completion-at-point] 'irony-completion-at-point-async)
-                (define-key irony-mode-map [remap complete-symbol] 'irony-completion-at-point-async)
+                (define-key irony-mode-map [remap completion-at-point] 'counsel-irony)
+                (define-key irony-mode-map [remap complete-symbol] 'counsel-irony)
                 (irony-cdb-autosetup-compile-options)
                 ;; (optional) adds CC special commands to `company-begin-commands' in order to
                 ;; trigger completion at interesting places, such as after scope operator
