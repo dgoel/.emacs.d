@@ -7,9 +7,6 @@
 [submodule "site-lisp/multifiles"]
         path = site-lisp/multifiles
         url = https://github.com/magnars/multifiles.el.git
-[submodule "site-lisp/revbufs"]
-        path = site-lisp/revbufs
-        url = https://github.com/emacsmirror/revbufs.git
 [submodule "site-lisp/use-package"]
 	path = site-lisp/use-package
 	url = https://github.com/jwiegley/use-package/

@@ -61,7 +61,7 @@
 
 ;; Revert all buffers
 (use-package revbufs
-  :load-path (lambda() (expand-file-name "revbufs" site-lisp-dir))
+  :load-path "site-lisp/revbufs.el"
   :commands (revbufs))
 
 ;; Misc keys
