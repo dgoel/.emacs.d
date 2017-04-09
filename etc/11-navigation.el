@@ -12,15 +12,16 @@
   :diminish (ivy-mode . "")
   :bind
   ("C-x s" . swiper)
-  ("C-x C-r" . ivy-resume)
   (:map ivy-mode-map
         ("C-'" . ivy-avy))
   :config
+  (require 'ivy-hydra)
   (ivy-mode 1)
   (setq
-   ivy-use-virtual-buffers t     ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’
-   ;;ivy-height            10    ;; number of result lines to display
-   ivy-count-format        ""    ;; do not count candidates
+   ivy-use-virtual-buffers t      ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’
+   enable-recursive-minibuffers t ;; useful for `counsel-yank-pop'
+   ivy-count-format        ""     ;; do not count candidates
+   ivy-extra-directories '("./")  ;; don't show "../" in completion list
    )
   ;; configure regexp engine.
   ;; (setq ivy-re-builders-alist

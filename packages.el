@@ -49,9 +49,11 @@
      ;; ido-ubiquitous
      irony
      irony-eldoc
+     ivy-hydra
      ggtags
      guide-key
      highlight-parentheses
+     hydra
      ;; elisp-slime-nav
 ;;     git-commit-mode
      gitconfig-mode
