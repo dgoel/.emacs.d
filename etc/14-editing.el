@@ -65,7 +65,8 @@
   :commands (revbufs))
 
 ;; Misc keys
-(bind-keys*
+;; NOTE: use bind-keys (and not bind-keys*) to not override local mode map bindings
+(bind-keys
  ("C-<backspace>" . dgoel/contextual-backspace) ;; Contextual backspace (delete whitespace)
  ("C-c C--"       . replace-next-underscore-with-camel)
  ("M-s M--"       . snakeify-current-word)
