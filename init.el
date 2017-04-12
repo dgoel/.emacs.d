@@ -59,8 +59,9 @@
 
 ;; import shell paths
 (use-package exec-path-from-shell
+  ;; execute only if not running in terminal
+  :if (memq window-system '(x))
   :demand t
-  :if (display-graphic-p)
   :config (exec-path-from-shell-initialize))
 
 ;; Functions (load all files in defuns-dir)
