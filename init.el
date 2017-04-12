@@ -84,22 +84,16 @@
     (load file)))
 
 
-;; Emacs server
-(use-package edit-server
-  :if window-system
-  :config (progn
-          (add-hook 'after-init-hook 'server-start t)
-          (add-hook 'after-init-hook 'edit-server-start t)))
-
 (use-package server
+  :defer 5
   :config
   (unless (server-running-p)
     (server-start)))
 
-
 ;; Quickly try new packages
-(use-package try)
-
+(use-package try
+  :commands try try-and-refresh
+  :defer 10)
 
 ;; Conclude init by setting up specifics for the current user
 ;; (when (file-exists-p user-settings-dir)
