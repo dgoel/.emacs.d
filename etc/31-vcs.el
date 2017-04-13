@@ -20,9 +20,16 @@
   ;; load extensions based on git repository configuration
   (add-hook 'magit-mode-hook 'magit-load-config-extensions))
 
-(use-package magit-popup)
-(global-git-commit-mode)
+(use-package with-editor
+  ;; Magit makes use of this mode
+  :commands (with-editor-async-shell-command
+             with-editor-shell-command))
 
+(use-package git-commit:
+  :config
+  (global-git-commit-mode))
+
+(use-package magit-popup)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ediff                                                                  ;;
