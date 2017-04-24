@@ -11,10 +11,6 @@
 ;;             (when (featurep 'filladapt)
 ;;               (c-setup-filladapt))))
 
-(defmacro hook-into-modes (func modes)
-  `(dolist (mode-hook ,modes)
-     (add-hook mode-hook ,func)))
-
 (use-package filladapt
   :demand t
   :init (progn
