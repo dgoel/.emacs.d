@@ -85,5 +85,10 @@
           '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup)))
 
 
+;; clang-analyzer
+(use-package flycheck-clang-analyzer
+  :after flycheck
+  :config (flycheck-clang-analyzer-setup))
+
 (provide 'cc-conf)
 

@@ -42,6 +42,7 @@
      ;;flx-ido
      flycheck
      flycheck-irony
+     flycheck-clang-analyzer
      ;; ido-vertical-mode
      ;; ido-at-point
      ;; ido-hacks
