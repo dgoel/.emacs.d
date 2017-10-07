@@ -34,6 +34,11 @@
             ;; (which-function-mode t)
             ))
 
+;; modern c++ syntax highlihgting
+(use-package modern-cpp-font-lock
+  :init (add-hook 'c++-mode-hook #'modern-c++-font-lock-mode))
+
+
 ;; enable company and flycheck
 (require 'company)
 (require 'company-c-headers)

@@ -63,6 +63,7 @@
      jump-char
      magit
      manage-minor-mode
+     modern-cpp-font-lock
      move-text
      multiple-cursors
      nlinum
