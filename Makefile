@@ -6,19 +6,16 @@ BYTE_COMPILE_DIRS = etc/themes site-lisp defuns
 install: ## Setup required directories and install system dependencies
 	mkdir -p bin/irony
 	mkdir -p bin/jedi
-	sudo dnf install emacs-auctex emacs-auctex-doc \
-			the_silver_searcher \
-			python-jedi \
-			python-virtualenv
-	sudo pip install epc
+	sudo apt install auctex	\
+				silversearcher-ag \
+				python-jedi python-virtualenv
+	pip install epc
 
 pull: ## Update .emacs.d git repository and submodules
-	git pull
-	git submodule init
-	git submodule update
+	git pull --recurse-submodules=yes
 
 up: ## Update emacs packages installed through package manager
-	$(emacs) -batch -l packages.el
+	-$(emacs) -batch -l packages.el
 
 %.elc: %.el
 	@echo Compiling file $<
@@ -50,4 +47,4 @@ help: ## This help dialog.
 	done
 
 
-.PHONY: install pull up compile clean help
+.PHONY: install pull up clean help
