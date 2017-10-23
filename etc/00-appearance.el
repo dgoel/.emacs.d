@@ -10,17 +10,40 @@
 (when window-system
   (setq frame-title-format '(buffer-file-truename "%f" ("%b"))))
 
-;; Default monospace font
-(set-face-attribute 'default nil
-                    ;; :family "Droid Sans Mono"   :height 105
-                    ;; :family "Noto Sans Mono"    :height 105
-                    ;; :family "DejaVu Sans Mono"  :height 110
-                    ;; :family "Liberation Mono"   :height 110
-                       :family "Inconsolata"       :height 110)
 
-;; Default variable-pitch font
-(set-face-attribute 'variable-pitch nil
-                    :family "DejaVu Sans" :height 110)
+(defun dgoel/setup-fonts (default-height variable-pitch-height)
+  "Set up default fonts. Use DEFAULT-HEIGHT for default face and
+   VARIABLE-PITCH-HEIGHT for variable-pitch face."
+  ;; monospace: set the first font that is installed
+  (cond
+   ((find-font (font-spec :name "Inconsolata"))
+    (set-face-attribute 'default nil
+                        :family "Inconsolata"
+                        :height default-height))
+   ((find-font (font-spec :name "Liberation Mono"))
+    (set-face-attribute 'default nil
+                        :family "Liberation Mono"
+                        :height default-height))
+   ((find-font (font-spec :name "Droid Sans Mono"))
+    (set-face-attribute 'default nil
+                        :family "Droid Sans Mono"
+                        :height default-height))
+   ((find-font (font-spec :name "DejaVu Sans Mono"))
+    (set-face-attribute 'default nil
+                        :family "DejaVu Sans Mono"
+                        :height default-height)))
+  ;; variable pitch
+  (set-face-attribute 'variable-pitch nil
+                      :family "DejaVu Sans"
+                      :height variable-pitch-height
+                      :weight 'regular))
+
+;; http://manuel-uberti.github.io/emacs/2017/02/26/dynamicfonts/
+(when window-system
+  (let ((pix_per_mm (/ (float (x-display-pixel-width)) (float (x-display-mm-width)))))
+    (if (> pix_per_mm 2.5)
+        (dgoel/setup-fonts 130 130)
+      (dgoel/setup-fonts 110 110))))
 
 ;; Default font for all unicode characters
 (set-fontset-font t 'unicode "DejaVu Sans Mono" nil 'prepend)
