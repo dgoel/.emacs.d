@@ -41,13 +41,12 @@
 ;; http://manuel-uberti.github.io/emacs/2017/02/26/dynamicfonts/
 (when window-system
   (let ((pix_per_mm (/ (float (x-display-pixel-width)) (float (x-display-mm-width)))))
-    (if (> pix_per_mm 2.5)
+    (if (> pix_per_mm 3.5)
         (dgoel/setup-fonts 130 130)
       (dgoel/setup-fonts 110 110))))
 
 ;; Default font for all unicode characters
 (set-fontset-font t 'unicode "DejaVu Sans Mono" nil 'prepend)
-
 
 ;; Themes directory
 (defconst themes-dir
