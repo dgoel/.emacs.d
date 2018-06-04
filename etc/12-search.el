@@ -17,6 +17,14 @@
         ag-highlight-search t)
   :config (use-package wgrep-ag :ensure wgrep-ag))
 
+
+(use-package rg
+  ;; :ensure-system-package  (rg . ripgrep)
+  :commands ag
+  :config
+  (add-hook 'rg-mode-hook 'wgrep-ag-setup)
+  )
+
 ;; Visual regexp
 (use-package visual-regexp
   :commands (vr/mc-mark vr/replace vr/query-replace)

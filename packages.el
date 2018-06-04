@@ -76,6 +76,7 @@
      projectile
      rainbow-mode
      rainbow-delimiters
+     rg
      s
      scratch
      smartparens
