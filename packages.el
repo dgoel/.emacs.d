@@ -38,6 +38,7 @@
      elfeed
      elfeed-goodies
      exec-path-from-shell
+     filladapt
      flx
      ;;flx-ido
      flycheck
