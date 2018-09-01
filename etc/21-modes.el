@@ -156,7 +156,9 @@
 ;; Markdown
 (use-package markdown-mode
   :mode ("\\.\\(md\\|markdown\\)\\'" . markdown-mode)
-  :config (setf sentence-end-double-space nil))
+  :config
+  (setf sentence-end-double-space nil)
+  (setq markdown-command "/usr/bin/pandoc"))
 
 
 ;; Python
