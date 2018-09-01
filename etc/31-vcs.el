@@ -25,7 +25,7 @@
   :commands (with-editor-async-shell-command
              with-editor-shell-command))
 
-(use-package git-commit:
+(use-package git-commit
   :config
   (global-git-commit-mode))
 
