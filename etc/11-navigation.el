@@ -31,6 +31,8 @@
 
 ;; counsel
 (use-package counsel
+  :after ivy ;; make sure ivy gets loaded
+  :diminish
   ;; counsel uses smex
   :init (setq smex-save-file (expand-file-name "smex-items" var-dir))
   :bind
@@ -42,7 +44,21 @@
   ("M-i" . counsel-imenu)
   ("M-y" . counsel-yank-pop)
   (:map ivy-minibuffer-map
-        ("M-y" . ivy-next-line)))
+        ("M-y" . ivy-next-line))
+  :config
+  ;; show parent directory in the prompt
+  (ivy-set-prompt 'counsel-ag #'counsel-prompt-function-dir)
+
+  ;; customize base `git' command
+  ;; --files: get filtered files from rg (uses .ignore)
+  ;; (setq counsel-git-cmd "rg --files")
+
+  ;; customize base `rg' command
+  ;; -S: smart case
+  ;; -M 120: truncate lines longer than 120 characters
+  (setq counsel-rg-base-command
+        "rg -S -M 120 --no-heading --line-number --color never %s .")
+  )
 
 
 ;; Interactively Do Things
