@@ -60,6 +60,7 @@
 ;;     git-commit-mode
      gitconfig-mode
      gitignore-mode
+     git-gutter
      git-timemachine
      jump-char
      magit
