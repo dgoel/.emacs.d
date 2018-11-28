@@ -31,6 +31,8 @@
 (setq apropos-do-all t)
 
 ;; Also auto refresh dired, but be quiet about it
+;; auto refresh dired when file changes
+(add-hook 'dired-mode-hook 'auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 
@@ -183,8 +185,9 @@
 (defun my-minibuffer-setup-hook ()
   (setq gc-cons-threshold most-positive-fixnum))
 
+;; increase from 800K to 2M
 (defun my-minibuffer-exit-hook ()
-  (setq gc-cons-threshold 800000))
+  (setq gc-cons-threshold (* 2 1000 1000)))
 
 (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
