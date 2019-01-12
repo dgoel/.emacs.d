@@ -1,5 +1,6 @@
 ;; Elfeed
 (use-package elfeed
+  :disabled t
   :defer t
   ;;:load-path (lambda() (expand-file-name "elfeed" site-lisp-dir))
   :preface
