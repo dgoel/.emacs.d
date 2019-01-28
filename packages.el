@@ -62,6 +62,7 @@
      gitignore-mode
      git-gutter
      git-timemachine
+     htmlize
      jump-char
      magit
      manage-minor-mode
@@ -71,6 +72,7 @@
      nlinum
      org
      org-plus-contrib
+     ox-reveal
      paredit
      password-store
      perspective
