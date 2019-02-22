@@ -21,14 +21,14 @@ operating systems:
 I try to follow the general emacs keybindings convention as much as possible:
 
 1. `C-x`: reserved for Emacs native essential keybindings like buffer, frame,
-   file, etc...
+   file, etc.
 
 2. `C-g`, `C-h` and `<ESC>`: reserved for keyboard-quit, help and alternate for
    `M-x` respectively.
 
-3. `C-c <letter>` and `<f5>`-`<f12>`: reserved for the user.
+3. `C-c <letter>` and `<f5>`-`<f9>`: reserved for the user.
 
-4. `C-c C-<letter>`: reserved for major mode.
+4. `C-c C-[anything]`, `C-c [<digit>, {, }, <, >, :, ;]`: reserved for major mode.
 
 
 ## Tips for using these emacs settings
