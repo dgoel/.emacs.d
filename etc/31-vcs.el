@@ -29,7 +29,7 @@
   :config
   (global-git-commit-mode))
 
-(use-package magit-popup)
+(use-package transient)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ediff                                                                  ;;

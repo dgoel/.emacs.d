@@ -186,7 +186,11 @@
   :mode (("CMakeLists\\.txt\\'" . cmake-mode)
          ("\\.cmake\\'"         . cmake-mode)))
 
+(use-package graphviz-dot-mode
+  :mode "\\.dot\\'")
 
+(use-package plantuml-mode
+  :mode "\\.plantuml\\'")
 
 ;; Emacs lisp
 ;;NOTE: loading rainbow-mode and rainbow-delimiters package in :config of

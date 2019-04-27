@@ -62,6 +62,7 @@
      gitignore-mode
      git-gutter
      git-timemachine
+     graphviz-dot-mode
      htmlize
      jump-char
      magit
@@ -77,6 +78,7 @@
      password-store
      perspective
      persp-projectile
+     plantuml-mode
      projectile
      rainbow-mode
      rainbow-delimiters

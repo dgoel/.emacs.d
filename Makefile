@@ -9,7 +9,7 @@ install: ## Setup required directories and install system dependencies
 	sudo apt install auctex	\
 				silversearcher-ag \
 				python-jedi python-virtualenv
-	pip install epc
+	pip install epc graphviz
 
 pull: ## Update .emacs.d git repository and submodules
 	git pull --recurse-submodules=yes
