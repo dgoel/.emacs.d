@@ -124,7 +124,8 @@
    (perl . t)
    (python . t)
    (screen . nil)
-   (sh . t)))
+   (shell . t))
+ )
 
 ;; Standard key bindings
 ;; TODO should these be mode-specific?

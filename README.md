@@ -1,7 +1,9 @@
 # My emacs settings
 
-My emacs configuration initially forked from magnars but heavily personalized
-thereafter with bits and pieces accumulated from the internet over many years.
+My emacs (>= 26.1) configuration initially forked from magnars but heavily
+personalized thereafter with bits and pieces accumulated from the internet over
+many years.
+
 
 ## Structure
 
