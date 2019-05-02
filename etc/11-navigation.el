@@ -268,11 +268,21 @@
 
 ;; which-key: better than guide-key
 (use-package which-key
+  :defer 2
   :diminish which-key-mode
   :commands which-key-mode
   :config
   (which-key-mode 1)
-  (which-key-setup-side-window-bottom))
+  (which-key-setup-side-window-bottom)
+  (setq which-key-compute-remaps t)
+  (setq which-key-allow-multiple-replacements t)
+  ;; Replace the description of KEY-SEQUENCE with useful text instead of prefix
+  (which-key-add-key-based-replacements
+    "C-x 8"   "unicode"
+    "C-x r"   "rectangle/register/bookmark"
+    "C-x v"   "version control"
+  )
+)
 
 ;; recentf
 (use-package recentf
