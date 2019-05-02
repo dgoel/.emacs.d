@@ -61,6 +61,10 @@
     ;; install here
     (setq irony-server-install-prefix "~/.emacs.d/bin/irony")
 
+    ;; prefer compilation database and clang_complete as a fallback
+    (setq-default irony-cdb-compilation-databases '(irony-cdb-libclang
+                                                    irony-cdb-clang-complete))
+
     ;; compancy-irony-c-headers must be loaded after irony-mode, while the
     ;; backend should be grouped with company-irony, and before it.
     (require 'company-irony-c-headers)
