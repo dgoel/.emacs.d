@@ -181,10 +181,28 @@
   :config (require 'tex-conf "modes.d/tex-conf"))
 
 
-;; Cmake
+;; CMake
 (use-package cmake-mode
-  :mode (("CMakeLists\\.txt\\'" . cmake-mode)
-         ("\\.cmake\\'"         . cmake-mode)))
+  :mode ("CMakeLists.txt" "\\.cmake\\'")
+  :config
+  (use-package cmake-font-lock
+    :commands (cmake-font-lock-activate)
+    :hook (cmake-mode . (lambda ()
+                          (cmake-font-lock-activate)
+                          ;; https://github.com/Lindydancer/cmake-font-lock/issues/5
+                          ;;(font-lock-add-keywords)
+                          )))
+  (use-package eldoc-cmake
+    :hook (cmake-mode . eldoc-cmake-enable))
+
+  (use-package company-cmake
+    :after company
+    :load-path "site-lisp/company-cmake.el"
+    :hook (cmake-mode . (lambda ()
+                          (add-to-list 'company-backends 'company-cmake)
+                          (company-mode))))
+
+)
 
 (use-package graphviz-dot-mode
   :mode "\\.dot\\'")

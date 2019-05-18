@@ -21,6 +21,13 @@
      aggressive-indent
      avy
      change-inner
+
+     ;; cmake
+     cmake-mode
+     cmake-font-lock
+     ;;company-cmake
+     eldoc-cmake
+
      company
      company-auctex
      company-c-headers
