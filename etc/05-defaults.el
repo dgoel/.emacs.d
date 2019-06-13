@@ -3,6 +3,7 @@
        ring-bell-function 'ignore
        inhibit-startup-message t
        confirm-nonexistent-file-or-buffer  t
+       large-file-warning-threshold        25000000  ;; ~25 MB
        mouse-yank-at-point                 t
        xterm-mouse-mode                    t         ;; Enable mouse in xterm
        custom-file     "~/.emacs.d/custom.el"        ;; set default custom file and not let it clobber init.el
