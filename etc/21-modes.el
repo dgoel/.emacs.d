@@ -56,9 +56,12 @@
      (add-hook mode-hook ,func)))
 ;; semantics
 (use-package semantics
+  :disabled t
   :init (setq semanticdb-default-save-directory
-              (lambda() (expand-file-name ("semanticdb" var-dir))))
+              (expand-file-name "semanticdb" var-dir))
   :config
+  (require 'semantic/bovine/c)
+  (set-default 'semantic-case-fold t)
   (semantic-add-system-include "/usr/include/c++" 'c++mode))
 
 
@@ -72,6 +75,7 @@
 
 ;; ggtags
 (use-package ggtags
+  :disabled
   :commands ggtags-mode
   :diminish ggtags-mode
   :config (setq ggtags-highlight-tag nil))
