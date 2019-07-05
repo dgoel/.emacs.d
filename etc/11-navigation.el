@@ -10,6 +10,7 @@
 ;; Ivy
 (use-package ivy
   :diminish (ivy-mode . "")
+  :demand t
   :bind
   ("C-x s" . swiper)
   (:map ivy-mode-map
