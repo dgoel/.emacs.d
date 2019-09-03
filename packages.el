@@ -17,8 +17,7 @@
 
 ;; My packages
 (defconst my-packages
-   '(ag
-     aggressive-indent
+   '(aggressive-indent
      avy
      change-inner
 

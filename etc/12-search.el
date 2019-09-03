@@ -8,22 +8,11 @@
   (define-key grep-mode-map (kbd "C-x C-q") 'wgrep-change-to-wgrep-mode)
   (define-key grep-mode-map (kbd "C-c C-c") 'wgrep-finish-edit))
 
-;; SilverSearcher
-(use-package ag
-  ;:ensure ag
-  :commands (ag ag-regexp)
-  :init
-  (setq ag-reuse-window t
-        ag-highlight-search t)
-  :config (use-package wgrep-ag :ensure wgrep-ag))
-
-
+;; Ripgrep
 (use-package rg
   ;; :ensure-system-package  (rg . ripgrep)
-  :commands ag
-  :config
-  (add-hook 'rg-mode-hook 'wgrep-ag-setup)
-  )
+  :commands rg
+  :config (rg-enable-default-bindings))
 
 ;; Visual regexp
 (use-package visual-regexp
