@@ -14,6 +14,8 @@
 ;; Set path to dependencies
 (defconst site-lisp-dir
   (expand-file-name "site-lisp" user-emacs-directory))
+(defconst themes-dir
+  (expand-file-name "themes" user-emacs-directory))
 (defconst etc-dir
   (expand-file-name "etc" user-emacs-directory))
 (defconst var-dir

@@ -11,13 +11,13 @@
 	path = site-lisp/use-package
 	url = https://github.com/jwiegley/use-package/
 [submodule "etc/themes/dgoel-solarized"]
-        path = etc/themes/dgoel-solarized
+	path = themes/dgoel-solarized
         url = https://github.com/dgoel/emacs-color-theme-solarized
 [submodule "etc/themes/dgoel-monokai"]
-	path = etc/themes/dgoel-monokai
+	path = themes/dgoel-monokai
 	url = https://github.com/dgoel/monokai-emacs
 [submodule "etc/themes/dgoel-sanityinc-tomorrow"]
-	path = etc/themes/dgoel-sanityinc-tomorrow
+	path = themes/dgoel-sanityinc-tomorrow
 	url = https://github.com/dgoel/color-theme-sanityinc-tomorrow
 [submodule "site-lisp/benchmark-init-el"]
 	path = site-lisp/benchmark-init-el

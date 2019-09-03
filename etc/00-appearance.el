@@ -48,9 +48,6 @@
 ;; Default font for all unicode characters
 (set-fontset-font t 'unicode "DejaVu Sans Mono" nil 'prepend)
 
-;; Themes directory
-(defconst themes-dir
-  (expand-file-name "themes" (file-name-directory (or load-file-name buffer-file-name))))
 
 ;; solarized
 (use-package color-theme-solarized
