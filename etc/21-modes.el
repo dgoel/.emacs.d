@@ -208,6 +208,10 @@
 
 )
 
+;; ctest/pytest
+(use-package counsel-test
+  :defer 10)
+
 (use-package graphviz-dot-mode
   :mode "\\.dot\\'")
 

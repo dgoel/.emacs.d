@@ -36,6 +36,7 @@
      company-jedi  ;; needs jedi system package
      counsel
      counsel-projectile
+     counsel-test
      dash
      define-word
      expand-region
