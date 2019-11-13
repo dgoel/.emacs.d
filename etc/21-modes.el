@@ -155,7 +155,8 @@
 (use-package cc-mode
   :mode (("\\.\\(cc\\|cpp\\|cxx\\|hpp\\|hxx\\)\\'" . c++-mode)
          ("\\.\\(c\\|h\\)\\'" . c-mode))
-  :config (require 'cc-conf "modes.d/cc-conf"))
+  :config
+  (require 'cc-conf "modes.d/cc-conf"))
 
 ;; Markdown
 (use-package markdown-mode
@@ -204,9 +205,7 @@
     :load-path "site-lisp/company-cmake.el"
     :hook (cmake-mode . (lambda ()
                           (add-to-list 'company-backends 'company-cmake)
-                          (company-mode))))
-
-)
+                          (company-mode)))))
 
 ;; ctest/pytest
 (use-package counsel-test
@@ -254,3 +253,23 @@
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
 (add-to-list 'auto-mode-alist '("[._]bash.*" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("[Mm]akefile" . makefile-gmake-mode))
+
+;; lsp (language server protocol)
+(use-package lsp-mode
+  :hook ((c-mode c++-mode python-mode) . lsp)
+  :init (setq lsp-clients-clangd-executable "clangd-9")
+  :config (setq lsp-prefer-flymake nil))
+
+;; company lsp
+(use-package company-lsp
+  :commands company-lsp
+  :config (push 'company-lsp company-backends))
+
+
+;; lsp extras
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+  ;; :config
+  ;; (setq lsp-ui-sideline-ignore-duplicate t)
+  ;; (setq lsp-ui-sideline-show-symbol nil)  ; don't show symbol on the right of info
+  ;; (setq lsp-ui-doc-include-signature nil)  ; don't include type signature in the child frame

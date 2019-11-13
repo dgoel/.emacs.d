@@ -1,3 +1,14 @@
+;; TODO: rtags:
+;; https://vxlabs.com/2016/04/11/step-by-step-guide-to-c-navigation-and-completion-with-emacs-and-the-clang-based-rtags/
+;; https://syamajala.github.io/c-ide.html
+
+;; C-c C-o is your friend in CC-mode. Place your cursor in "b = b + 1;" and
+;; press C-c C-o. Press Enter and set a value for the offset and press Enter
+;; again. And finally press TAB to re-indent. Check if this is indent level what
+;; you want or else increase or decrease the indent value accordingly. For me
+;; with the same code i was able to get the indent level with offset value 8.
+;; Good luck. P.S: For more info. Press C-h k and C-c C-o
+
 (c-add-style "mine"
              '("linux"
                (c-basic-offset . 4)
@@ -29,15 +40,24 @@
             ;; auto fill comments
             (c-setup-filladapt)
             (filladapt-mode 1)
-            (ggtags-mode 1)
             ;; show the current function
             ;; (which-function-mode t)
             ))
 
+;; counsel-etags
+(use-package counsel-etags
+  ;;; does not load .projectile
+  :disabled t
+  :after counsel
+  :config
+  ;; auto update after 300 seconds
+  (add-hook 'after-save-hook 'counsel-etags-virtual-update-tags)
+  (setq counsel-etags-update-interval 300))
+
 ;; modern c++ syntax highlihgting
 (use-package modern-cpp-font-lock
+  :diminish modern-c++-font-lock-mode
   :init (add-hook 'c++-mode-hook #'modern-c++-font-lock-mode))
-
 
 ;; enable company and flycheck
 (require 'company)
@@ -49,10 +69,13 @@
             (flycheck-mode 1)
             (delete 'company-semantic company-backends)
             ;;(add-to-list 'company-backends 'company-c-headers)
-            (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.3.1/")))
+            (add-to-list 'company-c-headers-path-system "/usr/include/c++/9/")
+            ))
+
 
 ;; irony
 (use-package irony
+  :disabled t
   :diminish irony-mode
   :commands irony-mode
   :init (add-hook 'c-mode-common-hook 'irony-mode)
@@ -90,14 +113,16 @@
 
 ;; flycheck-irony
 (use-package flycheck-irony
+  :disabled t
+  :after flycheck irony
   :init (eval-after-load 'flycheck
           '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup)))
 
 
 ;; clang-analyzer
 (use-package flycheck-clang-analyzer
+  :disabled t
   :after flycheck
   :config (flycheck-clang-analyzer-setup))
 
 (provide 'cc-conf)
-

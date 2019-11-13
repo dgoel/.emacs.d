@@ -34,6 +34,7 @@
      company-irony-c-headers
      company-math
      company-jedi  ;; needs jedi system package
+     company-lsp
      counsel
      counsel-projectile
      counsel-test
@@ -72,6 +73,8 @@
      graphviz-dot-mode
      htmlize
      jump-char
+     lsp-mode
+     lsp-ui
      magit
      manage-minor-mode
      modern-cpp-font-lock
