@@ -37,6 +37,9 @@
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 
+;; Wrap words in all text modes (including org-mode)
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+
 ;; Show keystrokes in progress
 (setq echo-keystrokes 0.1)
 
