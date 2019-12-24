@@ -76,6 +76,7 @@
 
 ;; editorconfig
 (use-package editorconfig
+  :disabled
   :diminish editorconfig-mode
   :config
   (editorconfig-mode t))
