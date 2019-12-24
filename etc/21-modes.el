@@ -34,21 +34,14 @@
 ;; Highlight parenthesis
 (use-package highlight-parentheses
   :diminish highlight-parentheses-mode
-  :commands (highlight-parentheses-mode)
-  :init (hook-into-modes #'(lambda () (highlight-parentheses-mode 1))
-                         '(prog-mode-hook
-                           c-mode-common-hook
-                           lisp-mode-hook)))
+  :commands highlight-parentheses-mode
+  :hook (prog-mode . highlight-parentheses-mode))
 
 ;; Manage whitespace for edited lines only
 (use-package ws-butler
-  ;;:load-path (lambda() (expand-file-name "ws-butler" site-lisp-dir))
   :diminish ws-butler-mode
-  :commands (ws-butler-mode)
-  :init (hook-into-modes #'(lambda () (ws-butler-mode 1))
-                         '(prog-mode-hook
-                           c-mode-common-hook
-                           python-mode-hook)))
+  :commands ws-butler-mode
+  :hook (prog-mode . ws-butler-mode))
 
 ;;;;  using use-package
 (defmacro hook-into-modes (func modes)
