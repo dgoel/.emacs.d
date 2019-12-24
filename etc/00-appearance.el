@@ -48,47 +48,40 @@
 ;; Default font for all unicode characters
 (set-fontset-font t 'unicode "DejaVu Sans Mono" nil 'prepend)
 
-
 ;; solarized
 (use-package color-theme-solarized
-  :disabled t
-  :load-path (lambda() (expand-file-name "dgoel-solarized" themes-dir))
+  :demand t
+  :load-path "themes/dgoel-solarized"
   :init
-  (progn
-    (add-to-list 'custom-theme-load-path (expand-file-name "dgoel-solarized" themes-dir))
-    (set-frame-parameter nil 'background-mode 'dark)
-    (set-terminal-parameter nil 'background-mode 'dark)
-    (load-theme 'solarized :no-confirm)
-    (enable-theme 'solarized)))
+  (add-to-list 'custom-theme-load-path (expand-file-name "dgoel-solarized" themes-dir))
+  (set-frame-parameter nil 'background-mode 'dark)
+  (set-terminal-parameter nil 'background-mode 'dark)
+  (load-theme 'solarized :no-confirm))
 
-;; monokai
-(use-package monokai
+;; my customized solarized
+(use-package solarized-dgoel-theme
   :disabled t
-  :load-path (lambda() (expand-file-name "dgoel-monokai" themes-dir))
+  :load-path "themes"
   :init
-  (progn
-    (add-to-list 'custom-theme-load-path (expand-file-name "dgoel-monokai" themes-dir))
-    (setq monokai-use-variable-pitch nil)
-    (setq monokai-height-minus-1 1.0)
-    (setq monokai-height-plus-1 1.0)
-    (setq monokai-height-plus-2 1.0)
-    (setq monokai-height-plus-3 1.0)
-    (setq monokai-height-plus-4 1.0)
-    (load-theme 'monokai :no-confirm)))
+  (use-package solarized-theme
+    :demand t
+    :load-path "themes/bbatsov-solarized"
+    :init
+    (setq solarized-use-less-bold t)
+    (setq solarized-use-variable-pitch nil)  ;; Don't change the font for some headings and titles
+    (setq solarized-scale-org-headlines nil) ;; Don't change size of org-mode headlines
+    (setq solarized-height-minus-1 1.0)      ;; Avoid all font-size changes
+    (setq solarized-height-plus-1 1.0)
+    (setq solarized-height-plus-2 1.0)
+    (setq solarized-height-plus-3 1.0)
+    (setq solarized-height-plus-4 1.0)
+    (setq solarized-high-contrast-mode-line t) ;; modeline
+    (setq x-underline-at-descent-line t))
+  :config (load-theme 'solarized-dgoel :no-confirm))
 
 ;; sanity-inc tomorrow
 (use-package color-theme-sanityinc-tomorrow
-  :demand t
-  :load-path (lambda() (expand-file-name "dgoel-sanityinc-tomorrow" themes-dir))
-  :init
-  (progn
-    (add-to-list 'custom-theme-load-path (expand-file-name "dgoel-sanityinc-tomorrow" themes-dir))
-    (load-theme 'sanityinc-tomorrow-eighties :no-confirm)
-    ;; (custom-set-faces
-    ;;  '(cursor               ((t :background "#eebb28")))
-    ;;  '(diff-added           ((t :foreground "green" :underline nil)))
-    ;;  '(diff-removed         ((t :foreground "red" :underline nil)))
-    ;;  '(highlight            ((t :background "black" :underline nil)))
-    ;;  '(magit-item-highlight ((t :background "black")))
-    ;;  '(hl-line              ((t :background "gray10")))
-    ))
+  :disabled t
+  :load-path "themes/dgoel-sanityinc-tomorrow"
+  :config
+  (load-theme 'sanityinc-tomorrow-eighties :no-confirm))
