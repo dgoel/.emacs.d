@@ -24,4 +24,4 @@
 	url = https://github.com/dholm/benchmark-init-el
 [submodule "themes/bbatsov-solarized"]
 	path = themes/bbatsov-solarized
-	url = https://github.com/bbatsov/emacs-solarized
+	url = https://github.com/bbatsov/solarized-emacs
