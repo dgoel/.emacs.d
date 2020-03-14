@@ -195,3 +195,11 @@
 
 (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
+;; Set the default mode of the scratch buffer to be *not* a program mode to
+;; avoid loading unnecessary packages at startup
+(setq initial-major-mode 'fundamental-mode)
+
+;; Emacs resizes the (GUI) frame when the newly set font is larger (or smaller)
+;; than the system default. Avoid speed to increase startup speed.
+(setq frame-inhibit-implied-resize t)
