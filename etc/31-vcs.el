@@ -36,6 +36,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;; initial motivation: https://oremacs.com/2015/01/17/setting-up-ediff/
 (use-package ediff
   :defer 10
   :config
@@ -47,6 +48,7 @@
   ;; revert windows on exit - needs winner mode
   ;; (winner-mode)
   (add-hook 'ediff-after-quit-hook-internal 'winner-undo)
+  ;; ignore whitespace
   (setq ediff-diff-options "-w"))
 
 
