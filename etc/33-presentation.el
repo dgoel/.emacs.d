@@ -1,6 +1,7 @@
 ;; reveal.js for presentations
 (use-package ox-reveal
-  :defer 5
+  ;; :defer 10
+  :disabled
   :config
   (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
   (setq org-reveal-mathjax t)
