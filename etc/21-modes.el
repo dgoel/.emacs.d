@@ -249,10 +249,18 @@
 (add-to-list 'auto-mode-alist '("[Mm]akefile" . makefile-gmake-mode))
 
 ;; lsp (language server protocol)
+;; https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/
+;; http://blog.binchen.org/posts/how-to-speed-up-lsp-mode.html
 (use-package lsp-mode
   :hook ((c-mode c++-mode python-mode) . lsp)
   :init (setq lsp-clients-clangd-executable "clangd-9")
-  :config (setq lsp-prefer-flymake nil))
+  :config
+  (setq lsp-prefer-flymake nil)
+  (setq lsp-idle-delay 2.0) ;; 2 sec delay
+  (setq lsp-log-io nil) ;; disable logging
+  (setq lsp-enable-symbol-highlighting nil) ;; disable for better performance
+  (setq lsp-restart 'auto-restart) ;; auto restart lsp
+  )
 
 ;; company lsp
 (use-package company-lsp
