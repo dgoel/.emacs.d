@@ -51,13 +51,14 @@
 
 ;; org-todo states
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n!)" "|" "DONE(d!)")
+      (quote ((sequence "SOMEDAY(s)" "TODO(t)" "NOW(n!)" "|" "DONE(d!)")
               (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)")
               (sequence "MEETING" "TASK" "PROJ"))))
 (setq org-todo-keyword-faces
-      '(("TODO" . (:foreground "DarkOrange1" :weight bold))
-        ("NEXT" . (:foreground "light sea green" :weight bold))
-        ("DONE" . (:foreground "royal blue" :weight bold))
+      '(("SOMEDAY" . (:foreground "DarkOrange4" :weight bold))
+        ("TODO" . (:foreground "DarkOrange1" :weight bold))
+        ("NOW" . (:foreground "light sea green" :weight bold))
+        ("DONE" . (:foreground "forest green" :weight bold))
         ("WAITING" . (:foreground "orange red" :weight bold))
         ("CANCELED" . (:foreground "slate grey" :weight bold))
         ("PROJ" . (:foreground "magenta" :weight bold))
@@ -73,7 +74,7 @@
           ;; type "l" in the agenda to review logged items
           ;;(stuck "") ;; review stuck projects as designated by org-stuck-projects
           (todo "TODO") ;; review all projects
-          (todo "NEXT")
+          (todo "NOW")
           (todo "WAITING"))) ;; review waiting items
         ;; ...other commands here
         ))
