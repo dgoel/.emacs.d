@@ -101,3 +101,12 @@
   :load-path "themes/dgoel-sanityinc-tomorrow"
   :config
   (load-theme 'sanityinc-tomorrow-eighties :no-confirm))
+
+
+;; Compilation buffer
+(use-package ansi-color
+   :init
+   (defun colorize-compilation-buffer ()
+     (let ((inhibit-read-only t))
+       (ansi-color-apply-on-region (point-min) (point-max))))
+   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
