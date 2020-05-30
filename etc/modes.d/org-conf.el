@@ -13,7 +13,7 @@
 (add-hook 'org-mode-hook 'auto-fill-mode)
 
 ;; Only show one star
-(setq org-hide-leading-stars t)
+(setq org-hide-leading-stars nil)
 
 ;; Don't ruin S-arrow to switch windows please
 ;; (use M-+ and M-- instead to toggle)
