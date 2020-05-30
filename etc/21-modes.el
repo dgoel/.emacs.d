@@ -253,25 +253,37 @@
 ;; http://blog.binchen.org/posts/how-to-speed-up-lsp-mode.html
 (use-package lsp-mode
   :hook ((c-mode c++-mode python-mode) . lsp)
-  :init (setq lsp-clients-clangd-executable "clangd-9")
+  :init (setq lsp-clients-clangd-executable "clangd-10")
   :config
   (setq lsp-prefer-flymake nil)
   (setq lsp-idle-delay 2.0) ;; 2 sec delay
   (setq lsp-log-io nil) ;; disable logging
   (setq lsp-enable-symbol-highlighting nil) ;; disable for better performance
   (setq lsp-restart 'auto-restart) ;; auto restart lsp
-  )
+
+  ;; no real time syntax check
+  ;; (setq lsp-diagnostic-package :none)
+
+  ;; `-background-index' requires clangd v8+ (omplete background index on disk)
+  ;; TODO: check if this is not the default in clangd-8+ already
+  ;; (setq lsp-clients-clangd-args '("-j=4" "-background-index" "-log=error"))
+
+  (setq read-process-output-max (* 1024 1024)) ;; 1mb
+)
 
 ;; company lsp
 (use-package company-lsp
   :commands company-lsp
   :config (push 'company-lsp company-backends))
 
-
 ;; lsp extras
 (use-package lsp-ui
-  :commands lsp-ui-mode)
-  ;; :config
-  ;; (setq lsp-ui-sideline-ignore-duplicate t)
-  ;; (setq lsp-ui-sideline-show-symbol nil)  ; don't show symbol on the right of info
-  ;; (setq lsp-ui-doc-include-signature nil)  ; don't include type signature in the child frame
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-include-signature t
+        lsp-ui-flycheck-enable t
+        lsp-ui-sideline-ignore-duplicate t
+        lsp-ui-doc-position 'top
+        ;;lsp-ui-flycheck-list-position 'right
+        lsp-ui-flycheck-live-reporting t)
+ )
