@@ -33,7 +33,6 @@
      company-irony
      company-irony-c-headers
      company-math
-     company-jedi  ;; needs jedi system package
      company-lsp
      counsel
      counsel-projectile
