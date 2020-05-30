@@ -16,6 +16,14 @@
    VARIABLE-PITCH-HEIGHT for variable-pitch face."
   ;; monospace: set the first font that is installed
   (cond
+   ((find-font (font-spec :name "Droid Sans Mono Dotted"))
+    (set-face-attribute 'default nil
+                        :family "Droid Sans Mono Dotted"
+                        :height default-height))
+   ((find-font (font-spec :name "Noto Mono"))
+    (set-face-attribute 'default nil
+                        :family "Noto Mono"
+                        :height default-height))
    ((find-font (font-spec :name "Inconsolata"))
     (set-face-attribute 'default nil
                         :family "Inconsolata"
