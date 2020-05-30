@@ -203,3 +203,7 @@
 ;; Emacs resizes the (GUI) frame when the newly set font is larger (or smaller)
 ;; than the system default. Avoid speed to increase startup speed.
 (setq frame-inhibit-implied-resize t)
+
+;; NEVER split vertically
+;; reference: https://www.gnu.org/software/emacs/manual/html_node/emacs/Window-Choice.html
+(setq split-height-threshold nil)
