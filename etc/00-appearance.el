@@ -57,6 +57,13 @@
 ;; Default font for all unicode characters
 (set-fontset-font t 'unicode "DejaVu Sans Mono" nil 'prepend)
 
+;; Load color-theme
+(add-to-list 'load-path (expand-file-name "color-theme" site-lisp-dir))
+(require 'color-theme "~/.emacs.d/site-lisp/color-theme/color-theme")
+(eval-after-load "color-theme"
+ '(progn
+   (color-theme-initialize)))
+
 ;; solarized
 (use-package color-theme-solarized
   :demand t
