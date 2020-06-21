@@ -96,3 +96,13 @@
 ;; Yank selection in isearch
 (define-key isearch-mode-map (kbd "C-o") 'isearch-yank-selection)
 
+;; on-the-fly spell checking
+(use-package flyspell
+  :hook
+  (text-mode . turn-on-flyspell)
+  (prog-mode . flyspell-prog-mode)
+  :custom
+  (flyspell-use-meta-tab nil)
+  (flyspell-abbrev-p t)
+  (flyspell-issue-welcome-flag nil)
+  (flyspell-use-global-abbrev-table-p t))
