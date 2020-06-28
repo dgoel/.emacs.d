@@ -268,13 +268,12 @@
   ;; TODO: check if this is not the default in clangd-8+ already
   ;; (setq lsp-clients-clangd-args '("-j=4" "-background-index" "-log=error"))
 
+  ;; company-capf supports caching by default
+  (setq lsp-prefer-capf t)
+
+  ;; increase the amount of data which Emacs reads from the process
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
 )
-
-;; company lsp
-(use-package company-lsp
-  :commands company-lsp
-  :config (push 'company-lsp company-backends))
 
 ;; lsp extras
 (use-package lsp-ui
@@ -287,3 +286,6 @@
         ;;lsp-ui-flycheck-list-position 'right
         lsp-ui-flycheck-live-reporting t)
  )
+
+(use-package lsp-ivy
+  :commands lsp-ivy-workspace-symbol)

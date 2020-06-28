@@ -33,7 +33,6 @@
      company-irony
      company-irony-c-headers
      company-math
-     company-lsp
      counsel
      counsel-projectile
      counsel-test
@@ -72,6 +71,7 @@
      graphviz-dot-mode
      htmlize
      jump-char
+     lsp-ivy
      lsp-mode
      lsp-ui
      magit
