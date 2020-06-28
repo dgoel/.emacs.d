@@ -5,10 +5,15 @@ BYTE_COMPILE_DIRS = etc/themes site-lisp defuns
 
 install: ## Setup required directories and install system dependencies
 	mkdir -p bin/irony
-	sudo apt install auctex	\
-				clangd-10
-	pip install graphviz
-	pip install ‘python-language-server[all]'
+	sudo apt install \
+		auctex \
+		clangd-10
+	pip3 install \
+		\'python-language-server[all]\' \
+		pyls-mypy \
+		pyls-isort \
+		pyls-black \
+		graphviz
 
 pull: ## Update .emacs.d git repository and submodules
 	git pull --recurse-submodules=yes
