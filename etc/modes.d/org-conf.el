@@ -125,7 +125,8 @@
    (perl . t)
    (python . t)
    (screen . nil)
-   (shell . t))
+   (shell . t)
+   (jupyter . t)) ; must be last
  )
 
 ;; Standard key bindings

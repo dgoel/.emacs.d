@@ -7,7 +7,8 @@ install: ## Setup required directories and install system dependencies
 	mkdir -p bin/irony
 	sudo apt install \
 		auctex \
-		clangd-10
+		clangd-10 \
+		jupyter
 	pip3 install \
 		\'python-language-server[all]\' \
 		pyls-mypy \

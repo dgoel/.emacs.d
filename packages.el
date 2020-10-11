@@ -71,6 +71,7 @@
      graphviz-dot-mode
      htmlize
      jump-char
+     jupyter
      lsp-ivy
      lsp-mode
      lsp-ui

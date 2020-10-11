@@ -166,6 +166,13 @@
          ("\\.py\\'" . python-mode))
   :config (require 'python-conf "modes.d/python-conf"))
 
+;; jupyter: https://github.com/nnicandro/emacs-jupyter
+(use-package jupyter
+  :commands (jupyter-run-server-repl
+             jupyter-run-repl
+             jupyter-server-list-kernels)
+  :init (eval-after-load 'jupyter-org-extensions
+          '(unbind-key "C-c h" jupyter-org-interaction-mode-map)))
 
 ;; Org
 (use-package org
