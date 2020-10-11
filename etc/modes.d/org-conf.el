@@ -15,12 +15,15 @@
 ;; Only show one star
 (setq org-hide-leading-stars nil)
 
+;; Don't indent text to match the indentation of the heading
+(setq org-adapt-indentation nil)
+
 ;; Don't ruin S-arrow to switch windows please
 ;; (use M-+ and M-- instead to toggle)
 ; (setq org-replace-disputed-keys t)
 
 ;; Hide emphasis markers
-(setq org-hide-emphasis-markers t)
+(setq org-hide-emphasis-markers nil)
 
 ;; No indent
 (setq org-startup-indented nil)
@@ -128,6 +131,8 @@
    (shell . t)
    (jupyter . t)) ; must be last
  )
+
+(setq org-babel-python-command "python3")
 
 ;; Standard key bindings
 ;; TODO should these be mode-specific?
