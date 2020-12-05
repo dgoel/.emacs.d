@@ -1,5 +1,6 @@
 ;; Multiple-cursors
 (use-package multiple-cursors
+  :init (setq mc/list-file (expand-file-name ".mc-lists.el" var-dir))
   :bind (("C-S-c C-S-c" . mc/edit-lines)
          ("C-S-c C-e"   . mc/edit-ends-of-lines)
          ("C-S-c C-a"   . mc/edit-beginnings-of-lines)
@@ -7,8 +8,7 @@
          ("C->"         . mc/mark-next-like-this)
          ("C-<"         . mc/mark-previous-like-this)
          ("C-c C-<"     . mc/mark-all-like-this)
-         ("S-SPC"       . set-rectangular-region-anchor))
-  :config (setq mc/list-file (expand-file-name ".mc-lists.el" var-dir)))
+         ("S-SPC"       . set-rectangular-region-anchor)))
 
 ;; Undo tree
 (use-package undo-tree
