@@ -41,7 +41,7 @@
 (use-package ws-butler
   :diminish ws-butler-mode
   :commands ws-butler-mode
-  :hook (prog-mode . ws-butler-mode))
+  :hook ((prog-mode text-mode) . ws-butler-mode))
 
 ;;;;  using use-package
 (defmacro hook-into-modes (func modes)
