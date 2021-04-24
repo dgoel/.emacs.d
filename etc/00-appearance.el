@@ -3,7 +3,8 @@
       color-theme-is-global t
       truncate-partial-width-windows nil)
 
-;; Stop blinking
+;; Line bar and no blinking
+(set-default 'cursor-type  '(bar . 1))
 (blink-cursor-mode -1)
 
 ;; Show filepath in frame title
