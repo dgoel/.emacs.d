@@ -9,11 +9,12 @@ install: ## Setup required directories and install system dependencies
 		auctex \
 		clangd-10 \
 		jupyter
-	pip3 install \
-		\'python-language-server[all]\' \
-		pyls-mypy \
+	pip3 install --upgrade \
+		\'python-lsp-server[all]\' \
+		mypy-ls \
+		pyls-flake8 \
 		pyls-isort \
-		pyls-black \
+		python-lsp-black \
 		graphviz
 
 pull: ## Update .emacs.d git repository and submodules

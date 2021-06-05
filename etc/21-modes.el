@@ -258,9 +258,19 @@
 ;; lsp (language server protocol)
 ;; https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/
 ;; http://blog.binchen.org/posts/how-to-speed-up-lsp-mode.html
+;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
+
+;; https://github.com/bash-lsp/bash-language-server
+;; bash language server: `npm i -g bash-language-server`
 (use-package lsp-mode
-  :hook ((c-mode c++-mode python-mode) . lsp)
-  :init (setq lsp-clients-clangd-executable "clangd-10")
+  :commands (lsp lsp-deferred)
+  :hook (;; defer LSP server startup until the buffer is visible
+         ((c-mode c++-mode python-mode) . lsp-deferred)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :init (progn
+          (setq lsp-keymap-prefix "C-c l")
+          (setq lsp-pyls-server-command "pylsp")
+          (setq lsp-clients-clangd-executable "clangd-10"))
   :config
   (setq lsp-prefer-flymake nil)
   (setq lsp-idle-delay 2.0) ;; 2 sec delay
