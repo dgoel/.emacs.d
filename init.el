@@ -41,13 +41,10 @@
 (add-to-list 'load-path use-package-dir)
 (eval-when-compile
   (require 'use-package))
-(require 'diminish)
-(require 'bind-key)
 
 ;; for benchmark
 (setq use-package-verbose t)
 (setq use-package-minimum-reported-time 0.001)
-
 ;; require all packages to be installed
 ;; (setq use-package-always-ensure t)
 
@@ -56,6 +53,9 @@
       (expand-file-name "elpa" user-emacs-directory))
 (package-initialize)
 
+(use-package diminish
+  :ensure t)
+(require 'bind-key)
 (require 's)
 (require 'dash)
 
