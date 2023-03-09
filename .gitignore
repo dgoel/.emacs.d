@@ -1,5 +1,6 @@
 auto-save-list
 backups
+.cache
 *~
 .places
 session.*
