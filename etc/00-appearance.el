@@ -11,7 +11,6 @@
 (when window-system
   (setq frame-title-format '(buffer-file-truename "%f" ("%b"))))
 
-
 (defun dgoel/setup-fonts (default-height variable-pitch-height)
   "Set up default fonts. Use DEFAULT-HEIGHT for default face and
    VARIABLE-PITCH-HEIGHT for variable-pitch face."
@@ -51,8 +50,8 @@
 (when window-system
   (let ((pix_per_mm (/ (float (x-display-pixel-width)) (float (x-display-mm-width)))))
     (if (> pix_per_mm 3.5)
-        (dgoel/setup-fonts 100 100)
-      (dgoel/setup-fonts 100 10))))
+        (dgoel/setup-fonts 110 110)
+      (dgoel/setup-fonts 100 100))))
 
 
 ;; Default font for all unicode characters
@@ -60,14 +59,23 @@
 
 ;; Load color-theme
 (add-to-list 'load-path (expand-file-name "color-theme" site-lisp-dir))
-(require 'color-theme "~/.emacs.d/site-lisp/color-theme/color-theme")
-(eval-after-load "color-theme"
- '(progn
-   (color-theme-initialize)))
+
+(require 'color-theme)
+(color-theme-initialize)
+
+;; vscode dark theme
+(use-package vscode-dark-plus-theme
+  :init
+  (setq vscode-dark-plus-box-org-todo nil)
+  (setq vscode-dark-plus-scale-org-faces nil)
+  (setq vscode-dark-plus-invert-hl-todo nil)
+  (setq vscode-dark-plus-render-line-highlight 'line)
+  :config
+  (load-theme 'vscode-dark-plus t))
 
 ;; solarized
 (use-package color-theme-solarized
-  :demand t
+  :disabled t
   :load-path "themes/dgoel-solarized"
   :init
   (add-to-list 'custom-theme-load-path (expand-file-name "dgoel-solarized" themes-dir))
