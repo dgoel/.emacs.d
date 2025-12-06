@@ -33,6 +33,7 @@
 
 ;; Simple
 (use-package simple
+  :ensure nil ;; built-in package
   :bind (("M-t l" . transpose-lines)
          ("M-t w" . transpose-words)
          ("M-t s" . transpose-sexps)
@@ -46,6 +47,7 @@
 
 ;; Search & replace
 (use-package replace
+  :ensure nil ;; built-in package
   :bind ("M-&" . query-replace-regexp))
 
 ;; volatile highlights - temporarily highlight changes from pasting etc

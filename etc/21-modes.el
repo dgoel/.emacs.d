@@ -228,6 +228,7 @@
   :diminish rainbow-delimiters-mode
   :commands rainbow-delimiters-mode)
 (use-package emacs-lisp-mode
+  :ensure nil ;; built-in package
   :mode (("\\.el\\'" . emacs-lisp-mode)
          ("Cask"     . emacs-lisp-mode))
   :init

@@ -357,6 +357,7 @@
 
 ;; Unique file names
 (use-package uniquify
+  :ensure nil ;; built-in package
   :config (setq uniquify-buffer-name-style 'forward))
 
 

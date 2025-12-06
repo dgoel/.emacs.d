@@ -38,6 +38,8 @@
 ;; use-package (bundled with emacs)
 (setq use-package-verbose t)
 (setq use-package-minimum-reported-time 0.001)
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
 
 ;; force load all packages if running in daemon mode
 (if (daemonp) (setq use-package-always-demand t))
