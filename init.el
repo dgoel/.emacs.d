@@ -35,18 +35,12 @@
 ;;   (when (file-directory-p project)
 ;;     (add-to-list 'load-path project)))
 
-;; use-package
-(defconst use-package-dir
-      (expand-file-name "use-package" site-lisp-dir))
-(add-to-list 'load-path use-package-dir)
-(eval-when-compile
-  (require 'use-package))
-
-;; for benchmark
+;; use-package (bundled with emacs)
 (setq use-package-verbose t)
 (setq use-package-minimum-reported-time 0.001)
-;; require all packages to be installed
-;; (setq use-package-always-ensure t)
+
+;; force load all packages if running in daemon mode
+(if (daemonp) (setq use-package-always-demand t))
 
 ;; Setup packages
 (defconst package-user-dir
