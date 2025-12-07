@@ -47,13 +47,12 @@
 ;; Setup packages
 (defconst package-user-dir
       (expand-file-name "elpa" user-emacs-directory))
+(defconst package-archives
+  '(("melpa" . "http://melpa.org/packages/")
+    ("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
-
-(use-package diminish
-  :ensure t)
+(use-package diminish)
 (require 'bind-key)
-(require 's)
-(require 'dash)
 
 ;; import shell paths
 (use-package exec-path-from-shell

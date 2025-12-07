@@ -25,16 +25,8 @@
   :commands (with-editor-async-shell-command
              with-editor-shell-command))
 
-(use-package git-commit
-  :config
-  (global-git-commit-mode))
-
-(use-package transient)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ediff                                                                  ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+(use-package git-commit-ts-mode
+  :mode "\\COMMIT_EDITMSG\\'")
 
 ;; initial motivation: https://oremacs.com/2015/01/17/setting-up-ediff/
 (use-package ediff
@@ -56,10 +48,9 @@
 (use-package git-timemachine
   :commands git-timemachine-mode)
 
-;; git gutter
 (use-package git-gutter
   :bind ("C-x G" . hydra-git-gutter/body)
-  :init (global-git-gutter-mode +1)
+  :hook (prog-mode . git-gutter-mode)
   :config
   (defhydra hydra-git-gutter (:body-pre (git-gutter-mode 1)
                                         :hint nil)
@@ -87,5 +78,4 @@ Git gutter:
                 ;; clear the markup right away
                 (sit-for 0.1)
                 (git-gutter:clear))
-     :color blue))
-  )
+     :color blue)))

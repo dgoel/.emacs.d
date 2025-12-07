@@ -11,6 +11,11 @@
 ;;             (when (featurep 'filladapt)
 ;;               (c-setup-filladapt))))
 
+
+(use-package format-all
+  :commands format-all-mode
+  :hook (prog-mode . format-all-mode))
+
 (use-package filladapt
   :demand t
   :init (progn
@@ -152,6 +157,10 @@
   :config
   (require 'cc-conf "modes.d/cc-conf"))
 
+(use-package bazel)
+
+(use-package protobuf-mode)
+
 ;; Markdown
 (use-package markdown-mode
   :mode ("\\.\\(md\\|markdown\\)\\'" . markdown-mode)
@@ -183,6 +192,7 @@
 ;; Tex
 ;; NOTE: emacs-auctex system package has to be installed
 (use-package latex-mode
+  :disabled t
   :mode ("\\.tex\\'" . latex-mode)
   :config (require 'tex-conf "modes.d/tex-conf"))
 

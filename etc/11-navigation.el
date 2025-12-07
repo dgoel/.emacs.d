@@ -6,6 +6,8 @@
 (global-set-key (kbd "C-}") 'shrink-window-horizontally)
 (global-set-key (kbd "C-{") 'enlarge-window-horizontally)
 
+;; Hydra
+(use-package hydra)
 
 ;; Ivy
 (use-package ivy
@@ -378,6 +380,7 @@
 
 ;; Multiple scratch buffers
 (use-package scratch
+  :disabled t
   :commands (scratch))
 
 ;; Misc keys

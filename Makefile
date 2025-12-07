@@ -5,9 +5,10 @@ BYTE_COMPILE_DIRS = etc/themes site-lisp defuns
 
 install: ## Setup required directories and install system dependencies
 	mkdir -p bin/irony
+	sudo apt install ripgrep fd-find fzf
 	sudo apt install \
-		auctex \
-		clangd-10 \
+		clangd \
+		elpa-org \
 		jupyter
 	pip3 install --upgrade \
 		\'python-lsp-server[all]\' \
