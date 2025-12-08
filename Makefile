@@ -7,6 +7,7 @@ install: ## Setup required directories and install system dependencies
 	mkdir -p bin/irony
 	sudo apt install ripgrep fd-find fzf
 	sudo apt install \
+		clang-format \
 		clangd \
 		elpa-org \
 		jupyter
