@@ -18,7 +18,6 @@
   (:map ivy-mode-map
         ("C-'" . ivy-avy))
   :config
-  (require 'ivy-hydra)
   (ivy-mode 1)
   (setq
    ivy-use-virtual-buffers t      ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’
@@ -31,6 +30,10 @@
   ;;       ;; allow input not in order
   ;;       '((t   . ivy--regex-ignore-order)))
   )
+
+(use-package ivy-hydra
+  :after (hyra ivy))
+
 
 ;; counsel
 (use-package counsel

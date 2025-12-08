@@ -1,5 +1,6 @@
 ;; Projectile
 (use-package projectile
+  :disabled t
   :commands projectile-mode projectile-global-mode projectile-switch-project
   :hook ((prog-mode org-mode) . projectile-mode)
   :bind-keymap ("C-c p" . projectile-command-map)

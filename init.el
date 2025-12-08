@@ -25,9 +25,9 @@
 (add-to-list 'load-path site-lisp-dir)
 
 ;; Benchmark packages
-(add-to-list 'load-path (expand-file-name "benchmark-init-el" site-lisp-dir))
-(require 'benchmark-init-loaddefs "~/.emacs.d/site-lisp/benchmark-init-el/benchmark-init-loaddefs")
-(benchmark-init/activate)
+;; (add-to-list 'load-path (expand-file-name "benchmark-init-el" site-lisp-dir))
+;; (require 'benchmark-init-loaddefs "~/.emacs.d/site-lisp/benchmark-init-el/benchmark-init-loaddefs")
+;; (benchmark-init/activate)
 
 ;; Add external projects to load path
 ;; TODO: this is not needed if load-path is specified in use-package
