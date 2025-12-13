@@ -1,6 +1,3 @@
-[submodule "site-lisp/bash-completion"]
-        path = site-lisp/bash-completion
-        url = https://github.com/szermatt/emacs-bash-completion.git
 [submodule "site-lisp/change-inner"]
         path = site-lisp/change-inner
         url = https://github.com/magnars/change-inner.el.git
@@ -16,9 +13,6 @@
 [submodule "etc/themes/dgoel-sanityinc-tomorrow"]
 	path = themes/dgoel-sanityinc-tomorrow
 	url = https://github.com/dgoel/color-theme-sanityinc-tomorrow
-[submodule "site-lisp/benchmark-init-el"]
-	path = site-lisp/benchmark-init-el
-	url = https://github.com/dholm/benchmark-init-el
 [submodule "themes/bbatsov-solarized"]
 	path = themes/bbatsov-solarized
 	url = https://github.com/bbatsov/solarized-emacs
