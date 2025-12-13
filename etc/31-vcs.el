@@ -21,7 +21,7 @@
   (add-hook 'magit-mode-hook 'magit-load-config-extensions))
 
 (use-package with-editor
-  ;; Magit makes use of this mode
+  :disabled t
   :commands (with-editor-async-shell-command
              with-editor-shell-command))
 

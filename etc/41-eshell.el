@@ -1,5 +1,6 @@
 ;; Copied from https://github.com/jwiegley/dot-emacs/blob/master/init.el
 (use-package eshell
+  :disabled t
   :commands (eshell eshell-command)
   :preface
   (defvar eshell-isearch-map
@@ -41,3 +42,7 @@
           ;;(add-hook 'eshell-first-time-mode-hook 'eshell-initialize)
           )
   )
+
+(use-package em-hist
+  :ensure nil ;; built-in package
+  :after eshell)

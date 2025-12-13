@@ -12,6 +12,7 @@
 
 ;; Undo tree
 (use-package undo-tree
+  :disabled t
   :diminish undo-tree-mode
   :bind ("C-x u" . undo-tree-visualize)
   :config
@@ -19,6 +20,7 @@
   (setq undo-tree-mode-lighter "")
   (setq undo-tree-visualizer-timestamps t)
   (setq undo-tree-visualizer-diff t)
+  (setq undo-tree-auto-save-history nil)
   (defadvice undo-tree-undo (around keep-region activate)
     "Keep region when undoing in region"
     (if (use-region-p)
@@ -55,6 +57,13 @@
   :defer 5 ;; nice to have -- can defer loading
   :diminish volatile-highlights-mode
   :config (volatile-highlights-mode t))
+
+;; regex builder
+(use-package re-builder
+  :disabled t
+  ;; C-c C-u errors, C-c C-w copy, C-c C-q exit
+  :init (bind-key "C-c r" 're-builder emacs-lisp-mode-map))
+
 
 ;; Line movement
 (use-package move-text

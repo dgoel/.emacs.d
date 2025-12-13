@@ -60,9 +60,6 @@
 ;; Load color-theme
 (add-to-list 'load-path (expand-file-name "color-theme" site-lisp-dir))
 
-(require 'color-theme)
-(color-theme-initialize)
-
 ;; vscode dark theme
 (use-package vscode-dark-plus-theme
   :init

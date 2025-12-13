@@ -20,6 +20,8 @@
   (expand-file-name "etc" user-emacs-directory))
 (defconst var-dir
   (expand-file-name "var" user-emacs-directory))
+(defconst temp-dir
+  (expand-file-name temporary-file-directory))
 
 ;; Set up load path
 (add-to-list 'load-path site-lisp-dir)

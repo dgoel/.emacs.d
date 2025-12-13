@@ -56,6 +56,7 @@
       kept-old-versions     2
       version-control       t     ;; use versioned backups
       vc-make-backup-files  t     ;; Make backups of files, even when they're in version control
+      auto-save-list-file-name    (concat temporary-file-directory "emacs-autosave")
       backup-directory-alist      `((".*" . ,temporary-file-directory))
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 

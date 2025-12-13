@@ -62,7 +62,7 @@
 
 ;; open url
 (use-package browse-url
-  :defer t
+  :disabled t
   :commands (browse-url browse-url-at-point browse-url-at-mouse)
   :config
   (use-package eww)
@@ -77,9 +77,10 @@
 
 ;; eww
 (use-package eww
-  :defer t
+  :disabled t
   :commands (eww eww-mode))
 
 ;; define word
 (use-package define-word
+  :disabled t
   :commands (define-word define-word-at-point))

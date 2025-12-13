@@ -292,7 +292,6 @@
 
 ;; recentf
 (use-package recentf
-  :defer 10
   ;;:bind ("C-x f" . ido-recentf-open)
   :commands (recentf-mode)
   :config

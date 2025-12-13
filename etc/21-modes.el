@@ -11,10 +11,35 @@
 ;;             (when (featurep 'filladapt)
 ;;               (c-setup-filladapt))))
 
+(require' treesit)
+(setq treesit-language-source-alist
+      '((bash . ("https://github.com/tree-sitter/tree-sitter-bash" "v0.23.3" nil nil nil))
+        (c . ("https://github.com/tree-sitter/tree-sitter-c" "v0.23.6" nil nil nil))
+        (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp" "v0.23.4" nil nil nil))
+        (go . ("https://github.com/tree-sitter/tree-sitter-go" "v0.23.4" nil nil nil))
+        (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.23.6" nil nil nil))
+        ))
+;; (mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
+
+(setq major-mode-remap-alist
+      '((yaml-mode . yaml-ts-mode)
+        (bash-mode . bash-ts-mode)
+        (c++-mode . c++-ts-mode)
+        (js2-mode . js-ts-mode)
+        (typescript-mode . typescript-ts-mode)
+        (json-mode . json-ts-mode)
+        (css-mode . css-ts-mode)
+        (python-mode . python-ts-mode)))
+
+(use-package eglot
+  :hook (c++-ts-mode . eglot-ensure))
+
 
 (use-package format-all
   :commands format-all-mode
-  :hook (prog-mode . format-all-mode))
+  :hook
+  ((prog-mode . format-all-mode)
+   (format-all-mode-hook . format-all-ensure-formatter)))
 
 (use-package filladapt
   :demand t
@@ -177,6 +202,7 @@
 
 ;; jupyter: https://github.com/nnicandro/emacs-jupyter
 (use-package jupyter
+  :disabled t
   :commands (jupyter-run-server-repl
              jupyter-run-repl
              jupyter-server-list-kernels)
@@ -281,7 +307,7 @@
   :init (progn
           (setq lsp-keymap-prefix "C-c l")
           (setq lsp-pyls-server-command "pylsp")
-          (setq lsp-clients-clangd-executable "clangd-10"))
+          (setq lsp-clients-clangd-executable "clangd"))
   :config
   (setq lsp-prefer-flymake nil)
   (setq lsp-idle-delay 2.0) ;; 2 sec delay
