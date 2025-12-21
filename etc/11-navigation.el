@@ -257,7 +257,6 @@
 
 ;; which-key: better than guide-key
 (use-package which-key
-  :defer 2
   :diminish which-key-mode
   :commands which-key-mode
   :config
