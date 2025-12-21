@@ -7,6 +7,9 @@
 (set-default 'cursor-type  '(bar . 1))
 (blink-cursor-mode -1)
 
+;; Always show line numbers.
+(global-display-line-numbers-mode t)
+
 ;; Show filepath in frame title
 (when window-system
   (setq frame-title-format '(buffer-file-truename "%f" ("%b"))))
