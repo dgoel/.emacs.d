@@ -17,8 +17,7 @@
    magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
    ;; double check when pushing upstream
    magit-push-always-verify t)
-  ;; load extensions based on git repository configuration
-  (add-hook 'magit-mode-hook 'magit-load-config-extensions))
+)
 
 (use-package with-editor
   :disabled t
