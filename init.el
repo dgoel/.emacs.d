@@ -89,11 +89,6 @@
   (unless (server-running-p)
     (server-start)))
 
-;; Quickly try new packages
-(use-package try
-  :commands try try-and-refresh
-  :defer 10)
-
 ;; Conclude init by setting up specifics for the current user
 ;; (when (file-exists-p user-settings-dir)
 ;;   (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
