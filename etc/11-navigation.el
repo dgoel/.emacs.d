@@ -6,11 +6,53 @@
 (global-set-key (kbd "C-}") 'shrink-window-horizontally)
 (global-set-key (kbd "C-{") 'enlarge-window-horizontally)
 
+(use-package vertico
+  :demand t
+  ;; :init
+  ;;  (custom-set-faces
+  ;;   '(vertico-current ((t (:foreground "#4db2ff" :underline nil :weight semi-bold)))))
+  :config
+  (setq vertico-cycle t)
+  (setq vertico-resize nil)
+  (vertico-mode 1))
+
+
+(use-package marginalia
+  :disabled t
+  :config
+  (marginalia-mode 1))
+
+(use-package orderless
+  :config
+  (setq completion-styles '(orderless basic)))
+
+(use-package embark
+  :bind (("C-." . embark-act)
+         :map minibuffer-local-map
+         ("C-c C-c" . embark-collect)
+         ("C-c C-e" . embark-export)))
+
+(use-package embark-consult)
+(use-package consult
+  :ensure t
+  :bind (;; C-c bindings in `mode-specific-map'
+         ("C-c M-x" . consult-mode-command)
+         ("C-c h" . consult-history)
+         ("C-c k" . consult-kmacro)
+         ("C-c m" . consult-man)
+         ("C-c i" . consult-info)
+         ([remap Info-search] . consult-info)
+         ("C-x f" . consult-recent-file)
+         ("M-y" . consult-yank-pop))
+  )
+
+
 ;; Hydra
 (use-package hydra)
 
 ;; Ivy
 (use-package ivy
+  :disabled t
   :diminish (ivy-mode . "")
   :demand t
   :bind
@@ -32,11 +74,13 @@
   )
 
 (use-package ivy-hydra
+  :disabled t
   :after (hyra ivy))
 
 
 ;; counsel
 (use-package counsel
+  :disabled t
   :after ivy ;; make sure ivy gets loaded
   :diminish
   ;; counsel uses smex
