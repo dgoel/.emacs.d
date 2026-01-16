@@ -71,7 +71,12 @@
   (setq vscode-dark-plus-invert-hl-todo nil)
   (setq vscode-dark-plus-render-line-highlight 'line)
   :config
-  (load-theme 'vscode-dark-plus t))
+  (load-theme 'vscode-dark-plus t)
+  (custom-theme-set-faces
+   'vscode-dark-plus
+   ;; disables underlining highlighted links.
+   '(highlight ((t (:inherit t :underline nil :weight semi-bold))))
+   ))
 
 ;; solarized
 (use-package color-theme-solarized
