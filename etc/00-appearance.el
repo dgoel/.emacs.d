@@ -1,7 +1,10 @@
 ;; Some reasonable defaults
 (setq font-lock-maximum-decoration t
       color-theme-is-global t
+      global-hl-line-mode t
       truncate-partial-width-windows nil)
+
+(setq pixel-scroll-mode t)
 
 ;; Line bar and no blinking
 (set-default 'cursor-type  '(bar . 1))
