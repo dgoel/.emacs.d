@@ -1,6 +1,5 @@
 ;; Customizations
 (setq  visible-bell nil
-       ring-bell-function 'ignore
        inhibit-startup-message t
        confirm-nonexistent-file-or-buffer  t
        large-file-warning-threshold        25000000  ;; ~25 MB
