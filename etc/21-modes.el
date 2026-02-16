@@ -39,7 +39,7 @@
   :commands format-all-mode
   :hook
   ((prog-mode . format-all-mode)
-   (format-all-mode-hook . format-all-ensure-formatter)))
+   (format-all-mode . format-all-ensure-formatter)))
 
 (use-package filladapt
   :demand t
@@ -106,7 +106,6 @@
 
 ;; editorconfig
 (use-package editorconfig
-  :disabled
   :diminish editorconfig-mode
   :config
   (editorconfig-mode t))
@@ -177,13 +176,24 @@
 
 ;; CC
 (use-package cc-mode
-  :mode (("\\.\\(cc\\|cpp\\|cxx\\|hpp\\|hxx\\)\\'" . c++-mode)
-         ("\\.\\(c\\|h\\)\\'" . c-mode))
+  :mode (("\\.\\(cc\\|cpp\\|cxx\\|h\\|hpp\\|hxx\\)\\'" . c++-mode)
+         ("\\.\\(c\\)\\'" . c-mode))
+  :bind (("C-c o" . 'ff-find-other-file))
   :config
-  (require 'cc-conf "modes.d/cc-conf"))
+  (c-setup-filladapt)                   ;; Autofills comments
+  (filladapt-mode 1)
+  (which-function-mode t)               ;; Shows the current function
+  )
 
+(use-package google-c-style
+  :after cc-mode
+  :hook (((c-mode c++-mode) . google-set-c-style)
+         (c-mode-common . google-make-newline-indent)))
+
+;; Bazel
 (use-package bazel)
 
+;; Protobuf
 (use-package protobuf-mode)
 
 ;; Markdown
@@ -193,12 +203,10 @@
   (setf sentence-end-double-space nil)
   (setq markdown-command "/usr/bin/pandoc"))
 
-
 ;; Python
 (use-package python
   :mode (("\\<\\(SConscript\\|SConstruct\\)\\>" . python-mode)
-         ("\\.py\\'" . python-mode))
-  :config (require 'python-conf "modes.d/python-conf"))
+         ("\\.py\\'" . python-mode)))
 
 ;; jupyter: https://github.com/nnicandro/emacs-jupyter
 (use-package jupyter
@@ -212,8 +220,10 @@
 ;; Org
 (use-package org
   :mode ("\\.\\(org\\|org_archive\\|eml\\)\\'" . org-mode)
-  :config (require 'org-conf "modes.d/org-conf"))
-
+  :config
+  ;; Doesn't indent text to match the indentation of the heading.
+  (org-adapt-indentation nil)
+  )
 
 ;; Tex
 ;; NOTE: emacs-auctex system package has to be installed
