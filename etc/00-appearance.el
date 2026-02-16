@@ -68,6 +68,7 @@
 
 ;; vscode dark theme
 (use-package vscode-dark-plus-theme
+  :disabled
   :init
   (setq vscode-dark-plus-box-org-todo nil)
   (setq vscode-dark-plus-scale-org-faces nil)
@@ -78,8 +79,37 @@
   (custom-theme-set-faces
    'vscode-dark-plus
    ;; disables underlining highlighted links.
-   '(highlight ((t (:inherit t :underline nil :weight semi-bold))))
+   '(highlight ((t (:inherit t :underline nil :weight bold))))
    ))
+
+;; doom theme
+(use-package doom-themes
+  :custom
+  ;; Global settings (defaults)
+  (doom-themes-enable-bold nil)   ; if nil, bold is universally disabled
+  (doom-themes-enable-italic nil) ; if nil, italics is universally disabled
+  ;; for treemacs users
+  (doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+  :config
+  ;; Loads dark+ theme.
+  (load-theme 'doom-dark+ t)
+
+  (custom-set-faces
+   `(mode-line ((t (:background ,(doom-color 'base4)))))
+   `(vertico-current ((t (:background ,(doom-color 'base2)
+                                      :foreground ,(doom-color 'base6)
+                                      :weight bold
+                                      )))))
+
+  ;; Enables flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enables custom neotree theme (nerd-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
 
 ;; solarized
 (use-package color-theme-solarized
