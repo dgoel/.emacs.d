@@ -96,7 +96,7 @@
 
   (custom-set-faces
    `(mode-line ((t (:background ,(doom-color 'base4)))))
-   `(vertico-current ((t (:background ,(doom-color 'base2)
+   `(vertico-current ((t (:background ,(doom-color 'bg)
                                       :foreground ,(doom-color 'base6)
                                       :weight bold
                                       )))))
