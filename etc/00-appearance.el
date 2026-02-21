@@ -95,11 +95,11 @@
   (load-theme 'doom-dark+ t)
 
   (custom-set-faces
+   `(org-block ((t (:background nil))))
+   `(markdown-code-face ((t (:background unspecified))))
    `(mode-line ((t (:background ,(doom-color 'base4)))))
-   `(vertico-current ((t (:background ,(doom-color 'bg)
-                                      :foreground ,(doom-color 'base6)
-                                      :weight bold
-                                      )))))
+   `(vertico-current ((t (:background unspecified :foreground ,(doom-color 'base6) :weight bold))))
+   `(font-lock-preprocessor-face ((t (:foreground ,(doom-color 'violet))))))
 
   ;; Enables flashing mode-line on errors
   (doom-themes-visual-bell-config)
