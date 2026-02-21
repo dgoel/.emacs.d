@@ -95,7 +95,7 @@
   (load-theme 'doom-dark+ t)
 
   (custom-set-faces
-   `(org-block ((t (:background nil))))
+   `(org-block ((t (:background unspecified))))
    `(markdown-code-face ((t (:background unspecified))))
    `(mode-line ((t (:background ,(doom-color 'base4)))))
    `(vertico-current ((t (:background unspecified :foreground ,(doom-color 'base6) :weight bold))))
