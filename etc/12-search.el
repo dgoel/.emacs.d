@@ -1,18 +1,14 @@
 ;; Grep
 (use-package grep
-  :commands (grep rgrep find-grep-dired find-grep)
-  :config
-  (add-hook 'grep-mode-hook #'(lambda () (use-package wgrep)))
-  (setq wgrep-enable-key "e")
-  (define-key grep-mode-map (kbd "C-x C-s") 'wgrep-save-all-buffers)
-  (define-key grep-mode-map (kbd "C-x C-q") 'wgrep-change-to-wgrep-mode)
-  (define-key grep-mode-map (kbd "C-c C-c") 'wgrep-finish-edit))
+  :commands (grep rgrep find-grep-dired find-grep))
 
-;; Ripgrep
-(use-package rg
-  ;; :ensure-system-package  (rg . ripgrep)
-  :commands rg
-  :config (rg-enable-default-bindings))
+(use-package wgrep
+  :after grep
+  :custom (wgrep-enable-key "e")
+  :bind (:map grep-mode-map
+              ("C-x C-s" . 'wgrep-save-all-buffers)
+              ("C-x C-q" . 'wgrep-change-to-wgrep-mode)
+              ("C-c C-c" . 'wgrep-finish-edit)))
 
 ;; Visual regexp
 (use-package visual-regexp

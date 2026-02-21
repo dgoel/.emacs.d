@@ -37,56 +37,46 @@
 
 (use-package format-all
   :commands format-all-mode
+  :diminish format-all-mode
   :hook
   ((prog-mode . format-all-mode)
    (format-all-mode . format-all-ensure-formatter)))
 
-(use-package filladapt
+(use-package which-func
+  :hook (prog-mode . which-function-mode))
+
+(use-package ffap
+  :bind (("C-c O" . ffap)
+         ("C-c o" . ff-find-other-file)))
+
+(use-package completion-preview
   :demand t
-  :init (progn
-          (setq filladapt-mode-line-string nil)
-          (add-hook 'text-mode-hook 'turn-on-filladapt-mode)
-          (add-hook 'text-mode-hook 'auto-fill-mode)
-          ;; Auto wrap comments in programming modes
-          (add-hook 'prog-mode-hook
-                    (lambda ()
-                      (setq fill-column 80)
-                      (auto-fill-mode 1)
-                      (set (make-local-variable 'comment-auto-fill-only-comments) t)))))
+  :diminish completion-preview-mode
+  :config (global-completion-preview-mode t))
 
-;; Highlight keywords
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (font-lock-add-keywords nil
-                                    '(("\\<\\(FIXME\\|HACK\\|NOTE\\|TODO\\|WTF\\):"
-                                       1 font-lock-warning-face t)))))
-
-;; Highlight parenthesis
 (use-package highlight-parentheses
   :diminish highlight-parentheses-mode
   :commands highlight-parentheses-mode
   :hook (prog-mode . highlight-parentheses-mode))
+
+(use-package hl-todo
+  :hook (prog-mode . hl-todo-mode)
+  :config
+  (setq hl-todo-highlight-punctuation ":"
+        hl-todo-keyword-faces
+        `(("TODO"       warning bold)
+          ("FIXME"      error bold)
+          ("HACK"       error bold)
+          ("REVIEW"     warning bold)
+          ("NOTE"       success bold)
+          ("DEPRECATED" font-lock-doc-face bold))))
+
 
 ;; Manage whitespace for edited lines only
 (use-package ws-butler
   :diminish ws-butler-mode
   :commands ws-butler-mode
   :hook ((prog-mode text-mode) . ws-butler-mode))
-
-;;;;  using use-package
-(defmacro hook-into-modes (func modes)
-  `(dolist (mode-hook ,modes)
-     (add-hook mode-hook ,func)))
-;; semantics
-(use-package semantics
-  :disabled t
-  :init (setq semanticdb-default-save-directory
-              (expand-file-name "semanticdb" var-dir))
-  :config
-  (require 'semantic/bovine/c)
-  (set-default 'semantic-case-fold t)
-  (semantic-add-system-include "/usr/include/c++" 'c++mode))
-
 
 ;; flycheck
 (use-package flycheck
@@ -95,13 +85,6 @@
   :config
   ;; run flycheck when file is saved
   (setq flycheck-check-syntax-automatically '(mode-enabled save)))
-
-;; ggtags
-(use-package ggtags
-  :disabled
-  :commands ggtags-mode
-  :diminish ggtags-mode
-  :config (setq ggtags-highlight-tag nil))
 
 
 ;; editorconfig
@@ -114,6 +97,14 @@
 (use-package eldoc
   :diminish eldoc-mode
   :commands eldoc-mode)
+
+(use-package rainbow-mode
+  :diminish rainbow-mode
+  :commands rainbow-mode)
+
+(use-package rainbow-delimiters
+  :diminish rainbow-delimiters-mode
+  :commands rainbow-delimiters-mode)
 
 ;; company
 (use-package company
@@ -174,16 +165,21 @@
 ;; Specific modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package text-mode
+  :ensure nil  ;; built-in package
+  :preface
+  (eval-when-compile
+    (require 'diminish))
+  :hook
+  (text-mode . turn-on-auto-fill)
+  (text-mode . (lambda() (ignore-errors (diminish 'auto-fill-function)))))
+
 ;; CC
 (use-package cc-mode
   :mode (("\\.\\(cc\\|cpp\\|cxx\\|h\\|hpp\\|hxx\\)\\'" . c++-mode)
          ("\\.\\(c\\)\\'" . c-mode))
-  :bind (("C-c o" . 'ff-find-other-file))
-  :config
-  (c-setup-filladapt)                   ;; Autofills comments
-  (filladapt-mode 1)
-  (which-function-mode t)               ;; Shows the current function
-  )
+  :bind (:map c-mode-base-map
+              ("M-q" . c-fill-paragraph)))
 
 (use-package google-c-style
   :after cc-mode
@@ -201,6 +197,7 @@
   :mode ("\\.\\(md\\|markdown\\)\\'" . markdown-mode)
   :config
   (setf sentence-end-double-space nil)
+  (setq markdown-fontify-code-blocks-natively t)
   (setq markdown-command "/usr/bin/pandoc"))
 
 ;; Python
@@ -232,70 +229,45 @@
   :mode ("\\.tex\\'" . latex-mode)
   :config (require 'tex-conf "modes.d/tex-conf"))
 
-
 ;; CMake
 (use-package cmake-mode
-  :mode ("CMakeLists.txt" "\\.cmake\\'")
-  :config
-  (use-package cmake-font-lock
-    :commands (cmake-font-lock-activate)
-    :hook (cmake-mode . (lambda ()
-                          (cmake-font-lock-activate)
-                          ;; https://github.com/Lindydancer/cmake-font-lock/issues/5
-                          ;;(font-lock-add-keywords)
-                          )))
-  (use-package eldoc-cmake
-    :hook (cmake-mode . eldoc-cmake-enable))
+  :mode ("CMakeLists.txt" "\\.cmake\\'"))
+(use-package cmake-font-lock
+  :after cmake-mode
+  :commands (cmake-font-lock-activate)
+  :hook (cmake-mode . (lambda ()
+                        (cmake-font-lock-activate)
+                        ;; https://github.com/Lindydancer/cmake-font-lock/issues/5
+                        ;;(font-lock-add-keywords)
+                        )))
+(use-package eldoc-cmake
+  :after cmake-mode
+  :hook (cmake-mode . eldoc-cmake-enable))
+(use-package company-cmake
+  :after cmake-mode company
+  :load-path "site-lisp/company-cmake.el"
+  :hook (cmake-mode . (lambda ()
+                        (add-to-list 'company-backends 'company-cmake)
+                        (company-mode))))
 
-  (use-package company-cmake
-    :after company
-    :load-path "site-lisp/company-cmake.el"
-    :hook (cmake-mode . (lambda ()
-                          (add-to-list 'company-backends 'company-cmake)
-                          (company-mode)))))
-
-;; ctest/pytest
-(use-package counsel-test
-  :defer 10)
+(use-package css-mode
+  :mode "\\.css\\'")
 
 (use-package graphviz-dot-mode
   :mode "\\.dot\\'")
 
 (use-package plantuml-mode
+  :disabled
   :mode "\\.plantuml\\'")
 
-;; Emacs lisp
-;;NOTE: loading rainbow-mode and rainbow-delimiters package in :config of
-;;emacs-lisp-mode gives issues, for example, rainbow-mode does not get diminished
-(use-package rainbow-mode
-  :diminish rainbow-mode
-  :commands rainbow-mode)
-(use-package rainbow-delimiters
-  :diminish rainbow-delimiters-mode
-  :commands rainbow-delimiters-mode)
-(use-package emacs-lisp-mode
-  :ensure nil ;; built-in package
-  :mode (("\\.el\\'" . emacs-lisp-mode)
-         ("Cask"     . emacs-lisp-mode))
-  :init
-  (add-hook 'emacs-lisp-mode-hook
-            (lambda ()
-              (setq show-trailing-whitespace t)
-              (show-paren-mode)
-              ;;(focus-mode)
-              (rainbow-mode)
-              (rainbow-delimiters-mode)
-              ;;(prettify-symbols-mode)
-              (eldoc-mode)
-              ;;(flycheck-mode)
-              (company-mode)
-              )))
-
+(use-package pdf-tools
+  :disabled t
+  :mode ("\\.pdf\\'" . pdf-view-mode)
+  :config (pdf-tools-install))
 
 ;; Yaml
 (use-package yaml-mode
   :mode ("\\.yml$" . yaml-mode))
-
 
 ;;; auto-mode-alist entries
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
