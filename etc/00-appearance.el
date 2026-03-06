@@ -111,6 +111,17 @@
   (doom-themes-org-config))
 
 
+(use-package doom-modeline
+  :init
+  (setq
+   doom-modeline-buffer-encoding nil
+   ;; doom-modeline-icon nil
+   doom-modeline-major-mode-icon nil
+   doom-modeline-minor-modes t
+   doom-modeline-vcs-max-length 20)
+  :config
+  (doom-modeline-mode 1))
+
 ;; solarized
 (use-package color-theme-solarized
   :disabled t
