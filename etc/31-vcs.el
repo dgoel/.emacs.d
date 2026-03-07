@@ -6,9 +6,6 @@
   ("C-x g e" . magit-ediff-resolve)
   ("C-x g r" . magit-rebase-interactive)
   :config
-  ;; use ivy for completion
-  (require 'ivy)
-  (setq magit-completing-read-function 'ivy-completing-read)
   ;; confirm when staging all files in one go
   (set-default 'magit-stage-all-confirm t)
   (setq
@@ -16,16 +13,9 @@
    ;; don't put "origin-" in front of new branch names by default
    magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
    ;; double check when pushing upstream
-   magit-push-always-verify t)
-)
+   magit-push-always-verify t))
 
-(use-package with-editor
-  :disabled t
-  :commands (with-editor-async-shell-command
-             with-editor-shell-command))
-
-(use-package git-commit-ts-mode
-  :mode "\\COMMIT_EDITMSG\\'")
+(use-package git-modes)
 
 ;; initial motivation: https://oremacs.com/2015/01/17/setting-up-ediff/
 (use-package ediff
@@ -42,12 +32,11 @@
   ;; ignore whitespace
   (setq ediff-diff-options "-w"))
 
-
-;; Go back in history with a touch of a button
 (use-package git-timemachine
   :commands git-timemachine-mode)
 
 (use-package git-gutter
+  :diminish git-gutter-mode
   :bind ("C-x G" . hydra-git-gutter/body)
   :hook (prog-mode . git-gutter-mode)
   :config
