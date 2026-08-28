@@ -33,7 +33,9 @@
 ;; 2013-04-20, first version
 
 ;;; Code:
+(require 'cl-lib)
 (require 'company)
+
 
 (defgroup company-cmake nil
   "Completion back-end for CMake."
@@ -107,7 +109,7 @@ They affect which types of symbols we get completion candidates for.")
   "`company-mode' completion back-end for CMake.
 CMake is a cross-platform, open-source make system."
   (interactive (list 'interactive))
-  (case command
+  (cl-case command
     (interactive (company-begin-backend 'company-cmake))
     (init (when (memq major-mode company-cmake-modes)
             (unless company-cmake-executable

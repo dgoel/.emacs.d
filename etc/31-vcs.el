@@ -1,10 +1,8 @@
 (use-package magit
   :bind
-  ("C-x g s" . magit-status)
-  ("C-x g x" . magit-checkout)
-  ("C-x g c" . magit-commit)
-  ("C-x g e" . magit-ediff-resolve)
-  ("C-x g r" . magit-rebase-interactive)
+  (("C-x g"   . magit-status)
+   ("C-x M-g" . magit-dispatch))
+
   :config
   ;; confirm when staging all files in one go
   (set-default 'magit-stage-all-confirm t)
@@ -15,55 +13,34 @@
    ;; double check when pushing upstream
    magit-push-always-verify t))
 
-(use-package git-modes)
+;; Git file associations (built-in conf-mode, replaces git-modes)
+(add-to-list 'auto-mode-alist '("/\\.gitconfig\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("/\\.gitattributes\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("/\\.gitignore\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("/git-rebase-todo\\'" . conf-mode))
 
-;; initial motivation: https://oremacs.com/2015/01/17/setting-up-ediff/
+;; Ediff (built-in)
 (use-package ediff
-  :defer 10
+  :ensure nil
+  :defer 5
   :config
-  ;; don't start another frame
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-  ;; put windows side by side
-  (setq ediff-split-window-function (quote split-window-horizontally))
-  (setq-default ediff-highlight-all-diffs 'nil)
-  ;; revert windows on exit - needs winner mode
-  ;; (winner-mode)
-  (add-hook 'ediff-after-quit-hook-internal 'winner-undo)
-  ;; ignore whitespace
-  (setq ediff-diff-options "-w"))
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain
+        ediff-split-window-function 'split-window-horizontally
+        ediff-diff-options "-w")
+  (setq-default ediff-highlight-all-diffs nil)
+  (add-hook 'ediff-after-quit-hook-internal 'winner-undo))
 
 (use-package git-timemachine
   :commands git-timemachine-mode)
 
 (use-package git-gutter
-  :diminish git-gutter-mode
-  :bind ("C-x G" . hydra-git-gutter/body)
+  :bind ("C-x G" . git-gutter:toggle)
   :hook (prog-mode . git-gutter-mode)
   :config
-  (defhydra hydra-git-gutter (:body-pre (git-gutter-mode 1)
-                                        :hint nil)
-    "
-Git gutter:
-  _j_: next hunk        _s_tage hunk     _q_uit
-  _k_: previous hunk    _r_evert hunk    _Q_uit and deactivate git-gutter
-  ^ ^                   _p_opup hunk
-  _h_: first hunk
-  _l_: last hunk        set start _R_evision
-"
-    ("j" git-gutter:next-hunk)
-    ("k" git-gutter:previous-hunk)
-    ("h" (progn (goto-char (point-min))
-                (git-gutter:next-hunk 1)))
-    ("l" (progn (goto-char (point-min))
-                (git-gutter:previous-hunk 1)))
-    ("s" git-gutter:stage-hunk)
-    ("r" git-gutter:revert-hunk)
-    ("p" git-gutter:popup-hunk)
-    ("R" git-gutter:set-start-revision)
-    ("q" nil :color blue)
-    ("Q" (progn (git-gutter-mode -1)
-                ;; git-gutter-fringe doesn't seem to
-                ;; clear the markup right away
-                (sit-for 0.1)
-                (git-gutter:clear))
-     :color blue)))
+  (defun git-gutter:toggle ()
+    "Toggle git-gutter-mode."
+    (interactive)
+    (if (bound-and-true-p git-gutter-mode)
+        (git-gutter-mode -1)
+      (git-gutter-mode 1))))
+

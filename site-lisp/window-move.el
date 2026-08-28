@@ -7,7 +7,7 @@
 ;;;
 ;;; Code:
 
-(eval-when-compile (require 'cl))
+(require 'cl-lib)
 
 ;;;###autoload
 (defun split-window-right-and-move-there-dammit ()
@@ -49,7 +49,7 @@
 Dedicated windows are left untouched. Giving a negative prefix
 argument makes the windows rotate backwards."
   (interactive "p")
-  (let* ((non-dedicated-windows (remove-if 'window-dedicated-p (window-list)))
+  (let* ((non-dedicated-windows (cl-remove-if 'window-dedicated-p (window-list)))
          (num-windows (length non-dedicated-windows))
          (i 0)
          (step (+ num-windows count)))

@@ -1,5 +1,5 @@
 ;; Load org mode files from here
-;(add-to-list 'load-path "/usr/share/org-mode/lisp")
+;; (add-to-list 'load-path "/usr/share/org-mode/lisp")
 
 ;; Top directory
 (setq org-directory "~/org")
@@ -20,7 +20,7 @@
 
 ;; Don't ruin S-arrow to switch windows please
 ;; (use M-+ and M-- instead to toggle)
-; (setq org-replace-disputed-keys t)
+;; (setq org-replace-disputed-keys t)
 
 ;; Hide emphasis markers
 (setq org-hide-emphasis-markers nil)

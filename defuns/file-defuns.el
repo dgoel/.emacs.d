@@ -24,7 +24,7 @@
         (buffer (current-buffer))
         (name (buffer-name)))
     (if (not (and filename (file-exists-p filename)))
-        (ido-kill-buffer)
+        (kill-current-buffer)
       (when (yes-or-no-p "Are you sure you want to remove this file? ")
         (delete-file filename)
         (kill-buffer buffer)
@@ -33,10 +33,15 @@
 (defun copy-current-file-path ()
   "Add current file path to kill ring. Limits the filename to project root if possible."
   (interactive)
-  (let ((filename (buffer-file-name)))
-    (kill-new (if eproject-mode
-                  (s-chop-prefix (eproject-root) filename)
-                filename))))
+  (let* ((filename (buffer-file-name))
+         (proj (and (fboundp 'project-current) (project-current)))
+         (root (and proj (fboundp 'project-root) (project-root proj)))
+         (path (if (and root filename (string-prefix-p root filename))
+                   (string-remove-prefix root filename)
+                 filename)))
+    (when path
+      (kill-new path)
+      (message "Copied: %s" path))))
 
 (defun find-or-create-file-at-point ()
   "Guesses what parts of the buffer under point is a file name and opens it."

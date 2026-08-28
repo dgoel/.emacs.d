@@ -205,14 +205,77 @@ region-end is used."
       (capitalize-word 1)
       (setq arg (1- arg)))))
 
+(defun s-dashed-words (s)
+  "Convert string S to kebab-case (dashed words)."
+  (let ((case-fold-search nil))
+    (setq s (replace-regexp-in-string "\\([a-z0-9]\\)\\([A-Z]\\)" "\\1-\\2" s))
+    (setq s (replace-regexp-in-string "[_ ]+" "-" s))
+    (downcase s)))
+
+(defun s-snake-case (s)
+  "Convert string S to snake_case."
+  (let ((case-fold-search nil))
+    (setq s (replace-regexp-in-string "\\([a-z0-9]\\)\\([A-Z]\\)" "\\1_\\2" s))
+    (setq s (replace-regexp-in-string "[- ]+" "_" s))
+    (downcase s)))
+
+(defun s-lower-camel-case (s)
+  "Convert string S to lowerCamelCase."
+  (let* ((words (split-string s "[-_ ]+" t))
+         (first (downcase (or (car words) "")))
+         (rest (mapcar #'capitalize (cdr words))))
+    (apply #'concat first rest)))
+
+(defun s-upper-camel-case (s)
+  "Convert string S to UpperCamelCase."
+  (let ((words (split-string s "[-_ ]+" t)))
+    (apply #'concat (mapcar #'capitalize words))))
+
+(defun move-text--line (n)
+  (let ((col (current-column)))
+    (forward-line n)
+    (transpose-lines (if (< n 0) 1 -1))
+    (forward-line (if (< n 0) -1 0))
+    (move-to-column col)))
+
+(defun move-text-up ()
+  "Move current line or region up."
+  (interactive)
+  (if (use-region-p)
+      (let ((beg (region-beginning))
+            (end (region-end)))
+        (save-excursion
+          (transpose-regions (save-excursion (goto-char beg) (line-beginning-position 0))
+                             (save-excursion (goto-char beg) (line-beginning-position))
+                             beg
+                             (save-excursion (goto-char end) (line-end-position)))))
+    (move-text--line -1)))
+
+(defun move-text-down ()
+  "Move current line or region down."
+  (interactive)
+  (if (use-region-p)
+      (let ((beg (region-beginning))
+            (end (region-end)))
+        (save-excursion
+          (transpose-regions beg
+                             (save-excursion (goto-char end) (line-end-position))
+                             (save-excursion (goto-char end) (line-end-position))
+                             (save-excursion (goto-char end) (line-beginning-position 2)))))
+    (move-text--line 1)))
+
 (defun snakeify-current-word ()
   (interactive)
-  (er/mark-word)
-  (let* ((beg (region-beginning))
-         (end (region-end))
-         (current-word (buffer-substring-no-properties beg end))
-         (snakified (s-snake-case current-word)))
-    (replace-string current-word snakified nil beg end)))
+  (let* ((bounds (or (bounds-of-thing-at-point 'word)
+                     (bounds-of-thing-at-point 'symbol))))
+    (if bounds
+        (let* ((beg (car bounds))
+               (end (cdr bounds))
+               (current-word (buffer-substring-no-properties beg end))
+               (snakified (s-snake-case current-word)))
+          (delete-region beg end)
+          (insert snakified))
+      (message "No word at point"))))
 
 
 ;; Aligning text: http://pragmaticemacs.com/emacs/aligning-text/
@@ -246,3 +309,4 @@ region-end is used."
       (subword-backward-kill 1))
      (t
       (backward-kill-word 1)))))
+

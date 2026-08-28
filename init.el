@@ -2,93 +2,52 @@
 ;;;
 ;;; Code:
 
-;; Turn off mouse interface early in startup to avoid momentary display
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
-;; Enable to track down very deep recursion
-;; (setq max-specpdl-size 5)  ; default is 1000, reduce the backtrace level
-;; (setq debug-on-error t)    ; now you should get a backtrace
-
 ;; Set path to dependencies
-(defconst site-lisp-dir
-  (expand-file-name "site-lisp" user-emacs-directory))
-(defconst themes-dir
-  (expand-file-name "themes" user-emacs-directory))
-(defconst etc-dir
-  (expand-file-name "etc" user-emacs-directory))
-(defconst var-dir
-  (expand-file-name "var" user-emacs-directory))
-(defconst temp-dir
-  (expand-file-name temporary-file-directory))
+(defconst site-lisp-dir (expand-file-name "site-lisp" user-emacs-directory))
+(defconst themes-dir    (expand-file-name "themes" user-emacs-directory))
+(defconst etc-dir       (expand-file-name "etc" user-emacs-directory))
+(defconst var-dir       (expand-file-name "var" user-emacs-directory))
 
 ;; Set up load path
 (add-to-list 'load-path site-lisp-dir)
+(add-to-list 'load-path etc-dir)
 
-;; Benchmark packages
-;; (add-to-list 'load-path (expand-file-name "benchmark-init-el" site-lisp-dir))
-;; (require 'benchmark-init-loaddefs "~/.emacs.d/site-lisp/benchmark-init-el/benchmark-init-loaddefs")
-;; (benchmark-init/activate)
+;; use-package (built-in in Emacs 29+)
+(require 'use-package)
+(setq use-package-always-defer t
+      use-package-verbose nil
+      use-package-minimum-reported-time 0.01)
 
-;; Add external projects to load path
-;; TODO: this is not needed if load-path is specified in use-package
-;; (dolist (project (directory-files site-lisp-dir t "\\w+"))
-;;   (when (file-directory-p project)
-;;     (add-to-list 'load-path project)))
+;; Setup package archives
+(setq package-archives
+      '(("melpa" . "https://melpa.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")))
 
-;; use-package (bundled with emacs)
-(setq use-package-verbose t)
-(setq use-package-minimum-reported-time 0.001)
-(require 'use-package-ensure)
-(setq use-package-always-ensure t)
+;; Ensure custom paths exist
+(unless (file-directory-p var-dir)
+  (make-directory var-dir t))
 
-;; force load all packages if running in daemon mode
-(if (daemonp) (setq use-package-always-demand t))
-
-;; Setup packages
-(defconst package-user-dir
-      (expand-file-name "elpa" user-emacs-directory))
-(defconst package-archives
-  '(("melpa" . "http://melpa.org/packages/")
-    ("gnu" . "https://elpa.gnu.org/packages/")))
-(package-initialize)
-(use-package diminish)
-(require 'bind-key)
-
-;; import shell paths
-(use-package exec-path-from-shell
-  ;; execute only if not running in terminal
-  :if (memq window-system '(x))
-  :demand t
-  :config (exec-path-from-shell-initialize))
+;; Ensure user binary directories are in exec-path without spawning subshells
+(dolist (dir '("~/bin" "~/.local/bin" "/usr/local/bin"))
+  (let ((expanded (expand-file-name dir)))
+    (when (file-directory-p expanded)
+      (add-to-list 'exec-path expanded)
+      (setenv "PATH" (concat expanded ":" (getenv "PATH"))))))
 
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
-(dolist (file (directory-files defuns-dir t "\\w+"))
-  (when (file-regular-p file)
-    (load file)))
+(when (file-directory-p defuns-dir)
+  (dolist (file (directory-files defuns-dir t "\\.el$"))
+    (load (file-name-sans-extension file) nil t)))
 
-;; ;; Load lisp code from lisp dir
-;; (setq lisp-dir
-;;       (expand-file-name "lisp" user-emacs-directory))
-;; (dolist (file (directory-files lisp-dir t "\\w+"))
-;;   (when (file-regular-p file)
-;;     (load file)))
-
-;; Load files from etc/
-(add-to-list 'load-path etc-dir)
-(dolist (file (directory-files etc-dir t "\\.el$"))
-  (when (file-regular-p file)
-    (load file)))
+;; Load configuration files from etc/
+(dolist (file (sort (directory-files etc-dir t "\\.el$") #'string<))
+  (load (file-name-sans-extension file) nil t))
 
 
 (use-package server
-  :defer 5
+  :defer 3
   :config
   (unless (server-running-p)
     (server-start)))
 
-;; Conclude init by setting up specifics for the current user
-;; (when (file-exists-p user-settings-dir)
-;;   (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
