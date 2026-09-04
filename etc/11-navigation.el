@@ -1,11 +1,6 @@
 (with-eval-after-load 'tramp
   (setq tramp-verbose 1))
 
-
-;; Prevent accidentally killing emacs: change to "C-x REALLY QUIT"
-(global-set-key (kbd "C-x R Q") 'save-buffers-kill-terminal)
-(global-unset-key (kbd "C-x C-c")) ;; never quit like this
-
 ;; Resize window
 (global-set-key (kbd "C-}") 'shrink-window-horizontally)
 (global-set-key (kbd "C-{") 'enlarge-window-horizontally)
@@ -31,16 +26,30 @@
 
 (use-package consult
   :bind (("C-c M-x" . consult-mode-command)
-         ("C-c h" . consult-history)
-         ("C-c k" . consult-kmacro)
-         ("C-c m" . consult-man)
-         ("C-c i" . consult-info)
+         ("C-c h"   . consult-history)
+         ("C-c k"   . consult-kmacro)
+         ("C-c m"   . consult-man)
+         ("C-c i"   . consult-info)
          ([remap Info-search] . consult-info)
-         ("C-x f" . consult-recent-file)
-         ("M-y" . consult-yank-pop)))
+         ("C-x f"   . consult-recent-file)
+         ("M-y"     . consult-yank-pop)
+         ("M-s r"   . consult-ripgrep)
+         ("M-s g"   . consult-grep)
+         ("M-s l"   . consult-line)
+         ("M-s L"   . consult-line-multi))
+  :config
+  ;; Optimized ripgrep arguments: exclude --search-zip and explicitly disable binary file searching
+  (setq consult-ripgrep-args
+        "rg --null --line-buffered --color=never --max-columns=1000 --path-separator / --smart-case --no-heading --with-filename --line-number --no-binary")
+  ;; Snappy async input throttling
+  (setq consult-async-min-input 2
+        consult-async-input-debounce 0.1
+        consult-async-input-throttle 0.2
+        consult-async-refresh-delay 0.1))
 
 (use-package embark-consult
   :after (embark consult))
+
 
 ;; Expand region (increases selected region by semantic units)
 (use-package expand-region
@@ -149,4 +158,3 @@
  ("C-x C-r" . rename-current-buffer-file)
  ("C-x C-k" . delete-current-buffer-file)
  ("C-x M-w" . copy-current-file-path))
-

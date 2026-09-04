@@ -13,11 +13,23 @@
    ;; double check when pushing upstream
    magit-push-always-verify t))
 
-;; Git file associations (built-in conf-mode, replaces git-modes)
-(add-to-list 'auto-mode-alist '("/\\.gitconfig\\'" . conf-mode))
+;; Git Commit & Rebase modes (syntax highlighting and bindings)
+(use-package git-commit
+  :ensure nil
+  :demand t
+  :config
+  (global-git-commit-mode 1))
+
+(use-package git-rebase
+  :ensure nil
+  :mode ("/git-rebase-todo\\'" . git-rebase-mode))
+
+;; Git file associations (built-in conf-mode)
+(add-to-list 'auto-mode-alist '("/\\.gitconfig\\'"     . conf-mode))
 (add-to-list 'auto-mode-alist '("/\\.gitattributes\\'" . conf-mode))
-(add-to-list 'auto-mode-alist '("/\\.gitignore\\'" . conf-mode))
-(add-to-list 'auto-mode-alist '("/git-rebase-todo\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("/\\.gitignore\\'"     . conf-mode))
+
+
 
 ;; Ediff (built-in)
 (use-package ediff

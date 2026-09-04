@@ -59,6 +59,10 @@
 (prefer-coding-system 'utf-8)
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
+;; Increase process buffer chunk size to 1MB (massively speeds up ripgrep, lsp, etc.)
+(setq read-process-output-max (* 1024 1024))
+
+
 ;; Remove text in active region if inserting text
 (delete-selection-mode 1)
 
@@ -118,4 +122,5 @@
 (setq split-height-threshold nil)
 
 (setq shell-file-name "bash")
-(setq shell-command-switch "-ic")
+(setq shell-command-switch "-c")
+

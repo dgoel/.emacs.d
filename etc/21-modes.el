@@ -35,25 +35,24 @@
   :mode (("\\.ts\\'"  . typescript-ts-mode)
          ("\\.mts\\'" . typescript-ts-mode)
          ("\\.cts\\'" . typescript-ts-mode)
-         ("\\.tsx\\'" . tsx-ts-mode))
-  :hook ((typescript-ts-mode tsx-ts-mode) . eglot-ensure))
+         ("\\.tsx\\'" . tsx-ts-mode)))
 
-;; Eglot (built-in LSP client)
+;; Eglot (built-in LSP client, disabled by default - invoke with M-x eglot)
 (use-package eglot
   :ensure nil
-  :hook ((c++-ts-mode c-ts-mode python-ts-mode go-ts-mode typescript-ts-mode tsx-ts-mode
-          c-mode c++-mode python-mode) . eglot-ensure)
+  :commands (eglot eglot-ensure)
   :config
   (setq eglot-autoshutdown t
         eglot-events-buffer-size 0))
 
-;; Built-in flymake for syntax diagnostics (seamlessly integrated with eglot)
+;; Flymake (built-in syntax diagnostics, disabled by default - toggle with M-x flymake-mode)
 (use-package flymake
   :ensure nil
-  :hook (prog-mode . flymake-mode)
+  :commands (flymake-mode)
   :bind (:map flymake-mode-map
               ("M-n" . flymake-goto-next-error)
               ("M-p" . flymake-goto-prev-error)))
+
 
 
 ;; Built-in EditorConfig (in Emacs 30.1+)
