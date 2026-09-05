@@ -63,12 +63,19 @@
 ;; Clean whitespace on save (built-in, replaces ws-butler)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 
-;; Cleaner auto-formatting on save
+(defvar prettier-executable nil
+  "Custom path to prettier executable. Can be set in `private.el`.")
+
+;; Cleaner auto-formatting on save for all supported modes (loaded lazily on after-init)
 (use-package apheleia
+  :hook (after-init . apheleia-global-mode)
   :config
-  (setf (alist-get 'prettier apheleia-formatters)
-        '("~/repo/insrc/node_modules/.bin/prettier" "--stdin-filepath" filepath))
-  (apheleia-global-mode +1))
+  (when (and prettier-executable (file-exists-p prettier-executable))
+    (setf (alist-get 'prettier apheleia-formatters)
+          `(,prettier-executable "--stdin-filepath" filepath)))
+  (setf (alist-get 'bazel-starlark-mode apheleia-mode-alist) 'buildifier)
+  (setf (alist-get 'starlark-mode apheleia-mode-alist) 'buildifier)
+  (setf (alist-get 'markdown-mode apheleia-mode-alist) 'prettier-markdown))
 
 (use-package ffap
   :ensure nil
@@ -116,8 +123,12 @@
          (c-mode-common . google-make-newline-indent)))
 
 (use-package bazel
-  :mode ("\\.\\(bazel\\|bzl\\)\\'" . bazel-mode)
-  :interpreter ("bazel" . bazel-mode))
+  :mode (("\\.\\(bazel\\|bzl\\)\\'" . bazel-mode)
+         ("copy\\.bara\\.sky\\'"    . bazel-starlark-mode)
+         ("\\.sky\\'"              . bazel-starlark-mode))
+  :interpreter ("bazel" . bazel-mode)
+  :init
+  (defalias 'starlark-mode #'bazel-starlark-mode))
 
 (use-package markdown-mode
   :mode ("\\.\\(md\\|markdown\\)\\'" . markdown-mode)
@@ -133,6 +144,7 @@
   :mode ("\\.ya?ml\\'" . yaml-mode))
 
 ;; auto-mode-alist entries
+(add-to-list 'auto-mode-alist '("copy\\.bara\\.sky\\'" . starlark-mode))
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
 (add-to-list 'auto-mode-alist '("[._]bash.*" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("[Mm]akefile" . makefile-gmake-mode))

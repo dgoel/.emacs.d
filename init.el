@@ -44,6 +44,11 @@
 (dolist (file (sort (directory-files etc-dir t "\\.el$") #'string<))
   (load (file-name-sans-extension file) nil t))
 
+;; Load optional private / local configuration
+(dolist (file '("private.el" "local.el"))
+  (let ((filepath (expand-file-name file user-emacs-directory)))
+    (when (file-exists-p filepath)
+      (load (file-name-sans-extension filepath) nil t))))
 
 (use-package server
   :defer 3

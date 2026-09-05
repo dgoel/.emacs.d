@@ -21,3 +21,9 @@ eln-cache/
 # Don't ignore these files
 !var/.keep
 !bin/.keep
+
+# Private configuration
+private.el
+local.el
+private/
+*.private.el
