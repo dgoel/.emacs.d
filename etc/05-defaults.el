@@ -4,7 +4,9 @@
       confirm-nonexistent-file-or-buffer t
       large-file-warning-threshold 25000000  ;; ~25 MB
       mouse-yank-at-point t
-      custom-file (locate-user-emacs-file "custom.el")
+      ;; Customize writes to var/ (git-ignored); the real configuration lives
+      ;; in etc/ and must not be overwritten by generated forms.
+      custom-file (expand-file-name "custom.el" var-dir)
       ;; `point-entered' has been obsolete since Emacs 25.
       minibuffer-prompt-properties
       '(read-only t cursor-intangible t face minibuffer-prompt)

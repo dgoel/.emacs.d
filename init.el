@@ -4,7 +4,6 @@
 
 ;; Set path to dependencies
 (defconst site-lisp-dir (expand-file-name "site-lisp" user-emacs-directory))
-(defconst themes-dir    (expand-file-name "themes" user-emacs-directory))
 (defconst etc-dir       (expand-file-name "etc" user-emacs-directory))
 (defconst var-dir       (expand-file-name "var" user-emacs-directory))
 
@@ -18,10 +17,9 @@
       use-package-verbose nil
       use-package-minimum-reported-time 0.01)
 
-;; Setup package archives
-(setq package-archives
-      '(("melpa" . "https://melpa.org/packages/")
-        ("gnu" . "https://elpa.gnu.org/packages/")))
+;; Package archives and the declarative package set live in
+;; etc/01-packages.el, which is loaded with the rest of etc/ below and also
+;; standalone by `make up'.
 
 ;; Ensure custom paths exist
 (unless (file-directory-p var-dir)

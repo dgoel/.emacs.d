@@ -10,9 +10,12 @@
         '((bash . ("https://github.com/tree-sitter/tree-sitter-bash"))
           (c . ("https://github.com/tree-sitter/tree-sitter-c"))
           (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
+          (dockerfile . ("https://github.com/camdencheek/tree-sitter-dockerfile"))
           (go . ("https://github.com/tree-sitter/tree-sitter-go"))
           (gomod . ("https://github.com/camdencheek/tree-sitter-go-mod" "v1.0.1"))
+          (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript"))
           (python . ("https://github.com/tree-sitter/tree-sitter-python"))
+          (toml . ("https://github.com/tree-sitter/tree-sitter-toml"))
           (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))
           (json . ("https://github.com/tree-sitter/tree-sitter-json"))
           (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
@@ -49,6 +52,8 @@
   ;; modes themselves are autoloaded, so this stays lazy.
   (dolist (entry '((go         "\\.go\\'"                    go-ts-mode)
                    (gomod      "/go\\.\\(mod\\|work\\)\\'"   go-mod-ts-mode)
+                   (yaml       "\\.ya?ml\\'"                yaml-ts-mode)
+                   (toml       "\\.toml\\'"                 toml-ts-mode)
                    (dockerfile "/Dockerfile\\(?:\\..*\\)?\\'" dockerfile-ts-mode)))
     (pcase-let ((`(,lang ,pattern ,mode) entry))
       (when (and (treesit-language-available-p lang) (fboundp mode))
@@ -132,23 +137,24 @@
           ("NOTE"       success bold)
           ("DEPRECATED" font-lock-doc-face bold))))
 
-;; Completion preview mode (built-in in Emacs 30) & Company
-(when (fboundp 'global-completion-preview-mode)
+;; Inline completion: built-in `completion-preview-mode' only (Emacs 30).
+;; Company was removed; `C-M-i' (completion-at-point) opens the full
+;; *Completions* buffer when the preview is not enough.
+(use-package completion-preview
+  :ensure nil
+  :demand t
+  :custom
+  (completion-preview-minimum-symbol-length 2)
+  :bind (:map completion-preview-active-mode-map
+              ("M-n" . completion-preview-next-candidate)
+              ("M-p" . completion-preview-prev-candidate)
+              ("C-<tab>" . completion-preview-complete))
+  :config
   (global-completion-preview-mode 1))
 
-(use-package company
-  :hook (prog-mode . company-mode)
-  ;; `C-.' belongs to `embark-act' (see 11-navigation.el); this file loads
-  ;; later and used to shadow it.
-  :bind ("C-<tab>" . company-complete)
-  :custom
-  (company-idle-delay nil)
-  (company-minimum-prefix-length 1)
-  (company-tooltip-limit 10)
-  (company-tooltip-align-annotations t)
-  (company-files-exclusions '(".git/" ".gitignore" ".gitmodules" ".DS_Store"
-                              ".vscode/" ".envrc" ".direnv/" ".clangd"
-                              "venv/" ".venv/")))
+;; Colour-code nested delimiters by depth
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package cc-mode
   :ensure nil
@@ -180,8 +186,8 @@
   :mode (("\\<\\(SConscript\\|SConstruct\\)\\>" . python-mode)
          ("\\.py\\'" . python-mode)))
 
-(use-package yaml-mode
-  :mode ("\\.ya?ml\\'" . yaml-mode))
+;; YAML is handled by the built-in yaml-ts-mode, registered with the other
+;; tree-sitter modes at the top of this file.
 
 ;; auto-mode-alist entries
 (add-to-list 'auto-mode-alist '("copy\\.bara\\.sky\\'" . starlark-mode))

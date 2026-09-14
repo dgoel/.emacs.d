@@ -1,35 +1,36 @@
 emacs ?= emacs
 
 BASEDIR := $(shell pwd)
-BYTE_COMPILE_DIRS = etc/themes site-lisp defuns
+BYTE_COMPILE_DIRS = site-lisp
 
 install: ## Setup required directories and install system dependencies
-	mkdir -p bin/irony
+	mkdir -p bin var
 	sudo apt install ripgrep fd-find fzf
 	sudo apt install \
+		aspell \
 		clang-format \
 		clangd \
-		elpa-org \
-		jupyter
-	pip3 install --upgrade \
-		\'python-lsp-server[all]\' \
-		mypy-ls \
-		pyls-flake8 \
-		pyls-isort \
-		python-lsp-black \
-		graphviz
+		golang-go
 
-pull: ## Update .emacs.d git repository and submodules
-	git pull --recurse-submodules=yes
+up: ## Install, upgrade and prune packages to match etc/01-packages.el
+	$(emacs) -Q -batch -l packages.el
 
-up: ## Update emacs packages installed through package manager
-	-$(emacs) -batch -l packages.el
+grammars: ## Install missing tree-sitter grammars from treesit-language-source-alist
+	$(emacs) -Q -batch -l grammars.el
+
+audit: ## Report drift between etc/01-packages.el and the use-package forms
+	@$(emacs) -Q -batch -l audit.el
+
+pull: ## Update the .emacs.d git repository
+	git pull
 
 %.elc: %.el
 	@echo Compiling file $<
-	@$(emacs) -Q -batch  -f batch-byte-compile $<
+	@$(emacs) -Q -batch -f batch-byte-compile $<
 
-compile: ## Byte compule elisp files in directories specified by ${BYTE_COMPILE_DIRS}
+compile: ## Byte compile elisp files in ${BYTE_COMPILE_DIRS}
+	@echo "Note: etc/ and defuns/ are deliberately not compiled - they share"
+	@echo "macros across files and compiling them gains only ~30ms."
 	for i in $(BYTE_COMPILE_DIRS); do \
 		$(emacs) -Q -batch --eval '(batch-byte-recompile-directory 0)' $$i; \
 	done
@@ -44,15 +45,7 @@ clean: ## Cleanup generated elc files
         done
 
 help: ## This help dialog.
-	@IFS=$$'\n' ; \
-	help_lines=(`fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//'`); \
-	for help_line in $${help_lines[@]}; do \
-		IFS=$$'#' ; \
-		help_split=($$help_line) ; \
-		help_command=`echo $${help_split[0]} | sed -e 's/^ *//' -e 's/ *$$//'` ; \
-		help_info=`echo $${help_split[2]} | sed -e 's/^ *//' -e 's/ *$$//'` ; \
-		printf "%-30s %s\n" $$help_command $$help_info ; \
-	done
+	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
+		| awk 'BEGIN {FS = ":.*?## "}; {printf "%-20s %s\n", $$1, $$2}'
 
-
-.PHONY: install pull up clean help
+.PHONY: install up grammars audit pull compile clean help

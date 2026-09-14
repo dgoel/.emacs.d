@@ -79,15 +79,17 @@
 ;; Yank selection in isearch
 (define-key isearch-mode-map (kbd "C-o") 'isearch-yank-selection)
 
-;; on-the-fly spell checking (built-in)
+;; On-the-fly spell checking (built-in).  Enabling this from `prog-mode-hook'
+;; and `text-mode-hook' starts an aspell process on the first file visited and
+;; costs ~150ms, so it is opt-in per buffer instead.
 (use-package flyspell
   :ensure nil
-  :hook
-  (text-mode . turn-on-flyspell)
-  (prog-mode . flyspell-prog-mode)
+  :bind (("C-c s" . flyspell-mode)
+         ("C-c S" . flyspell-prog-mode))
   :custom
   (flyspell-use-meta-tab nil)
   (flyspell-abbrev-p t)
   (flyspell-issue-welcome-flag nil)
+  (flyspell-issue-message-flag nil)
   (flyspell-use-global-abbrev-table-p t))
 
