@@ -25,6 +25,7 @@
         embark              ; contextual actions
         embark-consult
         expand-region
+        fold-this           ; fold an arbitrary region
         git-gutter
         git-timemachine
         google-c-style
@@ -33,9 +34,16 @@
         markdown-mode
         multiple-cursors
         orderless           ; completion style
+        protobuf-mode       ; .proto (no built-in equivalent)
         rainbow-delimiters
+        rainbow-mode        ; colourise colour literals
         vertico             ; minibuffer UI
         wgrep))             ; editable grep buffers
+
+;; Packages configured behind `:disabled t' (ws-butler in etc/21-modes.el,
+;; exec-path-from-shell in init.el) are intentionally *not* listed: they stay
+;; uninstalled until the `:disabled t' is removed and they are added here.
+;; `make audit' knows to skip them.
 
 (provide '01-packages)
 ;;; 01-packages.el ends here

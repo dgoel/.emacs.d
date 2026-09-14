@@ -5,8 +5,8 @@
 ;; with the ones actually referenced by `use-package' forms in the
 ;; configuration, and lists installed packages that are neither.
 ;;
-;; `use-package' forms carrying `:ensure nil' refer to built-in libraries and
-;; are ignored.
+;; `use-package' forms carrying `:ensure nil' refer to built-in libraries, and
+;; forms carrying `:disabled t' are dormant on purpose; both are ignored.
 
 ;;; Code:
 
@@ -16,9 +16,14 @@
 (load (expand-file-name "etc/01-packages.el" user-emacs-directory) nil t)
 (package-initialize)
 
+(defvar audit--disabled nil
+  "Packages configured behind `:disabled t'.")
+
 (defun audit--referenced-packages ()
-  "Return the packages referenced by `use-package' forms in the config."
+  "Return the packages actively referenced by `use-package' forms.
+Populates `audit--disabled' as a side effect."
   (let (used)
+    (setq audit--disabled nil)
     (dolist (file (cons (expand-file-name "init.el" user-emacs-directory)
                         (directory-files
                          (expand-file-name "etc" user-emacs-directory) t "\\.el\\'")))
@@ -26,18 +31,26 @@
         (insert-file-contents file)
         (goto-char (point-min))
         (while (re-search-forward "^(use-package[ \t]+\\([^ \t\n)]+\\)" nil t)
-          (let ((name (intern (match-string 1)))
-                (form-end (save-excursion
-                            (goto-char (match-beginning 0))
-                            (ignore-errors (forward-sexp) (point)))))
-            (unless (or (null form-end)
-                        ;; `:ensure nil' marks a built-in library.
-                        (save-excursion (search-forward ":ensure nil" form-end t))
-                        (package-built-in-p name))
-              (push name used))))))
+          (let* ((name (intern (match-string 1)))
+                 (form-start (match-beginning 0))
+                 (form-end (save-excursion
+                             (goto-char form-start)
+                             (ignore-errors (forward-sexp) (point))))
+                 (has (lambda (keyword)
+                        (and form-end
+                             (save-excursion
+                               (goto-char form-start)
+                               (search-forward keyword form-end t))))))
+            (cond
+             ((null form-end) nil)
+             ;; Built-in library, never installed from an archive.
+             ((or (funcall has ":ensure nil") (package-built-in-p name)) nil)
+             ((funcall has ":disabled t") (push name audit--disabled))
+             (t (push name used)))))))
     (delete-dups used)))
 
 (let* ((used (audit--referenced-packages))
+       (disabled (delete-dups audit--disabled))
        (declared package-selected-packages)
        (installed (mapcar #'car package-alist))
        (orphans (seq-difference installed
@@ -47,6 +60,11 @@
   (princ (format "declared but never referenced:              %S\n"
                  (seq-difference declared used)))
   (princ (format "installed as dependencies:                  %S\n"
-                 (seq-difference orphans used))))
+                 (seq-difference orphans used)))
+  (princ (format "configured but disabled (not installed):    %S\n" disabled))
+  (let ((disabled-but-installed (seq-intersection disabled installed)))
+    (when disabled-but-installed
+      (princ (format "WARNING disabled yet installed:             %S\n"
+                     disabled-but-installed)))))
 
 ;;; audit.el ends here

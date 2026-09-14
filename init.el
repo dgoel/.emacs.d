@@ -32,6 +32,24 @@
       (add-to-list 'exec-path expanded)
       (setenv "PATH" (concat expanded ":" (getenv "PATH"))))))
 
+;; Fallback for when a GUI frame still cannot find a tool because the desktop
+;; session was started without your shell's environment.  Copies PATH and
+;; friends from a real login shell.
+;;
+;; WARNING: this spawns an interactive login shell during startup.  In GUI
+;; mode that typically costs 150-500ms (more if .bashrc is heavy), which is
+;; comparable to the entire current init time.  Prefer extending the list
+;; above; only enable this if something is genuinely missing.  To enable:
+;; remove `:disabled t', add `exec-path-from-shell' to etc/01-packages.el and
+;; run `make up'.
+(use-package exec-path-from-shell
+  :disabled t
+  :demand t
+  :if (memq window-system '(mac ns x pgtk))
+  :config
+  (setq exec-path-from-shell-arguments '("-l"))  ; login, but not interactive
+  (exec-path-from-shell-initialize))
+
 ;; Functions (load all files in defuns-dir)
 (defconst defuns-dir (expand-file-name "defuns" user-emacs-directory))
 (when (file-directory-p defuns-dir)

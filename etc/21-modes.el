@@ -103,8 +103,18 @@
   :ensure nil
   :config (editorconfig-mode 1))
 
-;; Clean whitespace on save (built-in, replaces ws-butler)
+;; Clean whitespace on save (built-in).  This rewrites the whole file, so in
+;; repositories where other people own most of the lines it can add unrelated
+;; hunks to a diff.  `ws-butler' below is the surgical alternative.
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
+
+;; ws-butler trims trailing whitespace only on the lines actually edited in
+;; this session.  Enable by removing `:disabled t', adding `ws-butler' to
+;; etc/01-packages.el and running `make up'.
+(use-package ws-butler
+  :disabled t
+  :hook (prog-mode . ws-butler-mode)
+  :init (remove-hook 'before-save-hook #'delete-trailing-whitespace))
 
 (defvar prettier-executable nil
   "Custom path to prettier executable. Can be set in `private.el`.")
@@ -118,12 +128,33 @@
           `(,prettier-executable "--stdin-filepath" filepath)))
   (setf (alist-get 'bazel-starlark-mode apheleia-mode-alist) 'buildifier)
   (setf (alist-get 'starlark-mode apheleia-mode-alist) 'buildifier)
-  (setf (alist-get 'markdown-mode apheleia-mode-alist) 'prettier-markdown))
+  (setf (alist-get 'markdown-mode apheleia-mode-alist) 'prettier-markdown)
+  ;; apheleia ships no protobuf entry; clang-format understands .proto.
+  (setf (alist-get 'protobuf-mode apheleia-mode-alist) 'clang-format))
 
 (use-package ffap
   :ensure nil
   :bind (("C-c O" . ffap)
          ("C-c o" . ff-find-other-file)))
+
+;; Protocol buffers.  Emacs 30 has no built-in protobuf mode, and there is no
+;; protobuf-ts-mode either (the tree-sitter grammar exists, the mode does not).
+(use-package protobuf-mode
+  :mode "\\.proto\\'"
+  :hook (protobuf-mode . dgoel/protobuf-style)
+  :init
+  (defun dgoel/protobuf-style ()
+    "Two-space indentation, as used by the protobuf style guide."
+    (c-add-style "protobuf" '((c-basic-offset . 2) (indent-tabs-mode . nil)) t)))
+
+;; Render colour literals (#rrggbb, rgb(), named colours) in their own colour
+(use-package rainbow-mode
+  :hook ((css-mode css-ts-mode help-mode emacs-lisp-mode) . rainbow-mode))
+
+;; Fold an arbitrary region; hideshow (C-c C-f) only folds syntactic blocks
+(use-package fold-this
+  :bind (("C-c z" . fold-this)
+         ("C-c Z" . fold-this-unfold-all)))
 
 (use-package hl-todo
   :hook (prog-mode . hl-todo-mode)

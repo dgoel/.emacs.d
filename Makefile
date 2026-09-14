@@ -14,6 +14,10 @@ install: ## Setup required directories and install system dependencies
 
 up: ## Install, upgrade and prune packages to match etc/01-packages.el
 	$(emacs) -Q -batch -l packages.el
+	@$(MAKE) --no-print-directory precompile
+
+precompile: ## Native-compile packages now, instead of lazily while you edit
+	$(emacs) -Q -batch -l native.el
 
 grammars: ## Install missing tree-sitter grammars from treesit-language-source-alist
 	$(emacs) -Q -batch -l grammars.el
@@ -48,4 +52,4 @@ help: ## This help dialog.
 	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "%-20s %s\n", $$1, $$2}'
 
-.PHONY: install up grammars audit pull compile clean help
+.PHONY: install up precompile grammars audit pull compile clean help
