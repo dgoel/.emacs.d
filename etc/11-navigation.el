@@ -1,3 +1,4 @@
+;;; 11-navigation.el --- -*- lexical-binding: t -*-
 (with-eval-after-load 'tramp
   (setq tramp-verbose 1))
 

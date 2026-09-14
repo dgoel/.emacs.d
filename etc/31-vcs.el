@@ -1,24 +1,37 @@
+;;; 31-vcs.el --- -*- lexical-binding: t -*-
 (use-package magit
   :bind
   (("C-x g"   . magit-status)
    ("C-x M-g" . magit-dispatch))
 
   :config
-  ;; confirm when staging all files in one go
-  (set-default 'magit-stage-all-confirm t)
-  (setq
-   magit-branch-arguments nil
-   ;; don't put "origin-" in front of new branch names by default
-   magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
-   ;; double check when pushing upstream
-   magit-push-always-verify t))
+  ;; Ask before staging everything, and don't prefix new branches with the
+  ;; remote name.
+  (setq magit-default-tracking-name-function
+        #'magit-default-tracking-name-branch-only))
 
-;; Git Commit & Rebase modes (syntax highlighting and bindings)
-(use-package git-commit
-  :ensure nil
-  :demand t
-  :config
-  (global-git-commit-mode 1))
+;; Git Commit & Rebase modes (syntax highlighting and bindings).
+;;
+;; `git-commit' deliberately has no autoloads: loading it drags in magit,
+;; with-editor, message, url and epg, which cost ~0.85s at startup.  Instead of
+;; calling `global-git-commit-mode' eagerly, hook into `find-file-hook'
+;; ourselves and load the library only when a commit message is actually
+;; edited (i.e. when git invokes emacsclient as $GIT_EDITOR).  Once loaded,
+;; git-commit installs its own `find-file-hook' entry and takes over.
+(defconst dgoel/git-commit-filename-regexp
+  "/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|MERGEREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\
+\\|\\(BRANCH\\|EDIT\\)_DESCRIPTION\\)\\'"
+  "Copy of `git-commit-filename-regexp', usable before git-commit is loaded.")
+
+(defun dgoel/git-commit-lazy-setup ()
+  "Load git-commit and set up the buffer when visiting a commit message."
+  (when (and buffer-file-name
+             (string-match-p dgoel/git-commit-filename-regexp buffer-file-name))
+    (remove-hook 'find-file-hook #'dgoel/git-commit-lazy-setup)
+    (require 'git-commit)
+    (git-commit-setup)))
+
+(add-hook 'find-file-hook #'dgoel/git-commit-lazy-setup)
 
 (use-package git-rebase
   :ensure nil

@@ -1,3 +1,4 @@
+;;; 12-search.el --- -*- lexical-binding: t -*-
 ;; Grep (built-in)
 (use-package grep
   :ensure nil

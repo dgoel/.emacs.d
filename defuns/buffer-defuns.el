@@ -1,3 +1,4 @@
+;;; buffer-defuns.el --- -*- lexical-binding: t -*-
 ;; Buffer-related defuns
 
 (defvar buffer-local-mode nil)

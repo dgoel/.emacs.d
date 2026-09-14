@@ -1,3 +1,4 @@
+;;; 14-editing.el --- -*- lexical-binding: t -*-
 ;; Multiple-cursors
 (use-package multiple-cursors
   :init (setq mc/list-file (expand-file-name ".mc-lists.el" var-dir))

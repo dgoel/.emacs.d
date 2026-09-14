@@ -1,14 +1,18 @@
-;; Customizations
+;;; 05-defaults.el --- -*- lexical-binding: t -*-
+;; Customizations (startup messages are handled in early-init.el)
 (setq visible-bell nil
-      inhibit-startup-message t
       confirm-nonexistent-file-or-buffer t
       large-file-warning-threshold 25000000  ;; ~25 MB
       mouse-yank-at-point t
       custom-file (locate-user-emacs-file "custom.el")
-      minibuffer-prompt-properties '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
+      ;; `point-entered' has been obsolete since Emacs 25.
+      minibuffer-prompt-properties
+      '(read-only t cursor-intangible t face minibuffer-prompt)
       cursor-in-non-selected-windows nil
       highlight-nonselected-windows nil
       save-interprogram-paste-before-kill t)
+
+(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
 ;; Persistent bookmarks
 (setq bookmark-save-flag t
@@ -47,8 +51,8 @@
 ;; Highlight matching parentheses
 (show-paren-mode 1)
 
-;; Answering just 'y' or 'n' will do
-(defalias 'yes-or-no-p 'y-or-n-p)
+;; Answering just 'y' or 'n' will do (built-in since Emacs 28)
+(setq use-short-answers t)
 
 ;; UTF-8 please
 (set-charset-priority 'unicode)
@@ -114,9 +118,6 @@
 
 ;; Set the default mode of the scratch buffer
 (setq initial-major-mode 'fundamental-mode)
-
-;; Avoid frame resizing to speed up startup
-(setq frame-inhibit-implied-resize t)
 
 ;; NEVER split vertically
 (setq split-height-threshold nil)

@@ -1,3 +1,4 @@
+;;; 50-web.el --- -*- lexical-binding: t -*-
 ;; Elfeed
 (use-package elfeed
   :disabled t

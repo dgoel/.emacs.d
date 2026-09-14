@@ -1,3 +1,4 @@
+;;; misc-defuns.el --- -*- lexical-binding: t -*-
 ;; Misc defuns go here
 ;; It wouldn't hurt to look for patterns and extract once in a while
 

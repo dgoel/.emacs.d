@@ -1,3 +1,4 @@
+;;; 41-eshell.el --- -*- lexical-binding: t -*-
 ;; Copied from https://github.com/jwiegley/dot-emacs/blob/master/init.el
 (use-package eshell
   :disabled t

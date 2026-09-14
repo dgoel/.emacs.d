@@ -1,3 +1,4 @@
+;;; lisp-defuns.el --- -*- lexical-binding: t -*-
 ;; Lisp specific defuns
 
 (defun eval-and-replace ()

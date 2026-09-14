@@ -1,4 +1,4 @@
-;;; init -- entry point for Emacs customization
+;;; init.el --- entry point for Emacs customization -*- lexical-binding: t -*-
 ;;;
 ;;; Code:
 
@@ -35,13 +35,13 @@
       (setenv "PATH" (concat expanded ":" (getenv "PATH"))))))
 
 ;; Functions (load all files in defuns-dir)
-(setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
+(defconst defuns-dir (expand-file-name "defuns" user-emacs-directory))
 (when (file-directory-p defuns-dir)
   (dolist (file (directory-files defuns-dir t "\\.el$"))
     (load (file-name-sans-extension file) nil t)))
 
-;; Load configuration files from etc/
-(dolist (file (sort (directory-files etc-dir t "\\.el$") #'string<))
+;; Load configuration files from etc/ (directory-files already sorts)
+(dolist (file (directory-files etc-dir t "\\.el$"))
   (load (file-name-sans-extension file) nil t))
 
 ;; Load optional private / local configuration

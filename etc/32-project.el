@@ -1,3 +1,4 @@
+;;; 32-project.el --- -*- lexical-binding: t -*-
 ;; Built-in project.el (replaces projectile with zero external dependencies)
 (use-package project
   :ensure nil

@@ -1,3 +1,4 @@
+;;; 21-modes.el --- -*- lexical-binding: t -*-
 ;; Tree-sitter (built-in in Emacs 29/30)
 (setq treesit-font-lock-level 4)
 
@@ -17,17 +18,54 @@
           (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
           (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))))
 
-  ;; Built-in tree-sitter major-mode remappings (replaces treesit-auto)
-  (dolist (mapping '((c-mode          . c-ts-mode)
-                     (c++-mode        . c++-ts-mode)
-                     (python-mode     . python-ts-mode)
-                     (go-mode         . go-ts-mode)
-                     (sh-mode         . bash-ts-mode)
-                     (js-mode         . js-ts-mode)
-                     (typescript-mode . typescript-ts-mode)
-                     (json-mode       . json-ts-mode)
-                     (yaml-mode       . yaml-ts-mode)))
-    (add-to-list 'major-mode-remap-alist mapping)))
+  ;; Built-in tree-sitter major-mode remappings (replaces treesit-auto).
+  ;; Each entry is (GRAMMAR CLASSIC-MODE TS-MODE); the remap is only installed
+  ;; when GRAMMAR is actually loadable, so a missing grammar degrades to the
+  ;; classic mode instead of signalling an error when a file is visited.
+  ;; `javascript-mode' and `js-json-mode' are the symbols the stock
+  ;; `auto-mode-alist' uses, and remapping keys are matched literally.
+  (dolist (entry '((c          c-mode          c-ts-mode)
+                   (cpp        c++-mode        c++-ts-mode)
+                   (python     python-mode     python-ts-mode)
+                   (go         go-mode         go-ts-mode)
+                   (gomod      go-mod-mode     go-mod-ts-mode)
+                   (bash       sh-mode         bash-ts-mode)
+                   (javascript js-mode         js-ts-mode)
+                   (javascript javascript-mode js-ts-mode)
+                   (typescript typescript-mode typescript-ts-mode)
+                   (json       json-mode       json-ts-mode)
+                   (json       js-json-mode    json-ts-mode)
+                   (yaml       yaml-mode       yaml-ts-mode)
+                   (toml       conf-toml-mode  toml-ts-mode)))
+    (pcase-let ((`(,lang ,from ,to) entry))
+      (when (treesit-language-available-p lang)
+        (add-to-list 'major-mode-remap-alist (cons from to)))))
+
+  ;; Some *-ts-mode libraries register themselves in `auto-mode-alist' only
+  ;; when the library is loaded (see the `treesit-ready-p' guard at the bottom
+  ;; of go-ts-mode.el).  Since nothing loads them during startup, .go files end
+  ;; up in Fundamental mode.  There is no classic `go-mode' installed either,
+  ;; so the remap above never fires.  Register the extensions explicitly; the
+  ;; modes themselves are autoloaded, so this stays lazy.
+  (dolist (entry '((go         "\\.go\\'"                    go-ts-mode)
+                   (gomod      "/go\\.\\(mod\\|work\\)\\'"   go-mod-ts-mode)
+                   (dockerfile "/Dockerfile\\(?:\\..*\\)?\\'" dockerfile-ts-mode)))
+    (pcase-let ((`(,lang ,pattern ,mode) entry))
+      (when (and (treesit-language-available-p lang) (fboundp mode))
+        (add-to-list 'auto-mode-alist (cons pattern mode))))))
+
+;; Go (built-in tree-sitter mode in Emacs 30)
+(defun dgoel/go-ts-mode-setup ()
+  "Restore gofmt's tab indentation, which the global defaults turn off."
+  (setq-local indent-tabs-mode t
+              tab-width 8))
+
+(use-package go-ts-mode
+  :ensure nil
+  :custom
+  ;; gofmt indents with tabs; `go-ts-mode-indent-offset' is the display width.
+  (go-ts-mode-indent-offset 8)
+  :hook (go-ts-mode . dgoel/go-ts-mode-setup))
 
 ;; TypeScript / TSX (built-in in Emacs 29/30)
 (use-package typescript-ts-mode
@@ -100,7 +138,9 @@
 
 (use-package company
   :hook (prog-mode . company-mode)
-  :bind ("C-." . company-complete)
+  ;; `C-.' belongs to `embark-act' (see 11-navigation.el); this file loads
+  ;; later and used to shadow it.
+  :bind ("C-<tab>" . company-complete)
   :custom
   (company-idle-delay nil)
   (company-minimum-prefix-length 1)
