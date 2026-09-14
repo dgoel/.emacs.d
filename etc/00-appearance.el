@@ -55,14 +55,10 @@
    `(mode-line ((t (:background ,(doom-color 'base4)))))
    `(vertico-current ((t (:background unspecified :foreground ,(doom-color 'base6) :weight bold))))))
 
-;; `:defer t' without a trigger meant :config never ran and the mode was never
-;; enabled; activate it after startup so it stays off the critical path.
-(use-package doom-modeline
-  :hook (after-init . doom-modeline-mode)
-  :init
-  (setq doom-modeline-buffer-encoding nil
-        doom-modeline-major-mode-icon nil
-        doom-modeline-minor-modes t))
+;; The built-in mode line is used.  doom-modeline was removed because it
+;; recomputes the pixel width of its whole right-hand side (`string-pixel-width'
+;; via a temporary buffer) on every redisplay, which accounted for 45% of
+;; redisplay time in graphical frames.
 
 ;; Compilation buffer colors (built-in)
 (use-package ansi-color
