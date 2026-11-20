@@ -118,9 +118,6 @@
 (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
 
-;; Set the default mode of the scratch buffer
-(setq initial-major-mode 'fundamental-mode)
-
 ;; NEVER split vertically
 (setq split-height-threshold nil)
 

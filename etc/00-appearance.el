@@ -11,9 +11,6 @@
       scroll-preserve-screen-position t
       scroll-step 1)
 
-;; No blinking cursor
-(blink-cursor-mode -1)
-
 ;; Always show line numbers
 (global-display-line-numbers-mode t)
 

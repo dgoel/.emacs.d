@@ -36,17 +36,21 @@
 ;; Do not native compile on battery power
 (setq native-comp-async-on-battery-power nil)
 
-;; Prevent frame flickering and resize during startup
-(setq frame-inhibit-implied-resize t)
+;; Prevent frame flickering, X resource lookups, and resize during startup
+(setq frame-inhibit-implied-resize t
+      frame-resize-pixelwise t
+      inhibit-x-resources t
+      initial-major-mode 'fundamental-mode)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(horizontal-scroll-bars) default-frame-alist)
 
-;; Turns off GUI elements right away
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+;; Mark GUI chrome and blinking cursor disabled without loading their libraries
+(setq menu-bar-mode nil
+      tool-bar-mode nil
+      scroll-bar-mode nil
+      blink-cursor-mode nil)
 
 ;; Suppress startup messages and warnings
 (setq byte-compile-warnings '(not obsolete))
