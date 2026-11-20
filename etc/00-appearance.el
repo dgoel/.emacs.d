@@ -46,19 +46,14 @@
 (when (display-graphic-p)
   (set-fontset-font t 'unicode "DejaVu Sans Mono" nil 'prepend))
 
-(use-package doom-themes
-  :demand t
-  :config
-  (load-theme 'doom-dark+ t)
-  (custom-set-faces
-   `(org-block ((t (:background unspecified))))
-   `(mode-line ((t (:background ,(doom-color 'base4)))))
-   `(vertico-current ((t (:background unspecified :foreground ,(doom-color 'base6) :weight bold))))))
+;; Local theme, a port of doom-dark+ carrying only the faces this config uses.
+;; Keeping it in-tree drops the doom-themes dependency and folds in what used to
+;; be separate `custom-set-faces' overrides for the mode line, org-block and the
+;; selected vertico candidate.
+(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
+(load-theme 'dgoel-dark t)
 
-;; The built-in mode line is used.  doom-modeline was removed because it
-;; recomputes the pixel width of its whole right-hand side (`string-pixel-width'
-;; via a temporary buffer) on every redisplay, which accounted for 45% of
-;; redisplay time in graphical frames.
+;; The mode line itself is configured in etc/02-modeline.el.
 
 ;; Compilation buffer colors (built-in)
 (use-package ansi-color

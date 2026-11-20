@@ -16,6 +16,7 @@ operating systems:
 * `etc/01-packages.el` The declarative list of third-party packages
 * `defuns/`     Personal commands, loaded before `etc/`
 * `site-lisp/`  Third-party elisp not available from an archive
+* `themes/`     The colour theme, a local port of doom-dark+ with no package dependency
 * `packages.el` Batch installer/updater driven by `make up`
 * `bin/`        Place to store binaries generated from emacs' packages
 * `var/`        Cache, runtime state and Customize's `custom.el`; safe to delete
@@ -57,6 +58,9 @@ If you want to use my settings straight out of the box, here are some things to 
  * Contextual actions on the thing at point with `C-.` (embark)
 
  * expand-region is your friend. Find its bound key by doing `C-=`
+
+ * The mode line does not list minor modes (it is the slowest thing a mode line
+   can do); `C-h m` shows which ones are active
 
  * Undo with `C-_` and redo with `M-_`. Watch the undo-tree with `C-x u`
 

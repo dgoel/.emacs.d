@@ -20,7 +20,6 @@
         avy                 ; jump to visible text
         bazel               ; BUILD / .bzl / starlark
         consult             ; search & navigation commands
-        doom-themes
         embark              ; contextual actions
         embark-consult
         expand-region
