@@ -114,6 +114,7 @@
 ;; which-key: built-in in Emacs 30
 (use-package which-key
   :ensure nil
+  :defer 1
   :config
   (which-key-mode 1))
 
@@ -138,7 +139,7 @@
 
 (use-package uniquify
   :ensure nil
-  :config (setq uniquify-buffer-name-style 'forward))
+  :custom (uniquify-buffer-name-style 'forward))
 
 (use-package winner
   :ensure nil

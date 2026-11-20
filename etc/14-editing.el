@@ -18,12 +18,11 @@
          ("M-t w" . transpose-words)
          ("M-t s" . transpose-sexps)
          ("M-t p" . transpose-params)
-         ("M-z"   . zap-to-char))
+         ("M-z"   . zap-to-char)
+         ("M-Z"   . zap-up-to-char))
   :init
   (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
-  (global-set-key (kbd "M-j") (λ (join-line -1)))
-  (global-set-key (kbd "M-Z") (lambda (char)
-                                (interactive "cZap to char: ") (zap-to-char 1 char))))
+  (global-set-key (kbd "M-j") (λ (join-line -1))))
 
 ;; Search & replace (built-in)
 (use-package replace

@@ -54,9 +54,6 @@
 
 (setq shift-select-mode nil)
 
-;; Highlight matching parentheses
-(show-paren-mode 1)
-
 ;; Answering just 'y' or 'n' will do (built-in since Emacs 28)
 (setq use-short-answers t)
 
@@ -117,7 +114,8 @@
   (setq gc-cons-threshold most-positive-fixnum))
 
 (defun my-minibuffer-exit-hook ()
-  (setq gc-cons-threshold (* 16 1024 1024)))
+  (when (= (minibuffer-depth) 1)
+    (setq gc-cons-threshold (* 16 1024 1024))))
 
 (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)

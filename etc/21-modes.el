@@ -101,6 +101,7 @@
 ;; Built-in EditorConfig (in Emacs 30.1+)
 (use-package editorconfig
   :ensure nil
+  :defer 1
   :config (editorconfig-mode 1))
 
 ;; Clean whitespace on save (built-in).  This rewrites the whole file, so in
