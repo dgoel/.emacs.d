@@ -22,7 +22,7 @@
          ("M-Z"   . zap-up-to-char))
   :init
   (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
-  (global-set-key (kbd "M-j") (λ (join-line -1))))
+  (global-set-key (kbd "M-j") (lambda () (interactive) (join-line -1))))
 
 ;; Search & replace (built-in)
 (use-package replace
@@ -69,10 +69,10 @@
 
 ;; Change word separators (pure elisp, no s.el dependency)
 (global-unset-key (kbd "C-x +"))
-(global-set-key (kbd "C-x + -") (λ (replace-region-by 's-dashed-words)))
-(global-set-key (kbd "C-x + _") (λ (replace-region-by 's-snake-case)))
-(global-set-key (kbd "C-x + c") (λ (replace-region-by 's-lower-camel-case)))
-(global-set-key (kbd "C-x + C") (λ (replace-region-by 's-upper-camel-case)))
+(global-set-key (kbd "C-x + -") (lambda () (interactive) (replace-region-by #'s-dashed-words)))
+(global-set-key (kbd "C-x + _") (lambda () (interactive) (replace-region-by #'s-snake-case)))
+(global-set-key (kbd "C-x + c") (lambda () (interactive) (replace-region-by #'s-lower-camel-case)))
+(global-set-key (kbd "C-x + C") (lambda () (interactive) (replace-region-by #'s-upper-camel-case)))
 
 ;; Yank selection in isearch
 (define-key isearch-mode-map (kbd "C-o") 'isearch-yank-selection)

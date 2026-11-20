@@ -12,12 +12,6 @@
   (end-of-line 0)
   (indent-for-tab-command))
 
-;; shorthand for interactive lambdas
-(defmacro λ (&rest body)
-  `(lambda ()
-     (interactive)
-     ,@body))
-
 (defun isearch-yank-selection ()
   "Put selection from buffer into search string."
   (interactive)

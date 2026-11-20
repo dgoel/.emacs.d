@@ -101,10 +101,10 @@
 (global-set-key (kbd "C-x TAB") #'imenu)
 
 ;; Move more quickly
-(global-set-key (kbd "C-S-n") (λ (ignore-errors (next-line 5))))
-(global-set-key (kbd "C-S-p") (λ (ignore-errors (previous-line 5))))
-(global-set-key (kbd "C-S-f") (λ (ignore-errors (forward-char 5))))
-(global-set-key (kbd "C-S-b") (λ (ignore-errors (backward-char 5))))
+(global-set-key (kbd "C-S-n") (lambda () (interactive) (ignore-errors (forward-line 5))))
+(global-set-key (kbd "C-S-p") (lambda () (interactive) (ignore-errors (forward-line -5))))
+(global-set-key (kbd "C-S-f") (lambda () (interactive) (ignore-errors (forward-char 5))))
+(global-set-key (kbd "C-S-b") (lambda () (interactive) (ignore-errors (backward-char 5))))
 
 ;; ibuffer (built-in)
 (use-package ibuffer
