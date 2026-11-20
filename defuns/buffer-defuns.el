@@ -1,12 +1,6 @@
 ;;; buffer-defuns.el --- -*- lexical-binding: t -*-
 ;; Buffer-related defuns
 
-(defvar buffer-local-mode nil)
-(make-variable-buffer-local 'buffer-local-mode)
-
-(defun mode-keymap (mode-sym)
-  (symbol-value (intern (concat (symbol-name mode-sym) "-map"))))
-
 (defun create-scratch-buffer nil
   "Create a new scratch buffer to work in. (could be *scratch* - *scratchX*)"
   (interactive)
@@ -38,12 +32,6 @@ Including indent-buffer, which should not be called automatically on save."
   (untabify-buffer)
   (delete-trailing-whitespace)
   (indent-buffer))
-
-(defun file-name-with-one-directory (file-name)
-  (concat (cadr (reverse (split-string file-name "/"))) "/"
-          (file-name-nondirectory file-name)))
-
-(defvar user-home-directory (concat (expand-file-name "~") "/"))
 
 (defun kill-other-buffers ()
   "Kill all other buffers."
