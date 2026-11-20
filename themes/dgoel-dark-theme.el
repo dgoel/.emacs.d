@@ -1,4 +1,4 @@
-;;; dgoel-dark-theme.el --- dark theme, local port of doom-dark+ -*- lexical-binding: t; no-byte-compile: t; -*-
+;;; dgoel-dark-theme.el --- dark theme, local port of doom-dark+ -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 ;; A self-contained port of `doom-dark+' (itself a port of the VSCode
@@ -673,10 +673,6 @@
    ((((class color) (min-colors 257))   (:foreground "#237AD3" :underline t :weight bold))
     (((class color) (min-colors 256))   (:foreground "#2277DD" :underline t :weight bold))
     (((class color) (min-colors 16))    (:foreground "brightblack" :underline t :weight bold))))
- '(linum
-   ((((class color) (min-colors 257))   (:inherit default :foreground "#37474F" :distant-foreground unspecified :weight normal :slant unspecified :underline unspecified :strike-through unspecified))
-    (((class color) (min-colors 256))   (:inherit default :foreground "#585858" :distant-foreground unspecified :weight normal :slant unspecified :underline unspecified :strike-through unspecified))
-    (((class color) (min-colors 16))    (:inherit default :foreground "brightblack" :distant-foreground unspecified :weight normal :slant unspecified :underline unspecified :strike-through unspecified))))
  '(magit-bisect-bad
    ((((class color) (min-colors 257))   (:foreground "#D16969"))
     (((class color) (min-colors 256))   (:foreground "#DD6666"))
@@ -1070,38 +1066,6 @@
    ((((class color) (min-colors 257))   (:foreground "#85DDFF"))
     (((class color) (min-colors 256))   (:foreground "#5FD7FF"))
     (((class color) (min-colors 16))    (:foreground "brightcyan"))))
- '(org-habit-alert-face
-   ((((class color) (min-colors 257))   (:weight bold :background "#7e6f51"))
-    (((class color) (min-colors 256))   (:weight bold :background "#7f6e4c"))
-    (((class color) (min-colors 16))    (:weight bold :background unspecified))))
- '(org-habit-alert-future-face
-   ((((class color) (min-colors 257))   (:weight bold :background "#5a5140"))
-    (((class color) (min-colors 256))   (:weight bold :background "#5a4f3b"))
-    (((class color) (min-colors 16))    (:weight bold :background unspecified))))
- '(org-habit-clear-face
-   ((((class color) (min-colors 257))   (:weight bold :background "#4b474c"))
-    (((class color) (min-colors 256))   (:weight bold :background "#444444"))
-    (((class color) (min-colors 16))    (:weight bold :background "brightblack"))))
- '(org-habit-clear-future-face
-   ((((class color) (min-colors 257))   (:weight bold :background "#313131"))
-    (((class color) (min-colors 256))   (:weight bold :background "#3a3a3a"))
-    (((class color) (min-colors 16))    (:weight bold :background "brightblack"))))
- '(org-habit-overdue-face
-   ((((class color) (min-colors 257))   (:weight bold :background "#7b4747"))
-    (((class color) (min-colors 256))   (:weight bold :background "#7f4444"))
-    (((class color) (min-colors 16))    (:weight bold :background unspecified))))
- '(org-habit-overdue-future-face
-   ((((class color) (min-colors 257))   (:weight bold :background "#58393a"))
-    (((class color) (min-colors 256))   (:weight bold :background "#5a3636"))
-    (((class color) (min-colors 16))    (:weight bold :background unspecified))))
- '(org-habit-ready-face
-   ((((class color) (min-colors 257))   (:weight bold :background "#2c6080"))
-    (((class color) (min-colors 256))   (:weight bold :background "#2a5d7f"))
-    (((class color) (min-colors 16))    (:weight bold :background unspecified))))
- '(org-habit-ready-future-face
-   ((((class color) (min-colors 257))   (:weight bold :background "#29485c"))
-    (((class color) (min-colors 256))   (:weight bold :background "#27455a"))
-    (((class color) (min-colors 16))    (:weight bold :background unspecified))))
  '(org-headline-done
    ((((class color) (min-colors 257))   (:foreground "#37474F"))
     (((class color) (min-colors 256))   (:foreground "#585858"))
@@ -1269,13 +1233,6 @@
    ((((class color) (min-colors 257))   (:background "#113d69" :distant-foreground "#a9a9a9" :extend t))
     (((class color) (min-colors 256))   (:background "#113b6e" :distant-foreground "#b6b6b6" :extend t))
     (((class color) (min-colors 16))    (:background "brightblack" :distant-foreground "brightwhite" :extend t))))
- '(rst-block ((t (:inherit font-lock-constant-face))))
- '(rst-level-1 ((t (:inherit rst-adornment :weight bold))))
- '(rst-level-2 ((t (:inherit rst-adornment :weight bold))))
- '(rst-level-3 ((t (:inherit rst-adornment :weight bold))))
- '(rst-level-4 ((t (:inherit rst-adornment :weight bold))))
- '(rst-level-5 ((t (:inherit rst-adornment :weight bold))))
- '(rst-level-6 ((t (:inherit rst-adornment :weight bold))))
  '(secondary-selection
    ((((class color) (min-colors 257))   (:background "#777778" :extend t))
     (((class color) (min-colors 256))   (:background "#767676" :extend t))
@@ -1316,43 +1273,6 @@
    ((((class color) (min-colors 257))   (:foreground "#579C4C"))
     (((class color) (min-colors 256))   (:foreground "#559944"))
     (((class color) (min-colors 16))    (:foreground "green"))))
- '(tab-bar
-   ((((class color) (min-colors 257))   (:background "#252526" :foreground "#252526" :box unspecified))
-    (((class color) (min-colors 256))   (:background "#222222" :foreground "#222222" :box unspecified))
-    (((class color) (min-colors 16))    (:background unspecified :foreground unspecified :box unspecified))))
- '(tab-bar-tab
-   ((((class color) (min-colors 257))   (:background "#1e1e1e" :foreground "#d4d4d4" :box unspecified))
-    (((class color) (min-colors 256))   (:background "#1e1e1e" :foreground "#e4e4e4" :box unspecified))
-    (((class color) (min-colors 16))    (:background unspecified :foreground "brightwhite" :box unspecified))))
- '(tab-bar-tab-inactive
-   ((((class color) (min-colors 257))   (:background "#252526" :foreground "#AEAFAD" :box unspecified))
-    (((class color) (min-colors 256))   (:background "#222222" :foreground "#bcbcbc" :box unspecified))
-    (((class color) (min-colors 16))    (:background unspecified :foreground "white" :box unspecified))))
- '(tab-line
-   ((((class color) (min-colors 257))   (:background "#252526" :foreground "#252526" :box unspecified))
-    (((class color) (min-colors 256))   (:background "#222222" :foreground "#222222" :box unspecified))
-    (((class color) (min-colors 16))    (:background unspecified :foreground unspecified :box unspecified))))
- '(tab-line-close-highlight
-   ((((class color) (min-colors 257))   (:foreground "#237AD3"))
-    (((class color) (min-colors 256))   (:foreground "#2277DD"))
-    (((class color) (min-colors 16))    (:foreground "brightblack"))))
- '(tab-line-highlight ((t (:inherit tab-line-tab))))
- '(tab-line-tab
-   ((((class color) (min-colors 257))   (:background "#1e1e1e" :foreground "#d4d4d4" :box unspecified))
-    (((class color) (min-colors 256))   (:background "#1e1e1e" :foreground "#e4e4e4" :box unspecified))
-    (((class color) (min-colors 16))    (:background unspecified :foreground "brightwhite" :box unspecified))))
- '(tab-line-tab-current
-   ((((class color) (min-colors 257))   (:background "#1e1e1e" :foreground "#d4d4d4"))
-    (((class color) (min-colors 256))   (:background "#1e1e1e" :foreground "#e4e4e4"))
-    (((class color) (min-colors 16))    (:background unspecified :foreground "brightwhite"))))
- '(tab-line-tab-inactive
-   ((((class color) (min-colors 257))   (:background "#252526" :foreground "#AEAFAD" :box unspecified))
-    (((class color) (min-colors 256))   (:background "#222222" :foreground "#bcbcbc" :box unspecified))
-    (((class color) (min-colors 16))    (:background unspecified :foreground "white" :box unspecified))))
- '(tab-line-tab-inactive-alternate
-   ((((class color) (min-colors 257))   (:background "#252526" :foreground "#AEAFAD" :box unspecified))
-    (((class color) (min-colors 256))   (:background "#222222" :foreground "#bcbcbc" :box unspecified))
-    (((class color) (min-colors 16))    (:background unspecified :foreground "white" :box unspecified))))
  '(term
    ((((class color) (min-colors 257))   (:foreground "#d4d4d4"))
     (((class color) (min-colors 256))   (:foreground "#e4e4e4"))
@@ -1446,31 +1366,6 @@
    ((((class color) (min-colors 257))   (:foreground "#C586C0"))
     (((class color) (min-colors 256))   (:foreground "#CC88CC"))
     (((class color) (min-colors 16))    (:foreground "brightmagenta"))))
- '(whitespace-empty
-   ((((class color) (min-colors 257))   (:background "#313131"))
-    (((class color) (min-colors 256))   (:background "#3a3a3a"))
-    (((class color) (min-colors 16))    (:background "brightblack"))))
- '(whitespace-indentation
-   ((((class color) (min-colors 257))   (:foreground "#4b474c" :background "#313131"))
-    (((class color) (min-colors 256))   (:foreground "#444444" :background "#3a3a3a"))
-    (((class color) (min-colors 16))    (:foreground "brightblack" :background "brightblack"))))
- '(whitespace-line
-   ((((class color) (min-colors 257))   (:background "#171F24" :foreground "#D16969" :weight bold))
-    (((class color) (min-colors 256))   (:background "#111122" :foreground "#DD6666" :weight bold))
-    (((class color) (min-colors 16))    (:background "black" :foreground "red" :weight bold))))
- '(whitespace-newline
-   ((((class color) (min-colors 257))   (:foreground "#4b474c"))
-    (((class color) (min-colors 256))   (:foreground "#444444"))
-    (((class color) (min-colors 16))    (:foreground "brightblack"))))
- '(whitespace-space
-   ((((class color) (min-colors 257))   (:foreground "#4b474c"))
-    (((class color) (min-colors 256))   (:foreground "#444444"))
-    (((class color) (min-colors 16))    (:foreground "brightblack"))))
- '(whitespace-tab
-   ((((class color) (min-colors 257))   (:foreground "#4b474c" :background unspecified))
-    (((class color) (min-colors 256))   (:foreground "#444444" :background unspecified))
-    (((class color) (min-colors 16))    (:foreground "brightblack" :background unspecified))))
- '(whitespace-trailing ((t (:inherit trailing-whitespace))))
  '(widget-button-pressed
    ((((class color) (min-colors 257))   (:foreground "#D16969"))
     (((class color) (min-colors 256))   (:foreground "#DD6666"))
@@ -1490,20 +1385,6 @@
  '(window-divider ((t (:inherit vertical-border))))
  '(window-divider-first-pixel ((t (:inherit window-divider))))
  '(window-divider-last-pixel ((t (:inherit window-divider))))
- '(window-tool-bar-button
-   ((((class color) (min-colors 257))   (:background "#1e1e1e" :foreground "#d4d4d4"))
-    (((class color) (min-colors 256))   (:background "#1e1e1e" :foreground "#e4e4e4"))
-    (((class color) (min-colors 16))    (:background unspecified :foreground "brightwhite"))))
- '(window-tool-bar-button-disabled
-   ((((class color) (min-colors 257))   (:background "#252526" :foreground "#AEAFAD"))
-    (((class color) (min-colors 256))   (:background "#222222" :foreground "#bcbcbc"))
-    (((class color) (min-colors 16))    (:background unspecified :foreground "white"))))
- '(window-tool-bar-button-hover
-   ((((class color) (min-colors 257))   (:inherit highlight :distant-foreground "#1e1e1e"))
-    (((class color) (min-colors 256))   (:inherit highlight :distant-foreground "#1e1e1e"))
-    (((class color) (min-colors 16))    (:inherit highlight :distant-foreground unspecified))))
- '(woman-bold ((t (:inherit Man-overstrike))))
- '(woman-italic ((t (:inherit Man-underline))))
  '(xref-file-header ((t (:inherit success))))
  '(xref-line-number
    ((((class color) (min-colors 257))   (:foreground "#237AD3"))
