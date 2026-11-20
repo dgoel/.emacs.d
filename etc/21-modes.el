@@ -201,6 +201,9 @@
 
 (use-package bazel
   :mode (("\\.\\(bazel\\|bzl\\)\\'" . bazel-mode)
+         ("BUILD\\'"                . bazel-mode)
+         ("WORKSPACE\\'"            . bazel-mode)
+         ("MODULE\\.bazel\\'"       . bazel-mode)
          ("copy\\.bara\\.sky\\'"    . bazel-starlark-mode)
          ("\\.sky\\'"              . bazel-starlark-mode))
   :interpreter ("bazel" . bazel-mode)
@@ -221,11 +224,7 @@
 ;; tree-sitter modes at the top of this file.
 
 ;; auto-mode-alist entries
-(add-to-list 'auto-mode-alist '("copy\\.bara\\.sky\\'" . starlark-mode))
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
 (add-to-list 'auto-mode-alist '("[._]bash.*" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("[Mm]akefile" . makefile-gmake-mode))
-(add-to-list 'auto-mode-alist '("WORKSPACE\\'" . bazel-mode))
-(add-to-list 'auto-mode-alist '("BUILD\\'" . bazel-mode))
-(add-to-list 'auto-mode-alist '("MODULE\\.bazel\\'" . bazel-mode))
 
