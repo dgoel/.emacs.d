@@ -16,9 +16,13 @@
 
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
-;; Persistent bookmarks
+;; Persistent bookmarks and runtime state under var/
 (setq bookmark-save-flag t
-      bookmark-default-file (concat var-dir "/bookmarks"))
+      bookmark-default-file (expand-file-name "bookmarks" var-dir)
+      abbrev-file-name (expand-file-name "abbrev_defs" var-dir)
+      transient-history-file (expand-file-name "transient/history.el" var-dir)
+      transient-levels-file (expand-file-name "transient/levels.el" var-dir)
+      transient-values-file (expand-file-name "transient/values.el" var-dir))
 
 ;; Seed the random-number generator
 (random t)
@@ -48,7 +52,7 @@
       kept-old-versions 2
       version-control t
       vc-make-backup-files t
-      auto-save-list-file-name (concat temporary-file-directory "emacs-autosave")
+      auto-save-list-file-prefix (expand-file-name "auto-save-list/.saves-" var-dir)
       backup-directory-alist `((".*" . ,temporary-file-directory))
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 

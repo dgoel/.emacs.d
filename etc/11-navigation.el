@@ -1,6 +1,7 @@
 ;;; 11-navigation.el --- -*- lexical-binding: t -*-
 (with-eval-after-load 'tramp
-  (setq tramp-verbose 1))
+  (setq tramp-verbose 1
+        tramp-persistency-file-name (expand-file-name "tramp" var-dir)))
 
 ;; Resize window
 (global-set-key (kbd "C-}") 'shrink-window-horizontally)
@@ -134,6 +135,8 @@
 (use-package savehist
   :ensure nil
   :defer 1
+  :init
+  (setq savehist-file (expand-file-name "history" var-dir))
   :config
   (savehist-mode 1))
 
