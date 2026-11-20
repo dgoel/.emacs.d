@@ -23,6 +23,10 @@
 (require 'package)
 (require 'seq)
 
+(setq package-directory-list nil
+      package-quickstart-file
+      (expand-file-name "var/package-quickstart.el" user-emacs-directory))
+
 (load (expand-file-name "etc/01-packages.el" user-emacs-directory) nil t)
 
 (package-initialize)

@@ -13,6 +13,8 @@
 (require 'package)
 (require 'seq)
 
+(setq package-directory-list nil)
+
 (load (expand-file-name "etc/01-packages.el" user-emacs-directory) nil t)
 (package-initialize)
 

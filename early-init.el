@@ -23,8 +23,12 @@
                   gc-cons-percentage 0.1
                   file-name-handler-alist dgoel--file-name-handler-alist)))
 
-;; Enable package quickstart for fast autoload loading
-(setq package-quickstart t)
+;; Ignore system-wide ELPA packages (e.g. /usr/share/emacs/site-lisp/elpa)
+;; and keep the quickstart autoload bundle inside var/.
+(setq package-directory-list nil
+      package-quickstart t
+      package-quickstart-file
+      (expand-file-name "var/package-quickstart.el" user-emacs-directory))
 
 ;; Restrict VC backends to Git for faster file probing
 (setq vc-handled-backends '(Git))
