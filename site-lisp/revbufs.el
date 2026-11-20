@@ -1,4 +1,4 @@
-;;; revbufs.el -- reverts all out-of-date buffers safely
+;;; revbufs.el -- reverts all out-of-date buffers safely -*- lexical-binding: t; -*-
 
 ;; Author:   Neil Van Dyke <neil@neilvandyke.org>
 ;; Version:  1.2
@@ -42,31 +42,29 @@
         (report-buf (get-buffer-create "*revbufs*")))
 
     ;; Process the buffers.
-    (mapcar (function
-             (lambda (buf)
-	       (let ((file-name (buffer-file-name buf)))
-                 (cond
-                  ;; If buf is the report buf, ignore it.
-                  ((eq buf report-buf) nil)
-                  ;; If buf is not a file buf, ignore it.
-                  ((not file-name) nil)
-                  ;; If buf file doesn't exist, buf is an orphan.
-                  ((not (file-exists-p file-name))
-                   (setq orphans (nconc orphans (list buf))))
-                  ;; If file modified since buf visit, buf is either a conflict
-                  ;; (if it's modified) or we should revert it.
-                  ((not (verify-visited-file-modtime buf))
-                   (if (buffer-modified-p buf)
-                       (setq conflicts (nconc conflicts (list buf)))
-                     (save-excursion
-                       (set-buffer buf)
-                       (revert-buffer t t))
-                     (setq reverts (nconc reverts (list buf)))))))))
-            (copy-sequence (buffer-list)))
+    (mapc (function
+           (lambda (buf)
+             (let ((file-name (buffer-file-name buf)))
+               (cond
+                ;; If buf is the report buf, ignore it.
+                ((eq buf report-buf) nil)
+                ;; If buf is not a file buf, ignore it.
+                ((not file-name) nil)
+                ;; If buf file doesn't exist, buf is an orphan.
+                ((not (file-exists-p file-name))
+                 (setq orphans (nconc orphans (list buf))))
+                ;; If file modified since buf visit, buf is either a conflict
+                ;; (if it's modified) or we should revert it.
+                ((not (verify-visited-file-modtime buf))
+                 (if (buffer-modified-p buf)
+                     (setq conflicts (nconc conflicts (list buf)))
+                   (with-current-buffer buf
+                     (revert-buffer t t))
+                   (setq reverts (nconc reverts (list buf)))))))))
+          (copy-sequence (buffer-list)))
 
     ;; Prepare the report buffer.
-    (save-excursion
-      (set-buffer report-buf)
+    (with-current-buffer report-buf
       (setq buffer-read-only nil
             truncate-lines   t)
       (delete-region (point-min) (point-max))

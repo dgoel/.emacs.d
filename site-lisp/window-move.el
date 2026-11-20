@@ -1,4 +1,4 @@
-;;; window-move.el --- Collection of functions to manage windows
+;;; window-move.el --- Collection of functions to manage windows -*- lexical-binding: t; -*-
 ;;;
 ;;;
 ;;; These functions have been blatantly copied from other people including but
@@ -56,7 +56,7 @@ argument makes the windows rotate backwards."
     (cond ((not (> num-windows 1))
            (message "You can't rotate a single window!"))
           (t
-           (dotimes (counter (- num-windows 1))
+           (dotimes (_ (- num-windows 1))
              (let* ((next-i (% (+ step i) num-windows))
                     (w1 (elt non-dedicated-windows i))
                     (w2 (elt non-dedicated-windows next-i))

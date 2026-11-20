@@ -1,4 +1,4 @@
-;;; inc-seldisp.el --- Interactive selective display
+;;; inc-seldisp.el --- Interactive selective display -*- lexical-binding: t; -*-
 ;;;
 ;;;
 ;;; These functions have been blatantly copied from other people including but
@@ -6,8 +6,6 @@
 ;;;
 ;;;
 ;;; Code:
-
-(eval-when-compile (require 'cl))
 
 ;; Interactive selective display
 ;;;###autoload
@@ -33,11 +31,11 @@
     (set-selective-display nil)))
 ;;;###autoload
 (defun create-temp-selective-display-keymap ()
-  (set-temporary-overlay-map
+  (set-transient-map
    (let ((map (make-sparse-keymap)))
-     (define-key map (kbd "+") 'inc-selective-display)
-     (define-key map (kbd "-") 'dec-selective-display)
-     (define-key map (kbd "0") 'clear-selective-display)
+     (keymap-set map "+" #'inc-selective-display)
+     (keymap-set map "-" #'dec-selective-display)
+     (keymap-set map "0" #'clear-selective-display)
      map))
   (message "Type + to reveal more, - for less, 0 to reset."))
 
