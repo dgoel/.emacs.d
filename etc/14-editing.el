@@ -30,8 +30,7 @@
   :ensure nil
   :bind ("M-&" . query-replace-regexp))
 
-;; Momentary highlight on yank (built-in pulse.el, replaces volatile-highlights)
-(require 'pulse)
+;; Momentary highlight on yank (built-in pulse.el, autoloaded on first yank)
 (defun dgoel/pulse-yank-advice (orig-fn &rest args)
   (let ((beg (point)))
     (apply orig-fn args)

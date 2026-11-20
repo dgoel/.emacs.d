@@ -119,9 +119,9 @@
 (defvar prettier-executable nil
   "Custom path to prettier executable. Can be set in `private.el`.")
 
-;; Cleaner auto-formatting on save for all supported modes (loaded lazily on after-init)
+;; Cleaner auto-formatting on save for all supported modes
 (use-package apheleia
-  :hook (after-init . apheleia-global-mode)
+  :defer 1
   :config
   (when (and prettier-executable (file-exists-p prettier-executable))
     (setf (alist-get 'prettier apheleia-formatters)
@@ -130,7 +130,8 @@
   (setf (alist-get 'starlark-mode apheleia-mode-alist) 'buildifier)
   (setf (alist-get 'markdown-mode apheleia-mode-alist) 'prettier-markdown)
   ;; apheleia ships no protobuf entry; clang-format understands .proto.
-  (setf (alist-get 'protobuf-mode apheleia-mode-alist) 'clang-format))
+  (setf (alist-get 'protobuf-mode apheleia-mode-alist) 'clang-format)
+  (apheleia-global-mode 1))
 
 (use-package ffap
   :ensure nil
@@ -173,15 +174,13 @@
 ;; *Completions* buffer when the preview is not enough.
 (use-package completion-preview
   :ensure nil
-  :demand t
+  :hook ((prog-mode text-mode) . completion-preview-mode)
   :custom
   (completion-preview-minimum-symbol-length 2)
   :bind (:map completion-preview-active-mode-map
               ("M-n" . completion-preview-next-candidate)
               ("M-p" . completion-preview-prev-candidate)
-              ("C-<tab>" . completion-preview-complete))
-  :config
-  (global-completion-preview-mode 1))
+              ("C-<tab>" . completion-preview-complete)))
 
 ;; Colour-code nested delimiters by depth
 (use-package rainbow-delimiters

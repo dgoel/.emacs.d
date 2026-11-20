@@ -23,10 +23,14 @@
 ;; Seed the random-number generator
 (random t)
 
-;; Auto refresh buffers
-(global-auto-revert-mode 1)
-(setq global-auto-revert-non-file-buffers t
-      auto-revert-verbose nil)
+;; Auto refresh buffers (deferred so magit-autorevert does not load at startup)
+(use-package autorevert
+  :ensure nil
+  :defer 1
+  :config
+  (setq global-auto-revert-non-file-buffers t
+        auto-revert-verbose nil)
+  (global-auto-revert-mode 1))
 
 ;; Wrap words in all text modes
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)

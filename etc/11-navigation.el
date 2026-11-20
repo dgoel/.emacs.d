@@ -8,15 +8,13 @@
 
 ;; Minibuffer completion (Vertico + Orderless + Consult + Embark)
 (use-package vertico
-  :demand t
-  :config
-  (setq vertico-cycle t
-        vertico-resize nil)
-  (vertico-mode 1))
+  :hook (after-init . vertico-mode)
+  :custom
+  (vertico-cycle t)
+  (vertico-resize nil))
 
 (use-package orderless
-  :demand t
-  :config
+  :init
   (setq completion-styles '(orderless basic)))
 
 (use-package embark
@@ -121,19 +119,22 @@
 
 (use-package recentf
   :ensure nil
-  :hook (after-init . recentf-mode)
+  :defer 1
+  :init
+  (setq recentf-save-file (expand-file-name "recentf" var-dir))
   :config
-  (setq recentf-save-file
-        (recentf-expand-file-name (expand-file-name "recentf" var-dir)))
   (setq recentf-max-saved-items 100
         recentf-auto-cleanup 'never)
   (dolist (itm '("COMMIT_MSG" "COMMIT_EDITMSG" ".*-autoloads\\.el\\'" "/ssh:"
                  ".*cache$"))
-    (add-to-list 'recentf-exclude itm)))
+    (add-to-list 'recentf-exclude itm))
+  (recentf-mode 1))
 
 (use-package savehist
   :ensure nil
-  :init (savehist-mode 1))
+  :defer 1
+  :config
+  (savehist-mode 1))
 
 (use-package uniquify
   :ensure nil
