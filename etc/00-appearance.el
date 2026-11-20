@@ -1,8 +1,16 @@
 ;;; 00-appearance.el --- -*- lexical-binding: t -*-
-;; Appearance defaults.  Note: setting the mode *variables* with `setq' does
-;; not enable a minor mode; the functions have to be called.
-(global-hl-line-mode 1)
-(when (fboundp 'pixel-scroll-precision-mode)
+;; Appearance defaults (deferred or hooked so startup stays fast)
+(use-package hl-line
+  :ensure nil
+  :defer 1
+  :config
+  (global-hl-line-mode 1))
+
+(use-package pixel-scroll
+  :ensure nil
+  :if (display-graphic-p)
+  :defer 1
+  :config
   (pixel-scroll-precision-mode 1))
 
 ;; Smooth scrolling defaults (built-in, replaces smooth-scrolling package)
@@ -11,8 +19,10 @@
       scroll-preserve-screen-position t
       scroll-step 1)
 
-;; Always show line numbers
-(global-display-line-numbers-mode t)
+;; Show line numbers in code and text buffers
+(use-package display-line-numbers
+  :ensure nil
+  :hook ((prog-mode text-mode) . display-line-numbers-mode))
 
 ;; Show filepath in frame title
 (when window-system
