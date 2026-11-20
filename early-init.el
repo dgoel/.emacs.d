@@ -46,9 +46,9 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(horizontal-scroll-bars) default-frame-alist)
 
-;; Mark GUI chrome and blinking cursor disabled without loading their libraries
-(setq menu-bar-mode nil
-      tool-bar-mode nil
+;; Disable GUI chrome and blinking cursor early
+(menu-bar-mode -1)
+(setq tool-bar-mode nil
       scroll-bar-mode nil
       blink-cursor-mode nil)
 
