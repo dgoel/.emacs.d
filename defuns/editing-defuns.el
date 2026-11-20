@@ -23,9 +23,10 @@
 
 (defun new-line-dwim ()
   (interactive)
-  (let ((break-open-pair (or (and (looking-back "{") (looking-at "}"))
-                             (and (looking-back ">") (looking-at "<"))
-                             (and (looking-back "\\[") (looking-at "\\]")))))
+  (let* ((bol (line-beginning-position))
+         (break-open-pair (or (and (looking-back "{" bol) (looking-at "}"))
+                              (and (looking-back ">" bol) (looking-at "<"))
+                              (and (looking-back "\\[" bol) (looking-at "\\]")))))
     (newline)
     (when break-open-pair
       (save-excursion
@@ -46,7 +47,7 @@ If there's no region, the current line will be duplicated."
     (one-shot-keybinding "d" 'duplicate-current-line)))
 
 (defun one-shot-keybinding (key command)
-  (set-temporary-overlay-map
+  (set-transient-map
    (let ((map (make-sparse-keymap)))
      (define-key map (kbd key) command)
      map) t))
@@ -68,18 +69,18 @@ region-end is used."
           (end (or end (region-end)))
           (region (buffer-substring start end)))
      (goto-char end)
-     (dotimes (i num)
+     (dotimes (_ num)
        (insert region)))))
 
 (defun duplicate-current-line (&optional num)
   "Duplicate the current line NUM times."
   (interactive "p")
   (save-excursion
-   (when (eq (point-at-eol) (point-max))
+   (when (eq (line-end-position) (point-max))
      (goto-char (point-max))
      (newline)
      (forward-char -1))
-   (duplicate-region num (point-at-bol) (1+ (point-at-eol)))))
+   (duplicate-region num (line-beginning-position) (1+ (line-end-position)))))
 
 ;; toggle quotes
 
@@ -143,20 +144,21 @@ region-end is used."
      (t (forward-char)))))
 
 (defun move-backward-out-of-param ()
-  (while (not (looking-back "(\\|, \\|{ ?\\|\\[ ?"))
+  (while (not (looking-back "(\\|, \\|{ ?\\|\\[ ?" (line-beginning-position)))
     (cond
      ((point-is-in-string-p) (move-point-backward-out-of-string))
-     ((looking-back ")\\|}\\|\\]") (backward-list))
+     ((looking-back ")\\|}\\|\\]" (1- (point))) (backward-list))
      (t (backward-char)))))
 
 (defun transpose-params ()
   "Presumes that params are in the form (p, p, p) or {p, p, p} or [p, p, p]"
   ;; FIXME: this does not work in params are not on the same line
   (interactive)
-  (let* ((end-of-first (cond
+  (let* ((bol (line-beginning-position))
+         (end-of-first (cond
                         ((looking-at ", ") (point))
-                        ((and (looking-back ",") (looking-at " ")) (- (point) 1))
-                        ((looking-back ", ") (- (point) 2))
+                        ((and (looking-back "," bol) (looking-at " ")) (- (point) 1))
+                        ((looking-back ", " bol) (- (point) 2))
                         (t (error "Place point between params to transpose."))))
          (start-of-first (save-excursion
                            (goto-char end-of-first)
@@ -301,11 +303,7 @@ region-end is used."
       (while (looking-back "[[:space:]\n]" (- (point) 1))
         (delete-char -1))
     (cond
-     ((and (boundp 'smartparens-strict-mode)
-           smartparens-strict-mode)
-      (sp-backward-kill-word 1))
-     ((and (boundp 'subword-mode)
-           subword-mode)
+     ((bound-and-true-p subword-mode)
       (subword-backward-kill 1))
      (t
       (backward-kill-word 1)))))

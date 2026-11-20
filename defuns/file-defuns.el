@@ -22,8 +22,7 @@
   "Removes file connected to current buffer and kills buffer."
   (interactive)
   (let ((filename (buffer-file-name))
-        (buffer (current-buffer))
-        (name (buffer-name)))
+        (buffer (current-buffer)))
     (if (not (and filename (file-exists-p filename)))
         (kill-current-buffer)
       (when (yes-or-no-p "Are you sure you want to remove this file? ")
@@ -58,7 +57,7 @@
   (save-excursion
     (let* ((file-name-regexp "[./a-zA-Z0-9\-_~]")
            (start (progn
-                    (while (looking-back file-name-regexp)
+                    (while (looking-back file-name-regexp (line-beginning-position))
                       (forward-char -1))
                     (point)))
            (end (progn
