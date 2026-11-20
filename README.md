@@ -18,11 +18,12 @@ operating systems:
 * `site-lisp/`  Third-party elisp not available from an archive
 * `themes/`     The colour theme, a local port of doom-dark+ with no package dependency
 * `packages.el` Batch installer/updater driven by `make up`
+* `native.el`   Ahead-of-time native compilation driven by `make precompile`
 * `bin/`        Place to store binaries generated from emacs' packages
-* `var/`        Cache, runtime state and Customize's `custom.el`; safe to delete
+* `var/`        Cache, runtime state (`package-quickstart`, `recentf`, `history`, `transient/`, `custom.el`); safe to delete
 
-Run `make help` for the available maintenance targets (`up`, `audit`,
-`grammars`, `compile`, `clean`).
+Run `make help` for the available maintenance targets (`up`, `precompile`,
+`audit`, `grammars`, `compile`, `clean`).
 
 
 ## Note about keybindings
@@ -62,7 +63,7 @@ If you want to use my settings straight out of the box, here are some things to 
  * The mode line does not list minor modes (it is the slowest thing a mode line
    can do); `C-h m` shows which ones are active
 
- * Undo with `C-_` and redo with `M-_`. Watch the undo-tree with `C-x u`
+ * Undo with `C-_` and redo with `C-M-_` (built-in `undo-redo`)
 
  * I recommend rebinding Caps Lock to Ctrl and use that instead of the often badly placed Ctrl-key.
 
@@ -80,7 +81,7 @@ overview of the most commonly used shortcuts to get you through this pain:
 
 * `C-x C-f` Open a file. Starts in the current directory
 * `C-x f  ` Open a recently visited file
-* `C-x o  ` Open a file in the current project (based on .git ++)
+* `C-c p f` Open a file in the current project (`project.el`)
 * `C-x C-s` Save this file
 * `C-x C-w` Save as ...
 * `C-x C-j` Jump to this files' current directory
@@ -105,8 +106,7 @@ overview of the most commonly used shortcuts to get you through this pain:
 * `C-<tab>` Accept the inline completion, `C-M-i` full completion list
 * `C-.    ` Embark: act on the thing at point
 * `C-_    ` Undo
-* `M-_    ` Redo
-* `C-x u  ` Show the undo-tree
+* `C-M-_  ` Redo
 * `C-x g  ` Open magit. It's a magical git interface for emacs
 
 ### Navigation
