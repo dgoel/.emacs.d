@@ -156,6 +156,27 @@
          ("C-x |" . toggle-window-split)
          ("C-x 3" . split-window-right-and-move-there-dammit)))
 
+;; Grep & search enhancements (built-in + wgrep)
+(use-package grep
+  :ensure nil
+  :commands (grep rgrep find-grep-dired find-grep))
+
+(use-package wgrep
+  :after grep
+  :custom (wgrep-enable-key "e")
+  :bind (:map grep-mode-map
+              ("C-x C-s" . wgrep-save-all-buffers)
+              ("C-x C-q" . wgrep-change-to-wgrep-mode)
+              ("C-c C-c" . wgrep-finish-edit)))
+
+(setq query-replace-show-preview t
+      isearch-lazy-count t
+      isearch-lazy-highlight t)
+
+(use-package re-builder
+  :ensure nil
+  :bind ("C-c r" . re-builder))
+
 ;; Misc keys
 (bind-keys*
  ("C-x C-r" . rename-current-buffer-file)
