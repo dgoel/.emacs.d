@@ -59,26 +59,40 @@
       (when (and (treesit-language-available-p lang) (fboundp mode))
         (add-to-list 'auto-mode-alist (cons pattern mode))))))
 
-;; Go (built-in tree-sitter mode in Emacs 30)
-(defun dgoel/go-ts-mode-setup ()
+;; Go (classic go-mode + built-in go-ts-mode when tree-sitter is enabled)
+(defun dgoel/go-mode-setup ()
   "Restore gofmt's tab indentation, which the global defaults turn off."
   (setq-local indent-tabs-mode t
               tab-width 8))
+
+(use-package go-mode
+  :mode "\\.go\\'"
+  :hook (go-mode . dgoel/go-mode-setup))
 
 (use-package go-ts-mode
   :ensure nil
   :custom
   ;; gofmt indents with tabs; `go-ts-mode-indent-offset' is the display width.
   (go-ts-mode-indent-offset 8)
-  :hook (go-ts-mode . dgoel/go-ts-mode-setup))
+  :hook (go-ts-mode . dgoel/go-mode-setup))
 
-;; TypeScript / TSX (built-in in Emacs 29/30)
+;; TypeScript / TSX (classic typescript-mode + built-in ts modes when enabled)
+(use-package typescript-mode
+  :mode ("\\.ts\\'" "\\.mts\\'" "\\.cts\\'" "\\.tsx\\'"))
+
 (use-package typescript-ts-mode
   :ensure nil
   :mode (("\\.ts\\'"  . typescript-ts-mode)
          ("\\.mts\\'" . typescript-ts-mode)
          ("\\.cts\\'" . typescript-ts-mode)
          ("\\.tsx\\'" . tsx-ts-mode)))
+
+;; YAML and Dockerfile (classic fallbacks when tree-sitter is disabled)
+(use-package yaml-mode
+  :mode "\\.ya?ml\\'")
+
+(use-package dockerfile-mode
+  :mode "/Dockerfile\\(?:\\..*\\)?\\'")
 
 ;; Eglot (built-in LSP client, disabled by default - invoke with M-x eglot)
 (use-package eglot

@@ -20,12 +20,14 @@
         avy                 ; jump to visible text
         bazel               ; BUILD / .bzl / starlark
         consult             ; search & navigation commands
+        dockerfile-mode     ; Dockerfile (classic fallback when treesit is off)
         embark              ; contextual actions
         embark-consult
         expand-region
         fold-this           ; fold an arbitrary region
         git-gutter
         git-timemachine
+        go-mode             ; Go (classic fallback when treesit is off)
         google-c-style
         hl-todo
         magit
@@ -35,8 +37,10 @@
         protobuf-mode       ; .proto (no built-in equivalent)
         rainbow-delimiters
         rainbow-mode        ; colourise colour literals
+        typescript-mode     ; TypeScript (classic fallback when treesit is off)
         vertico             ; minibuffer UI
-        wgrep))             ; editable grep buffers
+        wgrep               ; editable grep buffers
+        yaml-mode))         ; YAML (classic fallback when treesit is off)
 
 ;; Packages configured behind `:disabled t' (ws-butler in etc/21-modes.el,
 ;; exec-path-from-shell in init.el) are intentionally *not* listed: they stay
