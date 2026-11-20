@@ -17,6 +17,7 @@ elfeed_db/*
 /.project
 .python-environments
 eln-cache/
+*.so
 
 # Don't ignore these files
 !var/.keep

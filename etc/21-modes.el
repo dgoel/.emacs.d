@@ -1,63 +1,66 @@
 ;;; 21-modes.el --- -*- lexical-binding: t -*-
-;; Tree-sitter (built-in in Emacs 29/30)
-(setq treesit-font-lock-level 4)
+;; Tree-sitter (disabled by default for faster startup).
+;; Set `(setq dgoel/enable-treesit t)` in `early-init.el' (or change the
+;; default below) to enable built-in tree-sitter major modes.
+(defvar dgoel/enable-treesit nil
+  "When non-nil, enable built-in tree-sitter major modes.")
 
-(use-package treesit
-  :ensure nil
-  :demand t
-  :config
-  (setq treesit-language-source-alist
-        '((bash . ("https://github.com/tree-sitter/tree-sitter-bash"))
-          (c . ("https://github.com/tree-sitter/tree-sitter-c"))
-          (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
-          (dockerfile . ("https://github.com/camdencheek/tree-sitter-dockerfile"))
-          (go . ("https://github.com/tree-sitter/tree-sitter-go"))
-          (gomod . ("https://github.com/camdencheek/tree-sitter-go-mod" "v1.0.1"))
-          (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript"))
-          (python . ("https://github.com/tree-sitter/tree-sitter-python"))
-          (toml . ("https://github.com/tree-sitter/tree-sitter-toml"))
-          (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))
-          (json . ("https://github.com/tree-sitter/tree-sitter-json"))
-          (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
-          (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))))
+(when dgoel/enable-treesit
+  (setq treesit-font-lock-level 4)
+  (if (>= emacs-major-version 31)
+      ;; Emacs 31+ handles mode remapping and grammar installation natively.
+      (setq treesit-enabled-modes t
+            treesit-auto-install-grammar 'ask)
+    ;; Emacs 29/30: configure grammar sources, remappings, and extensions manually.
+    (use-package treesit
+      :ensure nil
+      :demand t
+      :config
+      (setq treesit-language-source-alist
+            '((bash . ("https://github.com/tree-sitter/tree-sitter-bash"))
+              (c . ("https://github.com/tree-sitter/tree-sitter-c"))
+              (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
+              (dockerfile . ("https://github.com/camdencheek/tree-sitter-dockerfile"))
+              (go . ("https://github.com/tree-sitter/tree-sitter-go"))
+              (gomod . ("https://github.com/camdencheek/tree-sitter-go-mod" "v1.0.1"))
+              (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript"))
+              (python . ("https://github.com/tree-sitter/tree-sitter-python"))
+              (toml . ("https://github.com/tree-sitter/tree-sitter-toml"))
+              (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))
+              (json . ("https://github.com/tree-sitter/tree-sitter-json"))
+              (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
+              (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))))
 
-  ;; Built-in tree-sitter major-mode remappings (replaces treesit-auto).
-  ;; Each entry is (GRAMMAR CLASSIC-MODE TS-MODE); the remap is only installed
-  ;; when GRAMMAR is actually loadable, so a missing grammar degrades to the
-  ;; classic mode instead of signalling an error when a file is visited.
-  ;; `javascript-mode' and `js-json-mode' are the symbols the stock
-  ;; `auto-mode-alist' uses, and remapping keys are matched literally.
-  (dolist (entry '((c          c-mode          c-ts-mode)
-                   (cpp        c++-mode        c++-ts-mode)
-                   (python     python-mode     python-ts-mode)
-                   (go         go-mode         go-ts-mode)
-                   (gomod      go-mod-mode     go-mod-ts-mode)
-                   (bash       sh-mode         bash-ts-mode)
-                   (javascript js-mode         js-ts-mode)
-                   (javascript javascript-mode js-ts-mode)
-                   (typescript typescript-mode typescript-ts-mode)
-                   (json       json-mode       json-ts-mode)
-                   (json       js-json-mode    json-ts-mode)
-                   (yaml       yaml-mode       yaml-ts-mode)
-                   (toml       conf-toml-mode  toml-ts-mode)))
-    (pcase-let ((`(,lang ,from ,to) entry))
-      (when (treesit-language-available-p lang)
-        (add-to-list 'major-mode-remap-alist (cons from to)))))
+      ;; Built-in tree-sitter major-mode remappings (replaces treesit-auto).
+      ;; Each entry is (GRAMMAR CLASSIC-MODE TS-MODE); the remap is only installed
+      ;; when GRAMMAR is actually loadable, so a missing grammar degrades to the
+      ;; classic mode instead of signalling an error when a file is visited.
+      ;; `javascript-mode' and `js-json-mode' are the symbols the stock
+      ;; `auto-mode-alist' uses, and remapping keys are matched literally.
+      (dolist (entry '((c          c-mode          c-ts-mode)
+                       (cpp        c++-mode        c++-ts-mode)
+                       (python     python-mode     python-ts-mode)
+                       (go         go-mode         go-ts-mode)
+                       (gomod      go-mod-mode     go-mod-ts-mode)
+                       (bash       sh-mode         bash-ts-mode)
+                       (javascript js-mode         js-ts-mode)
+                       (javascript javascript-mode js-ts-mode)
+                       (typescript typescript-mode typescript-ts-mode)
+                       (json       json-mode       json-ts-mode)
+                       (json       js-json-mode    json-ts-mode)
+                       (yaml       yaml-mode       yaml-ts-mode)
+                       (toml       conf-toml-mode  toml-ts-mode)
+                       (dockerfile dockerfile-mode dockerfile-ts-mode)))
+        (pcase-let ((`(,lang ,from ,to) entry))
+          (when (treesit-language-available-p lang)
+            (add-to-list 'major-mode-remap-alist (cons from to)))))
 
-  ;; Some *-ts-mode libraries register themselves in `auto-mode-alist' only
-  ;; when the library is loaded (see the `treesit-ready-p' guard at the bottom
-  ;; of go-ts-mode.el).  Since nothing loads them during startup, .go files end
-  ;; up in Fundamental mode.  There is no classic `go-mode' installed either,
-  ;; so the remap above never fires.  Register the extensions explicitly; the
-  ;; modes themselves are autoloaded, so this stays lazy.
-  (dolist (entry '((go         "\\.go\\'"                    go-ts-mode)
-                   (gomod      "/go\\.\\(mod\\|work\\)\\'"   go-mod-ts-mode)
-                   (yaml       "\\.ya?ml\\'"                yaml-ts-mode)
-                   (toml       "\\.toml\\'"                 toml-ts-mode)
-                   (dockerfile "/Dockerfile\\(?:\\..*\\)?\\'" dockerfile-ts-mode)))
-    (pcase-let ((`(,lang ,pattern ,mode) entry))
-      (when (and (treesit-language-available-p lang) (fboundp mode))
-        (add-to-list 'auto-mode-alist (cons pattern mode))))))
+      ;; Register extensions that have no built-in classic mode entry.
+      (dolist (entry '((gomod "/go\\.\\(mod\\|work\\)\\'" go-mod-ts-mode)
+                       (toml  "\\.toml\\'"                toml-ts-mode)))
+        (pcase-let ((`(,lang ,pattern ,mode) entry))
+          (when (and (treesit-language-available-p lang) (fboundp mode))
+            (add-to-list 'auto-mode-alist (cons pattern mode))))))))
 
 ;; Go (classic go-mode + built-in go-ts-mode when tree-sitter is enabled)
 (defun dgoel/go-mode-setup ()
@@ -82,6 +85,7 @@
 
 (use-package typescript-ts-mode
   :ensure nil
+  :if (and dgoel/enable-treesit (< emacs-major-version 31))
   :mode (("\\.ts\\'"  . typescript-ts-mode)
          ("\\.mts\\'" . typescript-ts-mode)
          ("\\.cts\\'" . typescript-ts-mode)
@@ -233,9 +237,6 @@
   :ensure nil
   :mode (("\\<\\(SConscript\\|SConstruct\\)\\>" . python-mode)
          ("\\.py\\'" . python-mode)))
-
-;; YAML is handled by the built-in yaml-ts-mode, registered with the other
-;; tree-sitter modes at the top of this file.
 
 ;; auto-mode-alist entries
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
