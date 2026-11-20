@@ -4,8 +4,8 @@
         tramp-persistency-file-name (expand-file-name "tramp" var-dir)))
 
 ;; Resize window
-(global-set-key (kbd "C-}") 'shrink-window-horizontally)
-(global-set-key (kbd "C-{") 'enlarge-window-horizontally)
+(keymap-global-set "C-}" #'shrink-window-horizontally)
+(keymap-global-set "C-{" #'enlarge-window-horizontally)
 
 ;; Minibuffer completion (Vertico + Orderless + Consult + Embark)
 (use-package vertico
@@ -33,6 +33,7 @@
          ([remap Info-search] . consult-info)
          ("C-x f"   . consult-recent-file)
          ("M-y"     . consult-yank-pop)
+         ("C-x C-y" . consult-yank-pop)
          ("M-s r"   . consult-ripgrep)
          ("M-s g"   . consult-grep)
          ("M-s l"   . consult-line)
@@ -70,17 +71,14 @@
   (interactive "cJump backward to char: ")
   (search-backward (char-to-string char) nil nil 1))
 
-(global-set-key (kbd "M-m") #'jump-char-forward)
-(global-set-key (kbd "M-M") #'jump-char-backward)
-
-;; Browse kill ring (consult-yank-pop or built-in yank-pop)
-(global-set-key (kbd "C-x C-y") #'consult-yank-pop)
+(keymap-global-set "M-m" #'jump-char-forward)
+(keymap-global-set "M-M" #'jump-char-backward)
 
 ;; Structural navigation (built-in sexp movement, replaces smart-forward)
-(global-set-key (kbd "M-<up>")    #'backward-up-list)
-(global-set-key (kbd "M-<down>")  #'down-list)
-(global-set-key (kbd "M-<left>")  #'backward-sexp)
-(global-set-key (kbd "M-<right>") #'forward-sexp)
+(keymap-global-set "M-<up>"    #'backward-up-list)
+(keymap-global-set "M-<down>"  #'down-list)
+(keymap-global-set "M-<left>"  #'backward-sexp)
+(keymap-global-set "M-<right>" #'forward-sexp)
 
 ;; Fold region (built-in hideshow)
 (use-package hideshow
@@ -96,16 +94,16 @@
   :bind ("C-x $" . inc-selective-display))
 
 ;; Highlight and search current symbol (built-in isearch-forward-symbol-at-point)
-(global-set-key (kbd "C-*") #'isearch-forward-symbol-at-point)
+(keymap-global-set "C-*" #'isearch-forward-symbol-at-point)
 
 ;; imenu (built-in, replaces idomenu)
-(global-set-key (kbd "C-x TAB") #'imenu)
+(keymap-global-set "C-x TAB" #'imenu)
 
 ;; Move more quickly
-(global-set-key (kbd "C-S-n") (lambda () (interactive) (ignore-errors (forward-line 5))))
-(global-set-key (kbd "C-S-p") (lambda () (interactive) (ignore-errors (forward-line -5))))
-(global-set-key (kbd "C-S-f") (lambda () (interactive) (ignore-errors (forward-char 5))))
-(global-set-key (kbd "C-S-b") (lambda () (interactive) (ignore-errors (backward-char 5))))
+(keymap-global-set "C-S-n" (lambda () (interactive) (ignore-errors (forward-line 5))))
+(keymap-global-set "C-S-p" (lambda () (interactive) (ignore-errors (forward-line -5))))
+(keymap-global-set "C-S-f" (lambda () (interactive) (ignore-errors (forward-char 5))))
+(keymap-global-set "C-S-b" (lambda () (interactive) (ignore-errors (backward-char 5))))
 
 ;; ibuffer (built-in)
 (use-package ibuffer
@@ -181,7 +179,6 @@
   :bind ("C-c r" . re-builder))
 
 ;; Misc keys
-(bind-keys*
- ("C-x C-r" . rename-current-buffer-file)
- ("C-x C-k" . delete-current-buffer-file)
- ("C-x M-w" . copy-current-file-path))
+(keymap-global-set "C-x C-r" #'rename-current-buffer-file)
+(keymap-global-set "C-x C-k" #'delete-current-buffer-file)
+(keymap-global-set "C-x M-w" #'copy-current-file-path)

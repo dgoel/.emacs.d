@@ -21,8 +21,8 @@
          ("M-z"   . zap-to-char)
          ("M-Z"   . zap-up-to-char))
   :init
-  (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
-  (global-set-key (kbd "M-j") (lambda () (interactive) (join-line -1))))
+  (keymap-global-unset "M-t") ;; which used to be transpose-words
+  (keymap-global-set "M-j" (lambda () (interactive) (join-line -1))))
 
 ;; Search & replace (built-in)
 (use-package replace
@@ -38,9 +38,8 @@
 (advice-add 'yank-pop :around #'dgoel/pulse-yank-advice)
 
 ;; Line movement (self-contained, replaces external move-text)
-(bind-keys
- ("<C-S-down>" . move-text-down)
- ("<C-S-up>"   . move-text-up))
+(keymap-global-set "C-S-<down>" #'move-text-down)
+(keymap-global-set "C-S-<up>"   #'move-text-up)
 
 ;; Revert all buffers (from site-lisp)
 (use-package revbufs
@@ -48,34 +47,33 @@
   :commands (revbufs))
 
 ;; Misc keys
-(bind-keys
- ("C-<backspace>" . dgoel/contextual-backspace)
- ("C-c C--"       . replace-next-underscore-with-camel)
- ("M-s M--"       . snakeify-current-word)
- ("C-c C-e"       . eval-and-replace)
- ("C-S-y"         . yank-unindented)
+(keymap-global-set "C-<backspace>" #'dgoel/contextual-backspace)
+(keymap-global-set "C-c C--"       #'replace-next-underscore-with-camel)
+(keymap-global-set "M-s M--"       #'snakeify-current-word)
+(keymap-global-set "C-c C-e"       #'eval-and-replace)
+(keymap-global-set "C-S-y"         #'yank-unindented)
 
- ;; forward/backward
- ("M-p"           . backward-paragraph)
- ("M-n"           . forward-paragraph)
+;; forward/backward
+(keymap-global-set "M-p" #'backward-paragraph)
+(keymap-global-set "M-n" #'forward-paragraph)
 
- ;; better line editing
- ("C-S-k"         . kill-and-retry-line)
- ("C-c C-w"       . kill-to-beginning-of-line)
- ("C-o"           . open-line-and-indent)
- ("<C-return>"    . open-line-below)
- ("<C-S-return>"  . open-line-above)
- ("<M-return>"    . new-line-dwim))
+;; better line editing
+(keymap-global-set "C-S-k"        #'kill-and-retry-line)
+(keymap-global-set "C-c C-w"      #'kill-to-beginning-of-line)
+(keymap-global-set "C-o"          #'open-line-and-indent)
+(keymap-global-set "C-<return>"   #'open-line-below)
+(keymap-global-set "C-S-<return>" #'open-line-above)
+(keymap-global-set "M-<return>"   #'new-line-dwim)
 
 ;; Change word separators (pure elisp, no s.el dependency)
-(global-unset-key (kbd "C-x +"))
-(global-set-key (kbd "C-x + -") (lambda () (interactive) (replace-region-by #'s-dashed-words)))
-(global-set-key (kbd "C-x + _") (lambda () (interactive) (replace-region-by #'s-snake-case)))
-(global-set-key (kbd "C-x + c") (lambda () (interactive) (replace-region-by #'s-lower-camel-case)))
-(global-set-key (kbd "C-x + C") (lambda () (interactive) (replace-region-by #'s-upper-camel-case)))
+(keymap-global-unset "C-x +")
+(keymap-global-set "C-x + -" (lambda () (interactive) (replace-region-by #'s-dashed-words)))
+(keymap-global-set "C-x + _" (lambda () (interactive) (replace-region-by #'s-snake-case)))
+(keymap-global-set "C-x + c" (lambda () (interactive) (replace-region-by #'s-lower-camel-case)))
+(keymap-global-set "C-x + C" (lambda () (interactive) (replace-region-by #'s-upper-camel-case)))
 
 ;; Yank selection in isearch
-(define-key isearch-mode-map (kbd "C-o") 'isearch-yank-selection)
+(keymap-set isearch-mode-map "C-o" #'isearch-yank-selection)
 
 ;; On-the-fly spell checking (built-in).  Enabling this from `prog-mode-hook'
 ;; and `text-mode-hook' starts an aspell process on the first file visited and
