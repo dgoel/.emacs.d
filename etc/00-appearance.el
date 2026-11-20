@@ -50,7 +50,28 @@
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
 (load-theme 'dgoel-dark t)
 
-;; The mode line itself is configured in etc/02-modeline.el.
+;; Compact mode line from stock constructs.
+;; `mode-line-modes' (minor-mode list; use `C-h m' instead) and
+;; `mode-line-format-right-align' (runs `string-pixel-width' on every
+;; redisplay) are omitted so no elisp runs per redisplay.
+(setq-default
+ mode-line-format
+ '("%e"
+   mode-line-front-space
+   (:propertize ("" mode-line-mule-info mode-line-client mode-line-modified
+                 mode-line-remote mode-line-window-dedicated)
+                display (min-width (6.0)))
+   mode-line-frame-identification
+   mode-line-buffer-identification
+   "  "
+   mode-line-position
+   (vc-mode vc-mode)
+   "  "
+   "%[" (:propertize ("" mode-name) face mode-line-emphasis) "%]"
+   mode-line-process
+   "%n"
+   mode-line-misc-info
+   mode-line-end-spaces))
 
 ;; Compilation buffer colors (built-in)
 (use-package ansi-color
