@@ -63,15 +63,8 @@
   :commands git-timemachine-mode)
 
 (use-package git-gutter
-  :bind ("C-x G" . git-gutter:toggle)
-  :hook (prog-mode . git-gutter-mode)
-  :config
-  (defun git-gutter:toggle ()
-    "Toggle git-gutter-mode."
-    (interactive)
-    (if (bound-and-true-p git-gutter-mode)
-        (git-gutter-mode -1)
-      (git-gutter-mode 1))))
+  :bind ("C-x G" . git-gutter-mode)
+  :hook (prog-mode . git-gutter-mode))
 
 ;; Built-in project.el (replaces projectile with zero external dependencies)
 (use-package project
