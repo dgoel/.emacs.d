@@ -11,6 +11,8 @@
     (error (message "Invalid expression")
            (insert (current-kill 0)))))
 
+(defvar calc-multiplication-has-precedence)
+
 ;; https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_your_dotemacs_that_you/
 (defun dgoel/inline-calc (arg)
   "Evaluate a region as an algebraic expression via Calc.  If a

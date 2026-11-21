@@ -31,7 +31,8 @@
         (message "File '%s' successfully removed" filename)))))
 
 (defun copy-current-file-path ()
-  "Add current file path to kill ring. Limits the filename to project root if possible."
+  "Add current file path to kill ring.
+Limits the filename to the project root if possible."
   (interactive)
   (let* ((filename (buffer-file-name))
          (proj (and (fboundp 'project-current) (project-current)))
@@ -68,8 +69,7 @@
 
 (defun touch-buffer-file ()
   (interactive)
-  (insert " ")
-  (backward-delete-char 1)
+  (set-buffer-modified-p t)
   (save-buffer))
 
 (provide 'file-defuns)

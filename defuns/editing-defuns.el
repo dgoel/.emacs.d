@@ -107,15 +107,19 @@ region-end is used."
             (end (make-marker)))
         (save-excursion
           (move-point-forward-out-of-string)
-          (backward-delete-char 1)
+          (delete-char -1)
           (set-marker end (point))
           (insert new-quotes)
           (move-point-backward-out-of-string)
           (delete-char 1)
           (insert new-quotes)
           (set-marker start (point))
-          (replace-string new-quotes (concat "\\" new-quotes) nil start end)
-          (replace-string (concat "\\" old-quotes) old-quotes nil start end)))
+          (goto-char start)
+          (while (search-forward new-quotes end t)
+            (replace-match (concat "\\" new-quotes) t t))
+          (goto-char start)
+          (while (search-forward (concat "\\" old-quotes) end t)
+            (replace-match old-quotes t t))))
     (error "Point isn't in a string")))
 
 ;; kill region if active, otherwise kill backward word
