@@ -1,4 +1,8 @@
 ;;; 05-defaults.el --- -*- lexical-binding: t -*-
+(eval-when-compile
+  (require 'use-package)
+  (setq use-package-always-defer t))
+
 ;; Customizations (startup messages are handled in early-init.el)
 (setq visible-bell nil
       confirm-nonexistent-file-or-buffer t

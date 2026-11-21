@@ -1,4 +1,8 @@
 ;;; 21-modes.el --- -*- lexical-binding: t -*-
+(eval-when-compile
+  (require 'use-package)
+  (setq use-package-always-defer t))
+
 ;; Tree-sitter (disabled by default for faster startup).
 ;; Set `(setq dgoel/enable-treesit t)` in `early-init.el' (or change the
 ;; default below) to enable built-in tree-sitter major modes.

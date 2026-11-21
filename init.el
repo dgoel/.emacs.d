@@ -11,11 +11,12 @@
 (add-to-list 'load-path site-lisp-dir)
 (add-to-list 'load-path etc-dir)
 
-;; use-package (built-in in Emacs 29+)
-(require 'use-package)
-(setq use-package-always-defer t
-      use-package-verbose nil
-      use-package-minimum-reported-time 0.01)
+;; Expand `use-package' forms at byte-compile time (no runtime load when compiled)
+(eval-when-compile
+  (require 'use-package)
+  (setq use-package-always-defer t
+        use-package-verbose nil
+        use-package-minimum-reported-time 0.01))
 
 ;; Package archives and the declarative package set live in
 ;; etc/01-packages.el, which is loaded with the rest of etc/ below and also

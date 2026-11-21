@@ -6,7 +6,9 @@
 ;;; Code:
 
 ;; Skip system-wide /etc/emacs/site-start.d/ scripts (e.g. dictionaries-common)
-(setq site-run-file nil)
+;; and always prefer newer .el source over stale .elc bytecode.
+(setq site-run-file nil
+      load-prefer-newer t)
 
 ;; Delay garbage collection while Emacs is booting
 (setq gc-cons-threshold most-positive-fixnum

@@ -1,4 +1,8 @@
 ;;; 00-appearance.el --- -*- lexical-binding: t -*-
+(eval-when-compile
+  (require 'use-package)
+  (setq use-package-always-defer t))
+
 ;; Appearance defaults (deferred or hooked so startup stays fast)
 (use-package hl-line
   :ensure nil

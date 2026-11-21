@@ -1,4 +1,8 @@
 ;;; 31-vcs.el --- -*- lexical-binding: t -*-
+(eval-when-compile
+  (require 'use-package)
+  (setq use-package-always-defer t))
+
 (use-package magit
   :bind
   (("C-x g"   . magit-status)

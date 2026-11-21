@@ -1,7 +1,7 @@
 emacs ?= emacs
 
 BASEDIR := $(shell pwd)
-BYTE_COMPILE_DIRS = site-lisp themes
+BYTE_COMPILE_DIRS = site-lisp themes defuns etc
 
 install: ## Setup required directories and install system dependencies
 	mkdir -p bin var
@@ -32,11 +32,10 @@ pull: ## Update the .emacs.d git repository
 	@echo Compiling file $<
 	@$(emacs) -Q -batch -f batch-byte-compile $<
 
-compile: ## Byte compile elisp files in ${BYTE_COMPILE_DIRS}
-	@echo "Note: etc/ and defuns/ are deliberately not compiled - they share"
-	@echo "macros across files and compiling them gains only ~30ms."
+compile: ## Byte compile init.el and elisp files in ${BYTE_COMPILE_DIRS}
+	$(emacs) -Q -batch --eval '(progn (setq package-directory-list nil) (add-to-list (quote load-path) (expand-file-name "site-lisp")) (package-initialize) (batch-byte-compile))' init.el
 	for i in $(BYTE_COMPILE_DIRS); do \
-		$(emacs) -Q -batch --eval '(batch-byte-recompile-directory 0)' $$i; \
+		$(emacs) -Q -batch --eval '(progn (setq package-directory-list nil) (add-to-list (quote load-path) (expand-file-name "site-lisp")) (package-initialize) (batch-byte-recompile-directory 0))' $$i; \
 	done
 
 clean: ## Cleanup generated elc files

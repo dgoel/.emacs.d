@@ -1,4 +1,8 @@
 ;;; 11-navigation.el --- -*- lexical-binding: t -*-
+(eval-when-compile
+  (require 'use-package)
+  (setq use-package-always-defer t))
+
 (with-eval-after-load 'tramp
   (setq tramp-verbose 1
         tramp-persistency-file-name (expand-file-name "tramp" var-dir)))

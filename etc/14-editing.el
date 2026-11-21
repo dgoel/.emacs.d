@@ -1,4 +1,8 @@
 ;;; 14-editing.el --- -*- lexical-binding: t -*-
+(eval-when-compile
+  (require 'use-package)
+  (setq use-package-always-defer t))
+
 ;; Multiple-cursors
 (use-package multiple-cursors
   :init (setq mc/list-file (expand-file-name ".mc-lists.el" var-dir))
