@@ -104,8 +104,6 @@
 ;; Sentences do not need double spaces to end
 (set-default 'sentence-end-double-space nil)
 
-(setq display-buffer-prefer-horizontal-split t)
-
 ;; Don't ask before rereading the TAGS files
 (setq tags-revert-without-query t
       tags-case-fold-search nil)

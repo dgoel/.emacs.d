@@ -170,8 +170,7 @@
               ("C-x C-q" . wgrep-change-to-wgrep-mode)
               ("C-c C-c" . wgrep-finish-edit)))
 
-(setq query-replace-show-preview t
-      isearch-lazy-count t
+(setq isearch-lazy-count t
       isearch-lazy-highlight t)
 
 (use-package re-builder

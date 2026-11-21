@@ -104,7 +104,7 @@
   :commands (eglot eglot-ensure)
   :config
   (setq eglot-autoshutdown t
-        eglot-events-buffer-size 0))
+        eglot-events-buffer-config '(:size 0 :format full)))
 
 ;; Flymake (built-in syntax diagnostics, disabled by default - toggle with M-x flymake-mode)
 (use-package flymake

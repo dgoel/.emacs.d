@@ -51,7 +51,6 @@
 (keymap-global-set "C-c C--"       #'replace-next-underscore-with-camel)
 (keymap-global-set "M-s M--"       #'snakeify-current-word)
 (keymap-global-set "C-c C-e"       #'eval-and-replace)
-(keymap-global-set "C-S-y"         #'yank-unindented)
 
 ;; forward/backward
 (keymap-global-set "M-p" #'backward-paragraph)

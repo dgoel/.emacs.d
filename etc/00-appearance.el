@@ -24,8 +24,8 @@
   :ensure nil
   :hook ((prog-mode text-mode) . display-line-numbers-mode))
 
-;; Show filepath in frame title
-(when window-system
+;; Show filepath in frame title (graphical frames only)
+(when (display-graphic-p)
   (setq frame-title-format '(:eval (if (buffer-file-name)
                                        (abbreviate-file-name (buffer-file-name))
                                      "%b"))))
@@ -43,14 +43,12 @@
     (set-face-attribute 'default nil :family "DejaVu Sans Mono" :height default-height)))
   (set-face-attribute 'variable-pitch nil :family "DejaVu Sans" :height variable-pitch-height))
 
-(when window-system
+;; Fonts for graphical frames
+(when (display-graphic-p)
   (let ((pix_per_mm (/ (float (x-display-pixel-width)) (float (x-display-mm-width)))))
     (if (> pix_per_mm 3.5)
         (dgoel/setup-fonts 110 110)
-      (dgoel/setup-fonts 100 100))))
-
-;; Default font for all unicode characters (graphical frames only)
-(when (display-graphic-p)
+      (dgoel/setup-fonts 100 100)))
   (set-fontset-font t 'unicode "DejaVu Sans Mono" nil 'prepend))
 
 ;; Local theme, a port of doom-dark+ carrying only the faces this config uses.
