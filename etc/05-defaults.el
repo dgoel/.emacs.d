@@ -61,14 +61,9 @@
 ;; Answering just 'y' or 'n' will do (built-in since Emacs 28)
 (setq use-short-answers t)
 
-;; UTF-8 please
-(set-charset-priority 'unicode)
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+;; UTF-8 everywhere
+(set-language-environment "UTF-8")
+(setq default-input-method nil)
 
 ;; Increase process buffer chunk size to 1MB (massively speeds up ripgrep, lsp, etc.)
 (setq read-process-output-max (* 1024 1024))
@@ -85,24 +80,18 @@
 ;; Display column numbers
 (column-number-mode t)
 
-;; Lines should be 80 characters wide
-(set-default 'fill-column 80)
-
-;; Never insert tabs
-(setq-default indent-tabs-mode nil
-              tab-width 4)
-
-;; Show me empty lines after buffer end
-(set-default 'indicate-empty-lines t)
+;; Buffer-local editing defaults
+(setq-default fill-column 80
+              indent-tabs-mode nil
+              tab-width 4
+              indicate-empty-lines t
+              sentence-end-double-space nil)
 
 ;; Easily navigate sillycased words
 (global-subword-mode 1)
 
 ;; Allow recursive minibuffers
 (setq enable-recursive-minibuffers t)
-
-;; Sentences do not need double spaces to end
-(set-default 'sentence-end-double-space nil)
 
 ;; Don't ask before rereading the TAGS files
 (setq tags-revert-without-query t
