@@ -1,7 +1,7 @@
 ;;; audit.el --- report drift in the package manifest -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;; Run by `make audit'.  Compares the packages declared in etc/01-packages.el
+;; Run by `make audit'.  Compares the packages declared in package-manifest.el
 ;; with the ones actually referenced by `use-package' forms in the
 ;; configuration, and lists installed packages that are neither.
 ;;
@@ -15,7 +15,7 @@
 
 (setq package-directory-list nil)
 
-(load (expand-file-name "etc/01-packages.el" user-emacs-directory) nil t)
+(load (expand-file-name "package-manifest.el" user-emacs-directory) nil t)
 (package-initialize)
 
 (defvar audit--disabled nil

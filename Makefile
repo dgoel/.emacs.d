@@ -12,7 +12,7 @@ install: ## Setup required directories and install system dependencies
 		clangd \
 		golang-go
 
-up: ## Install, upgrade and prune packages to match etc/01-packages.el
+up: ## Install, upgrade and prune packages to match package-manifest.el
 	$(emacs) -Q -batch -l packages.el
 	@$(MAKE) --no-print-directory precompile
 
@@ -22,7 +22,7 @@ precompile: ## Native-compile packages now, instead of lazily while you edit
 grammars: ## Install missing tree-sitter grammars from treesit-language-source-alist
 	$(emacs) -Q -batch -l grammars.el
 
-audit: ## Report drift between etc/01-packages.el and the use-package forms
+audit: ## Report drift between package-manifest.el and the use-package forms
 	@$(emacs) -Q -batch -l audit.el
 
 pull: ## Update the .emacs.d git repository

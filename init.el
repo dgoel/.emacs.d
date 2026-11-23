@@ -19,8 +19,8 @@
         use-package-minimum-reported-time 0.01))
 
 ;; Package archives and the declarative package set live in
-;; etc/01-packages.el, which is loaded with the rest of etc/ below and also
-;; standalone by `make up'.
+;; package-manifest.el, which is also loaded standalone by `make up'.
+(load (expand-file-name "package-manifest" user-emacs-directory) nil t)
 
 ;; Ensure custom paths exist
 (unless (file-directory-p var-dir)
@@ -41,7 +41,7 @@
 ;; mode that typically costs 150-500ms (more if .bashrc is heavy), which is
 ;; comparable to the entire current init time.  Prefer extending the list
 ;; above; only enable this if something is genuinely missing.  To enable:
-;; remove `:disabled t', add `exec-path-from-shell' to etc/01-packages.el and
+;; remove `:disabled t', add `exec-path-from-shell' to package-manifest.el and
 ;; run `make up'.
 (use-package exec-path-from-shell
   :disabled t

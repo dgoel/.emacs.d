@@ -1,4 +1,4 @@
-;;; 01-packages.el --- declarative package set -*- lexical-binding: t -*-
+;;; package-manifest.el --- declarative package set -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;; The single source of truth for which third-party packages this
@@ -42,10 +42,10 @@
         wgrep               ; editable grep buffers
         yaml-mode))         ; YAML (classic fallback when treesit is off)
 
-;; Packages configured behind `:disabled t' (ws-butler in etc/21-modes.el,
-;; exec-path-from-shell in init.el) are intentionally *not* listed: they stay
-;; uninstalled until the `:disabled t' is removed and they are added here.
+;; Packages configured behind `:disabled t' (ws-butler, exec-path-from-shell
+;; in init.el) are intentionally *not* listed: they stay uninstalled until
+;; the `:disabled t' is removed and they are added here.
 ;; `make audit' knows to skip them.
 
-(provide '01-packages)
-;;; 01-packages.el ends here
+(provide 'package-manifest)
+;;; package-manifest.el ends here

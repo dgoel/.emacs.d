@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 ;; Run by `make up'.  Brings elpa/ in sync with the manifest in
-;; etc/01-packages.el:
+;; package-manifest.el:
 ;;
 ;;   1. install every package in `package-selected-packages' that is missing,
 ;;      plus any dependency of an installed package that is missing or too old,
@@ -27,7 +27,7 @@
       package-quickstart-file
       (expand-file-name "var/package-quickstart.el" user-emacs-directory))
 
-(load (expand-file-name "etc/01-packages.el" user-emacs-directory) nil t)
+(load (expand-file-name "package-manifest.el" user-emacs-directory) nil t)
 
 (package-initialize)
 (package-refresh-contents)
