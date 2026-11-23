@@ -7,20 +7,18 @@ many years.
 
 ## Structure
 
-The repository is organized based on the directory structure used by Unix-style
-operating systems:
-
-* `init.el`     Main entry point for loading the configuration
-* `early-init.el` Pre-GUI startup tweaks (GC, quickstart, frame settings)
-* `etc/`        Package (core or third party) configurations, loaded in name order
-* `etc/01-packages.el` The declarative list of third-party packages
-* `defuns/`     Personal commands, loaded before `etc/`
-* `site-lisp/`  Third-party elisp not available from an archive
-* `themes/`     The colour theme, a local port of doom-dark+ with no package dependency
-* `packages.el` Batch installer/updater driven by `make up`
-* `native.el`   Ahead-of-time native compilation driven by `make precompile`
-* `bin/`        Place to store binaries generated from emacs' packages
-* `var/`        Cache, runtime state (`package-quickstart`, `recentf`, `history`, `transient/`, `custom.el`); safe to delete
+* `early-init.el`       Pre-GUI startup tweaks (GC, `package-quickstart`, `package-directory-list nil`, frame defaults)
+* `init.el`             Main configuration, organized into `;;;` sections (appearance, defaults, navigation, editing, modes, VCS/projects)
+* `package-manifest.el` Declarative list of third-party packages, loaded standalone by `make up` and `make audit`
+* `defuns/`             Personal commands, loaded by `init.el`
+* `site-lisp/`          Third-party elisp not available from an archive
+* `themes/`             Local colour theme (`dgoel-dark`, a self-contained port of `doom-dark+`)
+* `packages.el`         Batch installer/updater driven by `make up`
+* `native.el`           Ahead-of-time native compilation driven by `make precompile`
+* `audit.el`            Manifest drift checker driven by `make audit`
+* `grammars.el`         Optional tree-sitter grammar installer driven by `make grammars` (tree-sitter is off by default; set `dgoel/enable-treesit` to `t` to enable)
+* `bin/`                Place to store binaries generated from emacs' packages
+* `var/`                Cache and runtime state (`package-quickstart`, `recentf`, `history`, `transient/`, `custom.el`); safe to delete
 
 Run `make help` for the available maintenance targets (`up`, `precompile`,
 `audit`, `grammars`, `compile`, `clean`).
@@ -49,9 +47,14 @@ If you want to use my settings straight out of the box, here are some things to 
    [Technomancy's better-defaults package](https://github.com/technomancy/better-defaults),
    and then dig through this repo for useful nuggets, instead of forking it directly.
 
- * You quit emacs with `C-x R Q`, mnemonic *Really Quit*.
+ * You quit emacs with `C-x C-c`.
 
- * Find file in dir with `C-x C-f`, recent with `C-x f`
+ * Find file in dir with `C-x C-f`, recent with `C-x f`, project file with `C-c p f`
+
+ * Tree-sitter is disabled by default for faster startup (classic modes are used
+   for Go, TypeScript, YAML, Dockerfile, etc.). To enable it, set
+   `(setq dgoel/enable-treesit t)` in `early-init.el` (uses simplified
+   `treesit-enabled-modes` on Emacs 31+).
 
  * Inline completion is shown as you type (built-in completion-preview-mode);
    `C-<tab>` accepts it, `C-M-i` opens the full completion list
