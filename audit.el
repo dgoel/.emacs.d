@@ -26,9 +26,7 @@
 Populates `audit--disabled' as a side effect."
   (let (used)
     (setq audit--disabled nil)
-    (dolist (file (cons (expand-file-name "init.el" user-emacs-directory)
-                        (directory-files
-                         (expand-file-name "etc" user-emacs-directory) t "\\.el\\'")))
+    (dolist (file (list (expand-file-name "init.el" user-emacs-directory)))
       (with-temp-buffer
         (insert-file-contents file)
         (goto-char (point-min))

@@ -1,7 +1,7 @@
 emacs ?= emacs
 
 BASEDIR := $(shell pwd)
-BYTE_COMPILE_DIRS = site-lisp themes defuns etc
+BYTE_COMPILE_DIRS = site-lisp themes defuns
 
 install: ## Setup required directories and install system dependencies
 	mkdir -p bin var
