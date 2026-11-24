@@ -1152,9 +1152,9 @@
     (((class color) (min-colors 256))   (:foreground "#DDBB77"))
     (((class color) (min-colors 16))    (:foreground "brightyellow"))))
  '(outline-1
-   ((((class color) (min-colors 257))   (:foreground "#339CDB" :weight bold :extend t))
-    (((class color) (min-colors 256))   (:foreground "#3399DD" :weight bold :extend t))
-    (((class color) (min-colors 16))    (:foreground "brightblue" :weight bold :extend t))))
+   ((((class color) (min-colors 257))   (:foreground "#D7BA7D" :weight bold :extend t))
+    (((class color) (min-colors 256))   (:foreground "#DDBB77" :weight bold :extend t))
+    (((class color) (min-colors 16))    (:foreground "brightyellow" :weight bold :extend t))))
  '(outline-2
    ((((class color) (min-colors 257))   (:foreground "#C586C0" :weight bold :extend t))
     (((class color) (min-colors 256))   (:foreground "#CC88CC" :weight bold :extend t))

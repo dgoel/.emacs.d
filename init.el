@@ -88,16 +88,14 @@
                                      "%b"))))
 
 (defun dgoel/setup-fonts (default-height variable-pitch-height)
-  "Set up default fonts."
-  (cond
-   ((find-font (font-spec :name "Droid Sans Mono Dotted"))
-    (set-face-attribute 'default nil :family "Droid Sans Mono Dotted" :height default-height))
-   ((find-font (font-spec :name "Noto Mono"))
-    (set-face-attribute 'default nil :family "Noto Mono" :height default-height))
-   ((find-font (font-spec :name "Inconsolata"))
-    (set-face-attribute 'default nil :family "Inconsolata" :height default-height))
-   ((find-font (font-spec :name "DejaVu Sans Mono"))
-    (set-face-attribute 'default nil :family "DejaVu Sans Mono" :height default-height)))
+  "Set up default fonts, preferring families with bold and italic weights."
+  (when-let* ((family (seq-find (lambda (f) (find-font (font-spec :name f)))
+                                '("Droid Sans Mono Dotted"
+                                  "Inconsolata"
+                                  "DejaVu Sans Mono"
+                                  "Liberation Mono"
+                                  "Noto Mono"))))
+    (set-face-attribute 'default nil :family family :height default-height))
   (set-face-attribute 'variable-pitch nil :family "DejaVu Sans" :height variable-pitch-height))
 
 ;; Fonts for graphical frames
@@ -351,6 +349,19 @@
   :bind (("C-c C-f" . hs-hide-all)
          ("C-c C-F" . hs-toggle-hiding)
          ("C-c M-f" . hs-show-all)))
+
+;; Section headings & Org-like folding in Emacs Lisp files (built-in outline)
+(defun dgoel/elisp-outline-setup ()
+  "Enable `outline-minor-mode' on ;;; section headings only."
+  (setq-local outline-regexp ";;;+ ")
+  (outline-minor-mode 1))
+
+(use-package outline
+  :ensure nil
+  :hook (emacs-lisp-mode . dgoel/elisp-outline-setup)
+  :custom
+  (outline-minor-mode-highlight 'override)
+  (outline-minor-mode-cycle t))
 
 ;; Interactive selective display (from site-lisp)
 (use-package inc-seldisp
